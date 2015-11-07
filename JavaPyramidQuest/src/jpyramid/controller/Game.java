@@ -7,16 +7,16 @@ public class Game {
 	public void run() {
 		VertexGrid map = new VertexGrid();
 
-//		map.addColumn();
-//		map.addColumn();
-//		map.addRow();
-//		map.addRow();
+		map.addColumn();
+		map.addColumn();
+		map.addRow();
+		map.addRow();
 
 
 
 		map.printGrid();
 		
-		map.printVertex(0, 0);
+//		map.printVertex(0, 0);
 //		map.printVertex(1, 0);
 //		map.printVertex(2, 0);
 //

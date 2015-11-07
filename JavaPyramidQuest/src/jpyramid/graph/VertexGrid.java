@@ -30,6 +30,7 @@ public class VertexGrid {
 		for(int i=0; i<height; i++) {
 			column.add(new Vertex(width+1, i));
 		}
+		grid.add(column);
 	}
 
 	public void addEdge(int start, int end) {
