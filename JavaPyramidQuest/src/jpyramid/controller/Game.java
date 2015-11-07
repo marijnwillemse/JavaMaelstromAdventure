@@ -1,22 +1,24 @@
 package jpyramid.controller;
 
-import jpyramid.graph.Graph;
+import jpyramid.graph.VertexGrid;
 
 public class Game {
 
 	public void run() {
-		Graph graph = new Graph();
+		VertexGrid map = new VertexGrid();
 		
-		graph.addVertex("Tilburg");
-		graph.addVertex("Breda");
-		graph.addVertex("Eindhoven");
-		graph.addVertex("Den Bosch");
+//		map.addRow();
+//		map.addRow();
+		map.addColumn();
+		map.addColumn();
+		map.addColumn();
 		
-		graph.printVertex(0);
 		
-		graph.addEdge(1, 2);
+		System.out.println("Width: " + map.getWidth());
+		System.out.println("Height: " + map.getHeight());
 		
-		graph.printLayout();
+//		graph.addEdge(1, 2);
+//		graph.printLayout();
 	}
 
 }
