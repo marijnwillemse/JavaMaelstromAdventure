@@ -2,10 +2,10 @@ package jpyramid.graph;
 
 import java.util.ArrayList;
 
-public class VertexGrid {
+public class TwoDimensionalGraph {
 	private ArrayList<ArrayList<Vertex>> grid; // two-dimensional array of vertices
 
-	public VertexGrid() {
+	public TwoDimensionalGraph() {
 		grid = new ArrayList<ArrayList<Vertex>>();
 		
 		/* Add initial vertex in new row and column */

@@ -1,11 +1,11 @@
 package jpyramid.controller;
 
-import jpyramid.graph.VertexGrid;
+import jpyramid.graph.TwoDimensionalGraph;
 
 public class Game {
 
 	public void run() {
-		VertexGrid map = new VertexGrid();
+		TwoDimensionalGraph map = new TwoDimensionalGraph();
 
 		map.addColumn();
 		map.addColumn();
