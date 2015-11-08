@@ -5,11 +5,32 @@ import java.util.ArrayList;
 public class TwoDimensionalGraph {
 	private ArrayList<ArrayList<Vertex>> grid; // two-dimensional array of vertices
 
+	/**
+	 * Initialize two-dimensional graph with one empty row
+	 */
 	public TwoDimensionalGraph() {
 		grid = new ArrayList<ArrayList<Vertex>>();
-		
-		/* Add first row */
 		addRow();
+	}
+	
+	/**
+	 * Initialize two-dimensional graph with specified number of rows and columns
+	 */
+	public TwoDimensionalGraph(int rows, int columns) {
+		grid = new ArrayList<ArrayList<Vertex>>();
+		
+		if(rows==0 && columns>0) {
+			throw new IllegalArgumentException("Rows must be larger than 0 to add columns");
+		}
+		
+		/* Add rows */
+		for(int i=0; i<rows; i++) {
+			addRow();
+		}
+		/* Add columns*/
+		for(int i=0; i<columns; i++) {
+			addColumnToRows();
+		}
 	}
 	
 	public void addRow() {
@@ -26,9 +47,11 @@ public class TwoDimensionalGraph {
 		grid.add(row);
 	}
 
-	public void addColumn() {
+	public void addColumnToRows() {
 		int numOfRows = numOfRows();
 		int numOfColumns = numOfColumns();
+		
+		/* Add new vertices to each row */
 		for(int row=0; row<numOfRows; row++){
 			grid.get(row).add(new Vertex(row, numOfColumns));
 		}
@@ -39,17 +62,24 @@ public class TwoDimensionalGraph {
 	}
 
 	public void printVertex(int x, int y) {
-		grid.get(y).get(x).print();
+		if(y<numOfRows() && x< numOfColumns())
+			grid.get(y).get(x).print();
+		else { System.out.println("Unable to print Vertex[" + x + "][" + y + "]: Out of grid bounds"); }
 	}
 	
 	public void printGrid() {
-		// TODO Print vertices in console with monospaced characters
-		System.out.println();
-		for(int i=0; i<numOfRows(); i++) {
-			for(int j=0; j<numOfColumns(); j++) {
-				System.out.print("O");
+		if(grid.isEmpty()) {
+			System.out.println("Unable to print grid: no rows");
+		} else if (grid.get(0).isEmpty()) {
+			System.out.println("Unable to print grid: no columns");
+		} else {
+			System.out.println("Graph:");
+			for(int i=0; i<numOfRows(); i++) {
+				for(int j=0; j<numOfColumns(); j++) {
+					System.out.print("O");
+				}
+				System.out.println("");
 			}
-			System.out.println("");
 		}
 	}
 	
