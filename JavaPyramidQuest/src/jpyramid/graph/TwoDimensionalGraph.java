@@ -8,29 +8,30 @@ public class TwoDimensionalGraph {
 	public TwoDimensionalGraph() {
 		grid = new ArrayList<ArrayList<Vertex>>();
 		
-		/* Add initial vertex in new row and column */
-		ArrayList<Vertex> column = new ArrayList<Vertex>();
-		column.add(new Vertex(0, 0));
-		grid.add(column);
+		/* Add first row */
+		addRow();
 	}
 	
 	public void addRow() {
-		int width = gridWidth();
-		int height = gridHeight();
-		for(int x=0; x<width; x++){
-			grid.get(x).add(new Vertex(x, height+1));
+		int numOfRows = numOfRows();
+		int numOfColumns = numOfColumns();
+		
+		/* Prepare new row */
+		ArrayList<Vertex> row = new ArrayList<Vertex>();
+		
+		/* Add number of columns as vertices to new row */ 
+		for(int column=0; column<numOfColumns; column++) {
+			row.add(new Vertex(numOfRows, column));
 		}
+		grid.add(row);
 	}
 
 	public void addColumn() {
-		int width = gridWidth();
-		int height = gridHeight();
-		
-		ArrayList<Vertex> column = new ArrayList<Vertex>();
-		for(int i=0; i<height; i++) {
-			column.add(new Vertex(width+1, i));
+		int numOfRows = numOfRows();
+		int numOfColumns = numOfColumns();
+		for(int row=0; row<numOfRows; row++){
+			grid.get(row).add(new Vertex(row, numOfColumns));
 		}
-		grid.add(column);
 	}
 
 	public void addEdge(int start, int end) {
@@ -38,25 +39,27 @@ public class TwoDimensionalGraph {
 	}
 
 	public void printVertex(int x, int y) {
-		grid.get(x).get(y).print();
+		grid.get(y).get(x).print();
 	}
 	
 	public void printGrid() {
 		// TODO Print vertices in console with monospaced characters
 		System.out.println();
-		for(int i=0; i<gridHeight(); i++) {
-			for(int j=0; j<gridWidth(); j++) {
+		for(int i=0; i<numOfRows(); i++) {
+			for(int j=0; j<numOfColumns(); j++) {
 				System.out.print("O");
 			}
 			System.out.println("");
 		}
 	}
 	
-	public int gridHeight() {
-		return grid.size(); // determined from number of rows
+	public int numOfColumns() {
+		if(!grid.isEmpty())
+			return grid.get(0).size();
+		else { return 0; }
 	}
 	
-	public int gridWidth() {
-		return grid.get(0).size();
+	public int numOfRows() {
+		return grid.size(); // determined from number of rows
 	}
 }
