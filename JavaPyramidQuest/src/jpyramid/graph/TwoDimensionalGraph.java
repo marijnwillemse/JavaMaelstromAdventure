@@ -3,13 +3,13 @@ package jpyramid.graph;
 import java.util.ArrayList;
 
 public class TwoDimensionalGraph {
-	private ArrayList<ArrayList<Vertex>> grid; // two-dimensional array of vertices
-
+	private ArrayList<ArrayList<Room>> grid; // two-dimensional array of room vertices
+	
 	/**
 	 * Initialize two-dimensional graph with one empty row
 	 */
 	public TwoDimensionalGraph() {
-		grid = new ArrayList<ArrayList<Vertex>>();
+		grid = new ArrayList<ArrayList<Room>>();
 		addRow();
 	}
 	
@@ -17,7 +17,7 @@ public class TwoDimensionalGraph {
 	 * Initialize two-dimensional graph with specified number of rows and columns
 	 */
 	public TwoDimensionalGraph(int rows, int columns) {
-		grid = new ArrayList<ArrayList<Vertex>>();
+		grid = new ArrayList<ArrayList<Room>>();
 		
 		if(rows==0 && columns>0) {
 			throw new IllegalArgumentException("Rows must be larger than 0 to add columns");
@@ -38,11 +38,11 @@ public class TwoDimensionalGraph {
 		int numOfColumns = numOfColumns();
 		
 		/* Prepare new row */
-		ArrayList<Vertex> row = new ArrayList<Vertex>();
+		ArrayList<Room> row = new ArrayList<Room>();
 		
 		/* Add number of columns as vertices to new row */ 
 		for(int column=0; column<numOfColumns; column++) {
-			row.add(new Vertex(numOfRows, column));
+			row.add(new Room(numOfRows, column));
 		}
 		grid.add(row);
 	}
@@ -53,18 +53,40 @@ public class TwoDimensionalGraph {
 		
 		/* Add new vertices to each row */
 		for(int row=0; row<numOfRows; row++){
-			grid.get(row).add(new Vertex(row, numOfColumns));
+			grid.get(row).add(new Room(row, numOfColumns));
 		}
 	}
 
-	public void addEdge(int x, int y) {
+	public void addEdge(int x1, int y1, int x2, int y2) throws GraphException {
+		Room a, b;
+		String aDirection = null, bDirection = null;
 		
+		if(inGridBounds(x1, y1) && inGridBounds(x2, y2)) {
+			a = grid.get(y1).get(x1);
+			b = grid.get(y2).get(x2);
+			
+			if		(x1==x2+1 && y1==y2  ) { aDirection = "West";  bDirection = "East"; }
+			else if (x1==x2-1 && y1==y2  ) { aDirection = "East";  bDirection = "West"; }
+			else if (x1==x2   && y1==y2+1) { aDirection = "North"; bDirection = "South"; }
+			else if (x1==x2   && y1==y2-1) { aDirection = "South"; bDirection = "North"; }
+			else { throw new GraphException("Unable to add edge between Room[" + x1 + "][" + y1
+				+ "] and Room[" + x2 + "][" + y2 + "]: Not adjacent"); }
+			
+			a.setEdge(aDirection, b);
+			b.setEdge(bDirection, a);
+		}
+		else { throw new GraphException("Unable to add edge between Room[" + x1 + "][" + y1
+				+ "] and Room[" + x2 + "][" + y2 + "]: Out of grid bounds"); }
 	}
 
-	public void printVertex(int x, int y) {
-		if(y<numOfRows() && x< numOfColumns())
+	public void printRoom(int x, int y) {
+		if(inGridBounds(x, y))
 			grid.get(y).get(x).print();
-		else { System.out.println("Unable to print Vertex[" + x + "][" + y + "]: Out of grid bounds"); }
+		else { System.out.println("Unable to print Room[" + x + "][" + y + "]: Out of grid bounds"); }
+	}
+	
+	private boolean inGridBounds(int x, int y) {
+		return (y < numOfRows() && x < numOfColumns());
 	}
 	
 	public void printGrid() {
