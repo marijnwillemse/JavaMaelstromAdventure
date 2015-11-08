@@ -57,7 +57,7 @@ public class TwoDimensionalGraph {
 		}
 	}
 
-	public void addEdge(int start, int end) {
+	public void addEdge(int x, int y) {
 		
 	}
 

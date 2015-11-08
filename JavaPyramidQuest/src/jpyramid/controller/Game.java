@@ -5,16 +5,15 @@ import jpyramid.graph.TwoDimensionalGraph;
 public class Game {
 
 	public void run() {
-//		TwoDimensionalGraph map = new TwoDimensionalGraph();
-		TwoDimensionalGraph map = new TwoDimensionalGraph(0, 1);
+		TwoDimensionalGraph map = new TwoDimensionalGraph(3, 3);
 
-//		map.addColumn();
-//		map.addColumn();
-//		map.addColumn();
-//		map.addRow();
-//		map.addRow();
-//		map.addRow();
-
+		for(int i=0; i<map.numOfRows(); i++) {
+			for(int j=0; j<map.numOfColumns(); j++) {
+				// TODO Add edges between all adjacent vertices in graph
+//				map.addEdge(a, b);
+			}
+		}
+		
 		map.printGrid();
 	}
 }
