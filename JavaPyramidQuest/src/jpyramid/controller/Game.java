@@ -7,13 +7,18 @@ public class Game {
 
 	public void run() {
 		TwoDimensionalGraph map = new TwoDimensionalGraph(3, 3);
-
-		for(int i=0; i<map.numOfRows()-1; i++) {
-			for(int j=0; j<map.numOfColumns()-1; j++) {
+		
+		/* Connect all adjacent rooms in map with edges */
+		for(int y=0; y<map.numOfRows(); y++) {
+			for(int x=0; x<map.numOfColumns(); x++) {
 				// TODO Add edges between all adjacent rooms in graph
 				try {
-					map.addEdge(i, j, i+1, j);
-					map.addEdge(i, j, i,   j+1);
+					if(x != map.numOfColumns()-1) { // If not in last column
+						map.addEdge(x, y, x+1, y); // Connect east room
+					}
+					if(y != map.numOfRows()-1) { // If not in last row
+						map.addEdge(x, y, x,   y+1); // Connect south room
+					}
 				} catch (GraphException e) {
 					e.printStackTrace();
 				}
@@ -22,7 +27,8 @@ public class Game {
 		
 		map.printGrid();
 		
-		map.printRoom(0, 0);
-		map.printRoom(0, 1);
+		map.printNode(0, 0);
+		map.printNode(1, 0);
+		map.printNode(2, 0);
 	}
 }
