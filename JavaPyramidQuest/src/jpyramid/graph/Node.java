@@ -1,49 +1,49 @@
 package jpyramid.graph;
 
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Node {
-	private int x;
-	private int y;
-	
-	Edge north;
-	Edge east;
-	Edge south;
-	Edge west;
+  private int x;
+  private int y;
 
-	public Node(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
+  private Map<Integer, Edge> edges
+      = new HashMap<Integer, Edge>();
+  
+  public Node(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+  
+  public Edge getEdge(Direction direction) {
+    return edges.get(direction.getAngle());
+  }
 
-	public void print() {
-		System.out.println("X[" + x + "] Y[" + y + "]");
-		if(north != null)
-			System.out.println("North room: X[" + north.getTo().getX() + "] Y[" + north.getTo().getY() + "]");
-		if(east != null)
-			System.out.println("East room: X[" + east.getTo().getX() + "] Y[" + east.getTo().getY() + "]");
-		if(south != null)
-			System.out.println("South room: X[" + south.getTo().getX() + "] Y[" + south.getTo().getY() + "]");
-		if(west != null)
-			System.out.println("West room: X[" + west.getTo().getX() + "] Y[" + west.getTo().getY() + "]");
-	}
-	
-	private int getX() { return x; }
-	private int getY() { return y; }
+  public void print() {
+    System.out.println("X[" + x + "] Y[" + y + "]");
+    for (Direction d : EnumSet.allOf(Direction.class)) {
+      if (edges.get(d.getAngle()) != null) {
+        System.out.println(d.name() + " room: X["
+            + edges.get(d.getAngle()).getTo().getX()
+            + "] Y[" + edges.get(d.getAngle()).getTo().getY() + "]");
+      }
+    }
+  }
 
-	public void setEdge(String direction, Node node) {
-		switch(direction) {
-			case "North":	north =	new Edge(this, node);	break;
-			case "East":	east =	new Edge(this, node);	break;
-			case "South":	south =	new Edge(this, node);	break;
-			case "West":	west =	new Edge(this, node);	break;
-		}
-	}
-	
-	public boolean hasEdge(String direction) {
-		switch(direction) {
-			case "North":	return (north != null);
-			case "East":	return (east != null);
-			case "South":	return (south != null);
-			case "West":	return (west != null);
-		} return false;
-	}
+  public int getX() { return x; }
+  public int getY() { return y; }
+
+  public void connect(Direction direction, Node node) {
+    edges.put(direction.getAngle(), new Edge(this, node));
+  }
+  
+  public void detach(Direction direction) {
+    edges.remove(direction.getAngle());
+  }
+  
+  public boolean hasEdge(Direction direction) {
+    Edge edge = edges.get(direction.getAngle());
+    return (edge != null);
+  }
 }
