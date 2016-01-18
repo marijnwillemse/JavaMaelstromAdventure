@@ -37,4 +37,13 @@ public class Node {
 			case "West":	west =	new Edge(this, node);	break;
 		}
 	}
+	
+	public boolean hasEdge(String direction) {
+		switch(direction) {
+			case "North":	return (north != null);
+			case "East":	return (east != null);
+			case "South":	return (south != null);
+			case "West":	return (west != null);
+		} return false;
+	}
 }

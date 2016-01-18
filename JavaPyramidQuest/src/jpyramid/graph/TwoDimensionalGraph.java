@@ -16,7 +16,7 @@ public class TwoDimensionalGraph {
 	/**
 	 * Initialize two-dimensional graph with specified number of rows and columns
 	 */
-	public TwoDimensionalGraph(int rows, int columns) {
+	public TwoDimensionalGraph(int columns, int rows) {
 		grid = new ArrayList<ArrayList<Node>>();
 		
 		if(rows==0 && columns>0) {
@@ -57,6 +57,10 @@ public class TwoDimensionalGraph {
 		}
 	}
 
+	/**
+	 * Function to connect edges between two nodes on both sides
+	 * @throws GraphException when nodes are not adjacent
+	 */
 	public void addEdge(int x1, int y1, int x2, int y2) throws GraphException {
 		Node a, b;
 		String aDirection = null, bDirection = null;
@@ -80,6 +84,16 @@ public class TwoDimensionalGraph {
 				+ "] and Node[" + x2 + "][" + y2 + "]: Out of grid bounds"); }
 	}
 
+
+	/**
+	 * Function to remove edges between two nodes on both sides
+	 * @throws GraphException when nodes are not adjacent
+	 */
+	public void removeEdge(int x1, int y1, int x2, int y2) throws GraphException {
+		
+	}
+
+	
 	public void printNode(int x, int y) {
 		if(inGridBounds(x, y))
 			grid.get(y).get(x).print();
@@ -90,6 +104,9 @@ public class TwoDimensionalGraph {
 		return (y < numOfRows() && x < numOfColumns());
 	}
 	
+	/**
+	 * Prints the nodes and edges present in grid into console 
+	 */
 	public void printGrid() {
 		if(grid.isEmpty()) {
 			System.out.println("Unable to print grid: no rows");
@@ -99,9 +116,26 @@ public class TwoDimensionalGraph {
 			System.out.println("Graph:");
 			for(int i=0; i<numOfRows(); i++) {
 				for(int j=0; j<numOfColumns(); j++) {
-					System.out.print("O");
+					System.out.print(j);
+					// Check for drawing of horizontal edge
+					if (grid.get(i).get(j).hasEdge("East")) {
+						System.out.print("-");
+					} else {
+						System.out.print(" ");
+					}
 				}
-				System.out.println("");
+				System.out.println();
+				// Line for drawing of vertical edges
+				for(int j=0; j<numOfColumns(); j++) {
+					// Check for vertical edge
+					if (grid.get(i).get(j).hasEdge("South")) {
+						System.out.print("|");
+					} else {
+						System.out.print(" ");
+					}
+					System.out.print(" ");
+				}
+				System.out.println();
 			}
 		}
 	}

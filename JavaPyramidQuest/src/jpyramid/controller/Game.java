@@ -5,13 +5,16 @@ import jpyramid.graph.TwoDimensionalGraph;
 
 public class Game {
 
+	static final int GRAPH_WIDTH = 4;
+	static final int GRAPH_HEIGHT = 3;
+	
 	public void run() {
-		TwoDimensionalGraph map = new TwoDimensionalGraph(3, 3);
+		TwoDimensionalGraph map = new TwoDimensionalGraph(GRAPH_WIDTH, GRAPH_HEIGHT);
 		
 		/* Connect all adjacent rooms in map with edges */
 		for(int y=0; y<map.numOfRows(); y++) {
 			for(int x=0; x<map.numOfColumns(); x++) {
-				// TODO Add edges between all adjacent rooms in graph
+				// Add edges between all adjacent rooms in graph
 				try {
 					if(x != map.numOfColumns()-1) { // If not in last column
 						map.addEdge(x, y, x+1, y); // Connect east room
