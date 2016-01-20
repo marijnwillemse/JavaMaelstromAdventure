@@ -22,8 +22,8 @@ public class Level {
    * Seed the graph as a grid with nodes and edges according to width and height
    */
   private void seed() {
-    for (int y=0; y<height; y++) {
-      for (int x=0; x<width; x++) {
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
         try {
           graph.addNode(new NavigationGraphNode(graph.getNextNodeIndex(),
               new Vector2D((double)x, (double)y)));
@@ -32,7 +32,9 @@ public class Level {
         }
       }
     }
-//    for (int i=0; i<graph.)
+    for (int i = 0; i < graph.numberOfNodes(); i++) {
+      
+    }
   }
 }
   //

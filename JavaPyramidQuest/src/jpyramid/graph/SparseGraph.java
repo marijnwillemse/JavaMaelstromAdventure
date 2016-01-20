@@ -52,7 +52,7 @@ public class SparseGraph {
   /**
    * Returns the number of active and inactive nodes
    */
-  int numberOfNodes() { return nodes.size(); }
+  public int numberOfNodes() { return nodes.size(); }
 
   /**
    * Returns the number of active nodes
@@ -76,6 +76,28 @@ public class SparseGraph {
       count += edgeList.size();
     }
     return count;
+  }
+  
+  /**
+   * Returns true if a node with given index exists
+   */
+  boolean isNodePresent(int n) {
+    if (n >= nodes.size()
+        || nodes.get(n).index == GraphNode.INVALID_NODE_INDEX) {
+      return false;
+    } else return true;
+  }
+
+  /**
+   * Returns true if an edge connecting the from and to nodes exists
+   */
+  boolean isEdgePresent(int from, int to) {
+    if (isNodePresent(from) && isNodePresent(to)) {
+      for (GraphEdge edge : edgeLists.get(from)) {
+        if (edge.getTo() == to) { return true; }
+      }
+      return false;
+    } else return false;
   }
 
   /**
