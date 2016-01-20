@@ -19,7 +19,7 @@ public class Level {
   }
 
   /**
-   * Seed the graph with nodes and edges according to width and height
+   * Seed the graph as a grid with nodes and edges according to width and height
    */
   private void seed() {
     for (int y=0; y<height; y++) {
@@ -32,6 +32,7 @@ public class Level {
         }
       }
     }
+//    for (int i=0; i<graph.)
   }
 }
   //

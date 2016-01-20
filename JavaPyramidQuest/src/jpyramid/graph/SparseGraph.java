@@ -8,14 +8,14 @@ public class SparseGraph {
   private ArrayList<GraphNode> nodes;
 
   // Vector of adjacency edge lists
-  private ArrayList<ArrayList<GraphEdge>> edges;
+  private ArrayList<ArrayList<GraphEdge>> edgeLists;
 
   private int nextNodeIndex;
 
   public SparseGraph() {
     nextNodeIndex = 0;
     nodes = new ArrayList<GraphNode>();
-    edges = new ArrayList<ArrayList<GraphEdge>>();
+    edgeLists = new ArrayList<ArrayList<GraphEdge>>();
   }
 
   public GraphNode getNode(int i) throws GraphException {
@@ -38,7 +38,7 @@ public class SparseGraph {
           "Unable to get Edge " + from + to + ": Invalid 'to' index");
     }
 
-    for (GraphEdge currentEdge : edges.get(from)) {
+    for (GraphEdge currentEdge : edgeLists.get(from)) {
       if (currentEdge.getTo() == to) {
         return currentEdge;
       }
@@ -48,6 +48,35 @@ public class SparseGraph {
   }
 
   public int getNextNodeIndex() { return nextNodeIndex; }
+
+  /**
+   * Returns the number of active and inactive nodes
+   */
+  int numberOfNodes() { return nodes.size(); }
+
+  /**
+   * Returns the number of active nodes
+   */
+  public int numberOfActiveNodes() {
+    int count = 0;
+    for (int n=0; n<nodes.size(); n++) {
+      if (nodes.get(n).index != GraphNode.INVALID_NODE_INDEX) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  /**
+   * Return the total number of edges
+   */
+  public int numberOfEdges() {
+    int count = 0;
+    for (ArrayList<GraphEdge> edgeList : edgeLists) {
+      count += edgeList.size();
+    }
+    return count;
+  }
 
   /**
    * Adds a node to the graph and returns its index
@@ -79,7 +108,7 @@ public class SparseGraph {
       }
 
       nodes.add(node);
-      edges.add(new ArrayList<GraphEdge>());
+      edgeLists.add(new ArrayList<GraphEdge>());
 
       return nextNodeIndex++;
     }
@@ -102,7 +131,7 @@ public class SparseGraph {
         && nodes.get(edge.getFrom()).index != GraphNode.INVALID_NODE_INDEX) {
       // Add the edge
       if (UniqueEdge(edge.getFrom(), edge.getTo())) {
-        edges.get(edge.getFrom()).add(edge);
+        edgeLists.get(edge.getFrom()).add(edge);
       }
     }
 
@@ -112,7 +141,7 @@ public class SparseGraph {
       oppositeEdge.setTo(edge.getFrom());
       oppositeEdge.setFrom(edge.getTo());
 
-      edges.get(edge.getTo()).add(oppositeEdge);
+      edgeLists.get(edge.getTo()).add(oppositeEdge);
     }
   }
 
@@ -129,16 +158,16 @@ public class SparseGraph {
     nodes.get(node).setIndex(GraphNode.INVALID_NODE_INDEX);
 
     // Remove all edges leading to this node then clear edges leading from it
-    for (GraphEdge edgeFrom : edges.get(node)) {
-      for (GraphEdge edgeTo : edges.get(edgeFrom.getTo())) {
+    for (GraphEdge edgeFrom : edgeLists.get(node)) {
+      for (GraphEdge edgeTo : edgeLists.get(edgeFrom.getTo())) {
         if (edgeTo.getTo() == node) {
-          edges.get(edgeFrom.getTo()).remove(edgeTo);
+          edgeLists.get(edgeFrom.getTo()).remove(edgeTo);
           break; // Break out of edgeTo iteration back to edgeFrom iteration
         }
       }
     }
     // Clear this node's edges
-    edges.remove(node);
+    edgeLists.remove(node);
   }
 
   /**
@@ -150,17 +179,17 @@ public class SparseGraph {
           "Unable to remove Edge: invalid node index");
     }
     // Remove edge from edge list of node it leads to 
-    for (GraphEdge edge : edges.get(to)) {
+    for (GraphEdge edge : edgeLists.get(to)) {
       if (edge.getTo() == from) {
-        edges.get(to).remove(edge);
+        edgeLists.get(to).remove(edge);
         break;
       }
     }
-    
+
     // Do the same with edge list of node it comes from
-    for (GraphEdge edge : edges.get(from)) {
+    for (GraphEdge edge : edgeLists.get(from)) {
       if (edge.getTo() == to) {
-        edges.get(from).remove(edge);
+        edgeLists.get(from).remove(edge);
         break;
       }
     }
@@ -171,7 +200,7 @@ public class SparseGraph {
    * Applied when adding edges in order to prevent duplication.
    */
   boolean UniqueEdge(int from, int to) {
-    for (GraphEdge edge : edges.get(from)) {
+    for (GraphEdge edge : edgeLists.get(from)) {
       if (edge.getTo() == to) {
         return false;
       }
