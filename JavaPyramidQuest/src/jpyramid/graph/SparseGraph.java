@@ -28,12 +28,12 @@ public class SparseGraph {
 
   public GraphEdge getEdge(int from, int to) throws GraphException {
     if (from >= nodes.size() || from < 0
-        || nodes.get(from).index == -1) {
+        || nodes.get(from).index == GraphNode.INVALID_NODE_INDEX) {
       throw new GraphException(
           "Unable to get Edge " + from + to + ": Invalid 'from' index");
     }
     if (to >= nodes.size() || to < 0
-        || nodes.get(to).index == -1) {
+        || nodes.get(to).index == GraphNode.INVALID_NODE_INDEX) {
       throw new GraphException(
           "Unable to get Edge " + from + to + ": Invalid 'to' index");
     }
@@ -64,7 +64,7 @@ public class SparseGraph {
 
       // Make sure the node does not have the same ID
       // as a currently active node
-      if (nodes.get(node.index).index != -1) {
+      if (nodes.get(node.index).index != GraphNode.INVALID_NODE_INDEX) {
         throw new GraphException(
             "Unable to add Node: node contains duplicate ID");
       }
@@ -98,8 +98,8 @@ public class SparseGraph {
     }
 
     // Make sure both nodes are active
-    if (   nodes.get(edge.getTo()  ).index != -1
-        && nodes.get(edge.getFrom()).index != -1) {
+    if (   nodes.get(edge.getTo()  ).index != GraphNode.INVALID_NODE_INDEX
+        && nodes.get(edge.getFrom()).index != GraphNode.INVALID_NODE_INDEX) {
       // Add the edge
       if (UniqueEdge(edge.getFrom(), edge.getTo())) {
         edges.get(edge.getFrom()).add(edge);
@@ -126,7 +126,7 @@ public class SparseGraph {
     }
 
     // Set the node index to invalid
-    nodes.get(node).setIndex(-1);
+    nodes.get(node).setIndex(GraphNode.INVALID_NODE_INDEX);
 
     // Remove all edges leading to this node then clear edges leading from it
     for (GraphEdge edgeFrom : edges.get(node)) {
