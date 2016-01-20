@@ -30,7 +30,7 @@ public class Vector2D {
   }
 
   // Calculate the subtraction of a vector from this
-  public Vector2D sub(Vector2D v1) {
+  public Vector2D subtract(Vector2D v1) {
     Vector2D v2 = new Vector2D(this.x - v1.x, this.y - v1.y);
     return v2;
   }
@@ -54,7 +54,13 @@ public class Vector2D {
   }   
 
   // Calculate the dot product of a vector with this
-  public double dotProduct(Vector2D v1) {
-    return this.x*v1.x + this.y*v1.y;
+  public double dotProduct(Vector2D v2) {
+    return this.x * v2.x + this.y * v2.y;
+  }
+  
+  public double distanceTo(Vector2D v2) {
+    double distanceX = v2.x - x;
+    double distanceY = v2.y - y;
+    return Math.sqrt(distanceX * distanceX + distanceY * distanceY);
   }
 }

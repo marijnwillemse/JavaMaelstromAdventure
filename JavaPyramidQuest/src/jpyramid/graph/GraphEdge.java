@@ -3,9 +3,9 @@ package jpyramid.graph;
 public class GraphEdge {
 
   protected int from, to;
-  
+
   protected double cost;
-  
+
   public GraphEdge(int from, int to, double cost) {
     this.cost = cost;
     this.from = from;
@@ -21,7 +21,7 @@ public class GraphEdge {
     from = -1;
     to = -1;
   }
-  
+
   public int getFrom()    { return from; }
   public int getTo()      { return to; }
   public double getCost() { return cost; }

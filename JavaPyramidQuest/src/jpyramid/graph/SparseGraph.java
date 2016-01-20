@@ -5,20 +5,20 @@ import java.util.ArrayList;
 public class SparseGraph {
 
   // Array of nodes comprising graph
-  private ArrayList<GraphNode> nodes;
+  private ArrayList<NavigationGraphNode> nodes;
 
   // Vector of adjacency edge lists
-  private ArrayList<ArrayList<GraphEdge>> edgeLists;
+  private ArrayList<ArrayList<NavigationGraphEdge>> edgeLists;
 
   private int nextNodeIndex;
 
   public SparseGraph() {
     nextNodeIndex = 0;
-    nodes = new ArrayList<GraphNode>();
-    edgeLists = new ArrayList<ArrayList<GraphEdge>>();
+    nodes = new ArrayList<NavigationGraphNode>();
+    edgeLists = new ArrayList<ArrayList<NavigationGraphEdge>>();
   }
 
-  public GraphNode getNode(int i) throws GraphException {
+  public NavigationGraphNode getNode(int i) throws GraphException {
     if (i >= nodes.size() || i < 0) {
       throw new GraphException("Unable to get Node " + i
           + ": Invalid index");
@@ -26,7 +26,7 @@ public class SparseGraph {
     return nodes.get(i);
   }
 
-  public GraphEdge getEdge(int from, int to) throws GraphException {
+  public NavigationGraphEdge getEdge(int from, int to) throws GraphException {
     if (from >= nodes.size() || from < 0
         || nodes.get(from).index == GraphNode.INVALID_NODE_INDEX) {
       throw new GraphException(
@@ -38,7 +38,7 @@ public class SparseGraph {
           "Unable to get Edge " + from + to + ": Invalid 'to' index");
     }
 
-    for (GraphEdge currentEdge : edgeLists.get(from)) {
+    for (NavigationGraphEdge currentEdge : edgeLists.get(from)) {
       if (currentEdge.getTo() == to) {
         return currentEdge;
       }
@@ -72,7 +72,7 @@ public class SparseGraph {
    */
   public int numberOfEdges() {
     int count = 0;
-    for (ArrayList<GraphEdge> edgeList : edgeLists) {
+    for (ArrayList<NavigationGraphEdge> edgeList : edgeLists) {
       count += edgeList.size();
     }
     return count;
@@ -81,7 +81,7 @@ public class SparseGraph {
   /**
    * Returns true if a node with given index exists
    */
-  boolean isNodePresent(int n) {
+  public boolean isNodePresent(int n) {
     if (n >= nodes.size()
         || nodes.get(n).index == GraphNode.INVALID_NODE_INDEX) {
       return false;
@@ -91,9 +91,9 @@ public class SparseGraph {
   /**
    * Returns true if an edge connecting the from and to nodes exists
    */
-  boolean isEdgePresent(int from, int to) {
+  public boolean isEdgePresent(int from, int to) {
     if (isNodePresent(from) && isNodePresent(to)) {
-      for (GraphEdge edge : edgeLists.get(from)) {
+      for (NavigationGraphEdge edge : edgeLists.get(from)) {
         if (edge.getTo() == to) { return true; }
       }
       return false;
@@ -109,7 +109,7 @@ public class SparseGraph {
    * If the node is new it is checked to make sure its index matches
    * the next node index before insertion.
    */
-  public int addNode(GraphNode node) throws GraphException {
+  public int addNode(NavigationGraphNode node) throws GraphException {
 
     if (node.index < nodes.size()) {
 
@@ -130,7 +130,7 @@ public class SparseGraph {
       }
 
       nodes.add(node);
-      edgeLists.add(new ArrayList<GraphEdge>());
+      edgeLists.add(new ArrayList<NavigationGraphEdge>());
 
       return nextNodeIndex++;
     }
@@ -141,7 +141,7 @@ public class SparseGraph {
    * Ensures that the edge passed as parameter is valid before insertion.
    * Also adds a similar edge connecting the nodes in the opposite direction.
    */
-  public void addEdge(GraphEdge edge) throws GraphException {
+  public void addEdge(NavigationGraphEdge edge) throws GraphException {
     // Make sure the from and to nodes exist
     if (edge.getFrom() >= nextNodeIndex || edge.getTo() >= nextNodeIndex) {
       throw new GraphException(
@@ -159,7 +159,7 @@ public class SparseGraph {
 
     // Add another connection leading from the opposite direction
     if (UniqueEdge(edge.getTo(), edge.getFrom())) {
-      GraphEdge oppositeEdge = edge;
+      NavigationGraphEdge oppositeEdge = new NavigationGraphEdge(edge);
       oppositeEdge.setTo(edge.getFrom());
       oppositeEdge.setFrom(edge.getTo());
 
@@ -180,8 +180,8 @@ public class SparseGraph {
     nodes.get(node).setIndex(GraphNode.INVALID_NODE_INDEX);
 
     // Remove all edges leading to this node then clear edges leading from it
-    for (GraphEdge edgeFrom : edgeLists.get(node)) {
-      for (GraphEdge edgeTo : edgeLists.get(edgeFrom.getTo())) {
+    for (NavigationGraphEdge edgeFrom : edgeLists.get(node)) {
+      for (NavigationGraphEdge edgeTo : edgeLists.get(edgeFrom.getTo())) {
         if (edgeTo.getTo() == node) {
           edgeLists.get(edgeFrom.getTo()).remove(edgeTo);
           break; // Break out of edgeTo iteration back to edgeFrom iteration
@@ -201,7 +201,7 @@ public class SparseGraph {
           "Unable to remove Edge: invalid node index");
     }
     // Remove edge from edge list of node it leads to 
-    for (GraphEdge edge : edgeLists.get(to)) {
+    for (NavigationGraphEdge edge : edgeLists.get(to)) {
       if (edge.getTo() == from) {
         edgeLists.get(to).remove(edge);
         break;
@@ -209,7 +209,7 @@ public class SparseGraph {
     }
 
     // Do the same with edge list of node it comes from
-    for (GraphEdge edge : edgeLists.get(from)) {
+    for (NavigationGraphEdge edge : edgeLists.get(from)) {
       if (edge.getTo() == to) {
         edgeLists.get(from).remove(edge);
         break;
@@ -222,7 +222,7 @@ public class SparseGraph {
    * Applied when adding edges in order to prevent duplication.
    */
   boolean UniqueEdge(int from, int to) {
-    for (GraphEdge edge : edgeLists.get(from)) {
+    for (NavigationGraphEdge edge : edgeLists.get(from)) {
       if (edge.getTo() == to) {
         return false;
       }

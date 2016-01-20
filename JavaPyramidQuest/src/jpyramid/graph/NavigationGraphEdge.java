@@ -11,4 +11,12 @@ public class NavigationGraphEdge extends GraphEdge {
   public NavigationGraphEdge() {
     super(GraphNode.INVALID_NODE_INDEX, GraphNode.INVALID_NODE_INDEX, 1.0);
   }
+  
+  /**
+   * Copy constructor.
+   */
+  public NavigationGraphEdge(NavigationGraphEdge edge) {
+    super(edge.getFrom(), edge.getTo(), edge.getCost());
+  }
+
 }
