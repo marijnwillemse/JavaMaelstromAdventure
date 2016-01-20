@@ -4,7 +4,8 @@ import jpyramid.math.Vector2D;
 
 public class GraphHelper {
 
-  public static void createConnectedGrid(SparseGraph graph,
+  public static void createConnectedGrid(
+      SparseGraph<NavigationGraphNode,NavigationGraphEdge> graph,
       int width, int height,
       int numberOfCellsX, int numberOfCellsY,
       boolean diagonalEdges) {
@@ -35,7 +36,6 @@ public class GraphHelper {
             numberOfCellsX, numberOfCellsY, diagonalEdges);
       }
     }
-    System.out.println("Finished creating grid.");
   }
 
   /**
@@ -49,7 +49,8 @@ public class GraphHelper {
   }
 
 
-  private static void addNeighboursToGridNode(SparseGraph graph,
+  private static void addNeighboursToGridNode(
+      SparseGraph<NavigationGraphNode,NavigationGraphEdge> graph,
       int row, int column, int numberOfCellsX, int numberOfCellsY,
       boolean diagonalEdges) {
 
@@ -85,8 +86,9 @@ public class GraphHelper {
             neighborPosition = graph.getNode(neighborIndex).getPosition();
             double distance = nodePosition.distanceTo(neighborPosition);
 
-            // Add edge to graph
+            // Add edge to graph coming from both sides
             graph.addEdge(new NavigationGraphEdge(nodeIndex, neighborIndex, distance));
+            graph.addEdge(new NavigationGraphEdge(neighborIndex, nodeIndex, distance));
 
           } catch (GraphException e) {
             e.printStackTrace();
