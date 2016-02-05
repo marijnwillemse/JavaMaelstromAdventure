@@ -2,7 +2,7 @@ package jpyramid.graph;
 
 import jpyramid.math.Vector2D;
 
-public class GraphHelper {
+public class GridGraphHelper {
 
   public static void createConnectedGrid(
       SparseGraph<NavigationGraphNode,NavigationGraphEdge> graph,
@@ -54,6 +54,10 @@ public class GraphHelper {
       int row, int column, int numberOfCellsX, int numberOfCellsY,
       boolean diagonalEdges) {
 
+	// Loop through all neighboring nodes O around node X
+	// OOO 
+	// OXO
+	// OOO
     for (int i = -1; i < 2; i++) {
       for (int j = -1; j < 2; j++) {
         int neighborX = column + j;
@@ -74,7 +78,8 @@ public class GraphHelper {
         }
 
         if (isValidNeighbor(neighborY, neighborX, numberOfCellsX, numberOfCellsY)) {
-
+          // Current neighbor node qualifies for edge connection
+          
           int nodeIndex = row * numberOfCellsX + column;
           int neighborIndex = neighborY * numberOfCellsX + neighborX;
 
