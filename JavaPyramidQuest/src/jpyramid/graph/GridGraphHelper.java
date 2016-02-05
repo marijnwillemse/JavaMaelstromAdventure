@@ -8,7 +8,7 @@ public class GridGraphHelper {
       SparseGraph<NavigationGraphNode,NavigationGraphEdge> graph,
       int width, int height,
       int numberOfCellsX, int numberOfCellsY,
-      boolean diagonalEdges) {
+      boolean diagonalEdges, GraphNodeType type) {
 
     // Variables to help calculate node center positions
     double cellSpacingX = (double)width / (double)numberOfCellsX;
@@ -18,9 +18,10 @@ public class GridGraphHelper {
     for (int row = 0; row < numberOfCellsY; row++) {
       for (int column = 0; column < numberOfCellsX; column++) {
         try {
-          graph.addNode(new NavigationGraphNode(graph.getNextNodeIndex(),
-              new Vector2D((double)column * cellSpacingX,
-                  (double)row * cellSpacingY)));
+          NavigationGraphNode node = GraphNodeFactory.buildNavigationGraphNode(type);
+          node.setIndex(graph.getNextNodeIndex());
+          node.setPosition(new Vector2D((double)column * cellSpacingX, (double)row * cellSpacingY));
+          graph.addNode(node);
         } catch (GraphException e) {
           e.printStackTrace();
         }
