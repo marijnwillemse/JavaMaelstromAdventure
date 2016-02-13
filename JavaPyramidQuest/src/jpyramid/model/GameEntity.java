@@ -1,10 +1,12 @@
 package jpyramid.model;
 
+import java.util.UUID;
+
 public class GameEntity {
 
-  public int id;
+  public UUID id;
   
-  public GameEntity(int id) {
-    this.id = id;
+  public GameEntity() {
+    id = UUID.randomUUID();
   }
 }
