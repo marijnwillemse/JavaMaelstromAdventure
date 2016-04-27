@@ -1,19 +1,35 @@
-package jpyramid.model;
+package jpyramid.entity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class Dialogue {
+import jpyramid.controller.GameWorld;
+
+// TODO: Verify if current dialogue structure is desired
+
+public class DialogueComponent extends BaseComponent {
 
   private String description;
   private ArrayList<String> choices;
   
-  public Dialogue(String description, ArrayList<String> choices) {
-    this.description = description;
-    this.choices = choices;
+  @SuppressWarnings("unchecked")
+  public DialogueComponent(GameEntity owner, GameWorld gameWorld,
+      Object[] arguments) throws EntityException {
+    super(owner);
+    owner.addComponent(this);
+    gameWorld.registerComponent(this);
+    
+    this.description = (String) arguments[0];
+    if (arguments[1] instanceof ArrayList) {
+      this.choices = (ArrayList<String>) arguments[1];
+    } else {
+      throw new EntityException("Invalid argument for dialogue choices:"
+          + "ArrayList expected");
+    }
   }
+
   
   public int Activate() {
     System.out.println(description);

@@ -8,7 +8,12 @@ public class GridGraphHelper {
       SparseGraph<NavigationGraphNode,NavigationGraphEdge> graph,
       int width, int height,
       int numberOfCellsX, int numberOfCellsY,
-      boolean diagonalEdges, GraphNodeType type) {
+      boolean diagonalEdges, GraphNodeType type) throws GraphException {
+    
+    // Validate arguments
+    if (width < 1 || height < 1 || numberOfCellsX < 1 || numberOfCellsY < 1) {
+      throw new GraphException("Unable to create grid: invalid arguments");
+    }
 
     // Variables to help calculate node center positions
     double cellSpacingX = (double)width / (double)numberOfCellsX;
