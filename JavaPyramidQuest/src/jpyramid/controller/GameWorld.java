@@ -14,7 +14,10 @@ import jpyramid.entity.TransformComponent;
 import jpyramid.entity.PlayerComponent;
 import jpyramid.graph.GraphException;
 
+
 public class GameWorld {
+  
+  private static boolean playing = false;
 
   /* All entities are registered in a single HashMap */
   private Map<UUID, GameEntity> entities =
@@ -32,7 +35,6 @@ public class GameWorld {
 
   public GameWorld() {
     entities = new HashMap<UUID, GameEntity>();
-
   }
 
   /* Setup game entities and execute game logic */
@@ -54,6 +56,15 @@ public class GameWorld {
     }
     
     // TODO: Execute dialogues and process console input as commands
+    playing = true;
+    System.out.println("Welcome to PyramidQuest.");
+    do {
+      /* Print dialogue */
+      // Check up on the player and print relevant information
+      
+      
+      /* Handle input */
+    } while (playing);
   }
 
   public GameEntity getEntity(int id) {

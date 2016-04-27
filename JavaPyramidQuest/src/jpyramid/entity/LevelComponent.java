@@ -21,6 +21,12 @@ public class LevelComponent extends BaseComponent {
     setup((int) arguments[0], (int) arguments[1]);
   }
   
+  @Override
+  void init(Object[] arguments) {
+    // TODO Auto-generated method stub
+    
+  }
+  
   public void setup(int width, int height) throws EntityException {
     graph = new SparseGraph<NavigationGraphNode, NavigationGraphEdge>();
     

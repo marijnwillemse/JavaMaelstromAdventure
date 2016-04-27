@@ -13,6 +13,12 @@ public class TransformComponent extends BaseComponent {
     owner.addComponent(this);
     gameWorld.registerComponent(this);
   }
+    
+  @Override
+  void init(Object[] arguments) {
+    // TODO Auto-generated method stub
+    
+  }
   
   public void update() {
     ;
@@ -24,5 +30,4 @@ public class TransformComponent extends BaseComponent {
   public NavigationGraphNode getLocation() {
     return location;
   }
-
 }

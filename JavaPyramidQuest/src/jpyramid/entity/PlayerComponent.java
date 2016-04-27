@@ -10,5 +10,9 @@ public class PlayerComponent extends BaseComponent {
     gameWorld.registerComponent(this);
   }
 
-  
+  @Override
+  void init(Object[] arguments) {
+    // TODO Auto-generated method stub
+    
+  }
 }

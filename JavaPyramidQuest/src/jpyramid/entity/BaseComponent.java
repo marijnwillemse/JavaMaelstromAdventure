@@ -1,6 +1,6 @@
 package jpyramid.entity;
 
-public class BaseComponent {
+public abstract class BaseComponent {
 
   private GameEntity owner;
   
@@ -11,4 +11,6 @@ public class BaseComponent {
   public GameEntity getOwner() {
     return owner;
   }
+  
+  abstract void init(Object[] arguments);
 }

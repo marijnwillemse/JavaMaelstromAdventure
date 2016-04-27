@@ -30,6 +30,10 @@ public class DialogueComponent extends BaseComponent {
     }
   }
 
+  @Override
+  void init(Object[] arguments) {
+    // TODO Auto-generated method stub
+  }
   
   public int Activate() {
     System.out.println(description);
