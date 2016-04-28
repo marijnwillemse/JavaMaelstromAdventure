@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import jpyramid.controller.GameWorld;
+import jpyramid.controller.GameSystem;
 
 // TODO: Verify if current dialogue structure is desired
 
@@ -15,11 +15,11 @@ public class DialogueComponent extends BaseComponent {
   private ArrayList<String> choices;
   
   @SuppressWarnings("unchecked")
-  public DialogueComponent(GameEntity owner, GameWorld gameWorld,
+  public DialogueComponent(GameEntity owner, GameSystem gameSystem,
       Object[] arguments) throws EntityException {
     super(owner);
     owner.addComponent(this);
-    gameWorld.registerComponent(this);
+    gameSystem.registerComponent(this);
     
     this.description = (String) arguments[0];
     if (arguments[1] instanceof ArrayList) {

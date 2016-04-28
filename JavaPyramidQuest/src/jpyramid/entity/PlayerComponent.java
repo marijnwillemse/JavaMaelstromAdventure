@@ -1,13 +1,13 @@
 package jpyramid.entity;
 
-import jpyramid.controller.GameWorld;
+import jpyramid.controller.GameSystem;
 
 public class PlayerComponent extends BaseComponent {
 
-  protected PlayerComponent(GameEntity owner, GameWorld gameWorld, Object[] arguments) {
+  protected PlayerComponent(GameEntity owner, GameSystem gameSystem, Object[] arguments) {
     super(owner);
     owner.addComponent(this);
-    gameWorld.registerComponent(this);
+    gameSystem.registerComponent(this);
   }
 
   @Override

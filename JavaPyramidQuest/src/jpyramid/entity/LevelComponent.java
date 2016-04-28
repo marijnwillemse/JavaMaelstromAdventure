@@ -1,6 +1,6 @@
 package jpyramid.entity;
 
-import jpyramid.controller.GameWorld;
+import jpyramid.controller.GameSystem;
 import jpyramid.graph.GraphException;
 import jpyramid.graph.GraphNodeType;
 import jpyramid.graph.GridGraphHelper;
@@ -12,11 +12,11 @@ public class LevelComponent extends BaseComponent {
 
   SparseGraph<NavigationGraphNode,NavigationGraphEdge> graph;
 
-  public LevelComponent(GameEntity owner, GameWorld gameWorld,
+  public LevelComponent(GameEntity owner, GameSystem gameSystem,
       Object[] arguments) throws EntityException {
     super(owner);
     owner.addComponent(this);
-    gameWorld.registerComponent(this);
+    gameSystem.registerComponent(this);
     
     setup((int) arguments[0], (int) arguments[1]);
   }

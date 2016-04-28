@@ -1,13 +1,13 @@
 package jpyramid;
 
-import jpyramid.controller.GameWorld;
+import jpyramid.controller.GameSystem;
 
 public class Main {
 
   public static void main(String args[]) {
 
     // Create new game instance and run it
-    GameWorld gameWorld = new GameWorld();
-    gameWorld.run();
+    GameSystem gameSystem = new GameSystem();
+    gameSystem.run();
   }
 }

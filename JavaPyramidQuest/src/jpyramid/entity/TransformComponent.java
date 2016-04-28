@@ -1,17 +1,17 @@
 package jpyramid.entity;
 
 
-import jpyramid.controller.GameWorld;
+import jpyramid.controller.GameSystem;
 import jpyramid.graph.NavigationGraphNode;
 
 public class TransformComponent extends BaseComponent {
   
   NavigationGraphNode location; // Defaults to null
   
-  public TransformComponent(GameEntity owner, GameWorld gameWorld) {
+  public TransformComponent(GameEntity owner, GameSystem gameSystem) {
     super(owner);
     owner.addComponent(this);
-    gameWorld.registerComponent(this);
+    gameSystem.registerComponent(this);
   }
     
   @Override

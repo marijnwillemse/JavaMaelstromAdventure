@@ -1,6 +1,6 @@
 package jpyramid.entity;
 
-import jpyramid.controller.GameWorld;
+import jpyramid.controller.GameSystem;
 
 public final class EntityFactory {
 
@@ -11,21 +11,21 @@ public final class EntityFactory {
       PLAYER, ENEMY, LEVEL;
   }
   
-  public static GameEntity create(GameWorld gameWorld, Type type,
+  public static GameEntity create(GameSystem gameSystem, Type type,
       Object... arguments) {
     GameEntity entity = new GameEntity();
     
     try {
       if (type == Type.PLAYER) {
-        new TransformComponent(entity, gameWorld);
-        new PlayerComponent(entity, gameWorld, arguments);
-        gameWorld.registerEntity(entity);
+        new TransformComponent(entity, gameSystem);
+        new PlayerComponent(entity, gameSystem, arguments);
+        gameSystem.registerEntity(entity);
         return entity;
       }
       if (type == Type.LEVEL) {
-        new TransformComponent(entity, gameWorld);
-        new LevelComponent(entity, gameWorld, arguments);
-        gameWorld.registerEntity(entity);
+        new TransformComponent(entity, gameSystem);
+        new LevelComponent(entity, gameSystem, arguments);
+        gameSystem.registerEntity(entity);
         return entity;
       }
     } catch (EntityException e) {
