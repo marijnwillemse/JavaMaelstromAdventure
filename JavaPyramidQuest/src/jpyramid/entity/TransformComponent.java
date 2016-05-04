@@ -19,7 +19,9 @@ public class TransformComponent extends BaseComponent {
     
   @Override
   void init(Object[] arguments) {
-    ;
+    if (arguments.length > 0) {
+      location = (NavigationGraphNode) arguments[0];
+    }
   }
   
   public void update() {

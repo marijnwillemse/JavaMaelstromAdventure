@@ -12,7 +12,6 @@ import jpyramid.entity.LevelComponent;
 import jpyramid.entity.TransformComponent;
 import jpyramid.entity.PlayerComponent;
 
-
 public class GameSystem {
 
   private static boolean playing = false;
@@ -139,6 +138,9 @@ public class GameSystem {
   
   /* Game related functions */
   
+  public GameWorld getGameWorld() {
+    return gameWorld;
+  }
   public void stopPlaying() {
     GameSystem.playing = false;
   }

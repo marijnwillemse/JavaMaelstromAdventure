@@ -63,4 +63,12 @@ public class Vector2D {
     double distanceY = v2.y - y;
     return Math.sqrt(distanceX * distanceX + distanceY * distanceY);
   }
+  
+  public double getX() {
+    return x;
+  }
+
+  public double getY() {
+    return y;
+  }
 }

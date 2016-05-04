@@ -18,7 +18,7 @@ public class SparseGraph<T extends GraphNode, K extends GraphEdge> {
     edgeLists = new ArrayList<ArrayList<K>>();
   }
 
-  public T getNode(int i) throws GraphException {
+  public T getNode(int i) {
     if (i >= nodes.size() || i < 0) {
       throw new GraphException("Unable to get Node " + i
           + ": Invalid index");
@@ -26,7 +26,7 @@ public class SparseGraph<T extends GraphNode, K extends GraphEdge> {
     return nodes.get(i);
   }
 
-  public K getEdge(int from, int to) throws GraphException {
+  public K getEdge(int from, int to) {
     if (from >= nodes.size() || from < 0
         || nodes.get(from).index == GraphNode.INVALID_NODE_INDEX) {
       throw new GraphException(

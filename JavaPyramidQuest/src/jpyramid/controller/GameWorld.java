@@ -1,36 +1,44 @@
 package jpyramid.controller;
 
-import jpyramid.entity.EntityException;
 import jpyramid.entity.EntityFactory;
 import jpyramid.entity.GameEntity;
-import jpyramid.graph.GraphException;
+import jpyramid.graph.NavigationGraphNode;
 
 public class GameWorld {
   
   private GameSystem gameSystem;
+  private GameEntity level;
+  private GameEntity player;
 
   public GameWorld(GameSystem gameSystem) {
     this.gameSystem = gameSystem;
   }
   
   public void init() {
-    // Construct a 4x4 level and a player
-    GameEntity level = EntityFactory.create(
+    // Construct the level
+    Object[][] levelArguments = new Object[][] {
+      {},
+      { 4, 4 }
+    };
+    level = EntityFactory.create(
         gameSystem, EntityFactory.Type.LEVEL,
-        new Object[][] { {}, { 4, 4 }});
-    GameEntity player = EntityFactory.create(
-        gameSystem, EntityFactory.Type.PLAYER,
-        new Object[2][0]);
+        levelArguments);
     
-    // Place the player in the first room
-    try {
-      gameSystem.getTransformComponents().get(player.getID())
-          .setLocation(gameSystem.getLevelComponents().get(level.getID())
-              .getGraph().getNode(0));
-    } catch (GraphException e) {
-      e.printStackTrace();
-    } catch (EntityException e) {
-      e.printStackTrace();
-    }
+    // Pick the first area from the level
+    NavigationGraphNode area = gameSystem.getLevelComponents().get(level.getID())
+        .getGraph().getNode(0);
+    
+    // Construct the player and place it in that area
+    Object[][] playerArguments = new Object[][] {
+      { area },
+      {}
+    };
+    player = EntityFactory.create(
+        gameSystem, EntityFactory.Type.PLAYER,
+        playerArguments);
+  }
+  
+  public GameEntity getPlayer() {
+    return player;
   }
 }

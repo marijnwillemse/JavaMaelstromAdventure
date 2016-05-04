@@ -1,6 +1,6 @@
 package jpyramid.graph;
 
-public class GraphException extends Exception {
+public class GraphException extends RuntimeException {
 
   private static final long serialVersionUID = -2881057210763409562L;
 

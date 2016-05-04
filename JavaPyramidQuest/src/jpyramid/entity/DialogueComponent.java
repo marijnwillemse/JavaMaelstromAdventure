@@ -15,7 +15,7 @@ public class DialogueComponent extends BaseComponent {
   private ArrayList<String> choices;
   
   public DialogueComponent(GameEntity owner, GameSystem gameSystem,
-      Object[] arguments) throws EntityException {
+      Object[] arguments) {
     super(owner, gameSystem);
     owner.addComponent(this);
     gameSystem.registerComponent(this);
