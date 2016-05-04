@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import jpyramid.commands.BaseCommand;
 import jpyramid.commands.LookCommand;
+import jpyramid.commands.StopCommand;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,6 +18,8 @@ public class InterpreterSystem {
   public InterpreterSystem() {
     commands = new HashMap<String, BaseCommand>();
     commands.put("LOOK", new LookCommand());
+    commands.put("STOP", new StopCommand());
+    commands.put("EXIT", new StopCommand());
   }
   
   public void update(GameSystem gameSystem) {

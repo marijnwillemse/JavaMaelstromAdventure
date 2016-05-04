@@ -122,6 +122,10 @@ public class GameSystem {
   public Map<UUID, DialogueComponent> getDialogueComponents() {
     return dialogueComponents;
   }
-
-
+  
+  /* Game related functions */
+  
+  public void stopPlaying() {
+    GameSystem.playing = false;
+  }
 }
