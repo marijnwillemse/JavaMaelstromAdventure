@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import jpyramid.commands.LookCommand;
+import jpyramid.entity.AreaComponent;
 import jpyramid.entity.BaseComponent;
 import jpyramid.entity.DialogueComponent;
 import jpyramid.entity.GameEntity;
@@ -30,6 +30,8 @@ public class GameSystem {
       new HashMap<UUID, LevelComponent>();
   private Map<UUID, DialogueComponent> dialogueComponents =
       new HashMap<UUID, DialogueComponent>();
+  private Map<UUID, AreaComponent> areaComponents =
+      new HashMap<UUID, AreaComponent>();
 
   // Processing systems perform operations on the data in the components
   private GameWorld gameWorld = new GameWorld(this);
@@ -83,6 +85,10 @@ public class GameSystem {
       dialogueComponents.put(component.getOwner().getID(),
           (DialogueComponent) component);
     }
+    if (component instanceof AreaComponent) {
+      areaComponents.put(component.getOwner().getID(),
+          (AreaComponent) component);
+    }
   }
 
   /* Every component will deregister itself upon removal */
@@ -102,6 +108,10 @@ public class GameSystem {
     if (component instanceof DialogueComponent) {
       dialogueComponents.remove(component.getOwner().getID(),
           (DialogueComponent) component);
+    }
+    if (component instanceof AreaComponent) {
+      areaComponents.remove(component.getOwner().getID(),
+          (AreaComponent) component);
     }
   }
 
@@ -123,9 +133,14 @@ public class GameSystem {
     return dialogueComponents;
   }
   
+  public Map<UUID, AreaComponent> getAreaComponents() {
+    return areaComponents;
+  }
+  
   /* Game related functions */
   
   public void stopPlaying() {
     GameSystem.playing = false;
   }
+
 }

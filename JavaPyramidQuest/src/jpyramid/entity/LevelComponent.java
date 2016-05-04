@@ -2,7 +2,6 @@ package jpyramid.entity;
 
 import jpyramid.controller.GameSystem;
 import jpyramid.graph.GraphException;
-import jpyramid.graph.GraphNodeType;
 import jpyramid.graph.GridGraphHelper;
 import jpyramid.graph.NavigationGraphEdge;
 import jpyramid.graph.NavigationGraphNode;
@@ -14,7 +13,7 @@ public class LevelComponent extends BaseComponent {
 
   public LevelComponent(GameEntity owner, GameSystem gameSystem,
       Object[] arguments) throws EntityException {
-    super(owner);
+    super(owner, gameSystem);
     owner.addComponent(this);
     gameSystem.registerComponent(this);
     
@@ -35,6 +34,20 @@ public class LevelComponent extends BaseComponent {
     } catch (GraphException e) {
       e.printStackTrace();
       System.out.println("Unable to create connected grid in level component.");
+    }
+    // Construct area entities for each node in the grid
+    for (int i = 0; i < width * height; i++) {
+      GameEntity area = EntityFactory.create(
+          gameSystem, EntityFactory.Type.AREA,
+          new Object[2][0]);
+      try {
+        gameSystem.getAreaComponents().get(area.getID()).assignNode(
+            graph.getNode(i));
+      } catch (GraphException e) {
+        e.printStackTrace();
+        System.out.println("Unable to assign node with index " + i +
+            " to new area component.");
+      }
     }
   }
   

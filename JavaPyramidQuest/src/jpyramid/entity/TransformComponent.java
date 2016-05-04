@@ -10,7 +10,7 @@ public class TransformComponent extends BaseComponent {
   
   public TransformComponent(GameEntity owner, GameSystem gameSystem,
       Object[] arguments) {
-    super(owner);
+    super(owner, gameSystem);
     owner.addComponent(this);
     gameSystem.registerComponent(this);
     

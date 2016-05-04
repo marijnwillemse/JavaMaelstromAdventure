@@ -8,7 +8,7 @@ public final class EntityFactory {
 
   // Helper enum clients will use to create game objects
   public enum Type {
-      PLAYER, ENEMY, LEVEL;
+      PLAYER, LEVEL, AREA;
   }
   
   public static GameEntity create(GameSystem gameSystem, Type type,
@@ -25,6 +25,12 @@ public final class EntityFactory {
       if (type == Type.LEVEL) {
         new TransformComponent(entity, gameSystem, argumentsArray[0]);
         new LevelComponent(entity, gameSystem, argumentsArray[1]);
+        gameSystem.registerEntity(entity);
+        return entity;
+      }
+      if (type == Type.AREA) {
+        new TransformComponent(entity, gameSystem, argumentsArray[0]);
+        new AreaComponent(entity, gameSystem, argumentsArray[1]);
         gameSystem.registerEntity(entity);
         return entity;
       }

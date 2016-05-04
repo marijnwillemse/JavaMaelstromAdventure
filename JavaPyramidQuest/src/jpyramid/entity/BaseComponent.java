@@ -1,11 +1,15 @@
 package jpyramid.entity;
 
+import jpyramid.controller.GameSystem;
+
 public abstract class BaseComponent {
 
-  private GameEntity owner;
+  protected GameEntity owner;
+  protected GameSystem gameSystem;
   
-  protected BaseComponent(GameEntity gameEntity) {
+  protected BaseComponent(GameEntity gameEntity, GameSystem gameSystem) {
     this.owner = gameEntity;
+    this.gameSystem = gameSystem;
   }
   
   public GameEntity getOwner() {
