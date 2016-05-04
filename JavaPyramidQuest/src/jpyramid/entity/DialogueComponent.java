@@ -14,25 +14,25 @@ public class DialogueComponent extends BaseComponent {
   private String description;
   private ArrayList<String> choices;
   
-  @SuppressWarnings("unchecked")
   public DialogueComponent(GameEntity owner, GameSystem gameSystem,
       Object[] arguments) throws EntityException {
     super(owner);
     owner.addComponent(this);
     gameSystem.registerComponent(this);
     
+    init(arguments);
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  void init(Object[] arguments) {
     this.description = (String) arguments[0];
     if (arguments[1] instanceof ArrayList) {
       this.choices = (ArrayList<String>) arguments[1];
     } else {
-      throw new EntityException("Invalid argument for dialogue choices:"
+      new EntityException("Invalid argument for dialogue choices:"
           + "ArrayList expected");
     }
-  }
-
-  @Override
-  void init(Object[] arguments) {
-    // TODO Auto-generated method stub
   }
   
   public int Activate() {

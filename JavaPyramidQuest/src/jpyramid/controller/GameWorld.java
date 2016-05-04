@@ -16,9 +16,11 @@ public class GameWorld {
   public void init() {
     // Construct a 4x4 level and a player
     GameEntity level = EntityFactory.create(
-        gameSystem, EntityFactory.Type.LEVEL, new Object[] { 4, 4 });
+        gameSystem, EntityFactory.Type.LEVEL,
+        new Object[][] { {}, { 4, 4 }});
     GameEntity player = EntityFactory.create(
-        gameSystem, EntityFactory.Type.PLAYER, new Object[0]);
+        gameSystem, EntityFactory.Type.PLAYER,
+        new Object[2][0]);
     
     // Place the player in the first room
     try {

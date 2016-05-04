@@ -8,11 +8,11 @@ public class PlayerComponent extends BaseComponent {
     super(owner);
     owner.addComponent(this);
     gameSystem.registerComponent(this);
+
+    init(arguments);
   }
 
   @Override
-  void init(Object[] arguments) {
-    // TODO Auto-generated method stub
-    
+  void init(Object[] arguments) {    
   }
 }

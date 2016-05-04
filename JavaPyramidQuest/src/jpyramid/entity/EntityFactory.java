@@ -12,19 +12,19 @@ public final class EntityFactory {
   }
   
   public static GameEntity create(GameSystem gameSystem, Type type,
-      Object... arguments) {
+      Object[][] argumentsArray) {
     GameEntity entity = new GameEntity();
     
     try {
       if (type == Type.PLAYER) {
-        new TransformComponent(entity, gameSystem);
-        new PlayerComponent(entity, gameSystem, arguments);
+        new TransformComponent(entity, gameSystem, argumentsArray[0]);
+        new PlayerComponent(entity, gameSystem, argumentsArray[1]);
         gameSystem.registerEntity(entity);
         return entity;
       }
       if (type == Type.LEVEL) {
-        new TransformComponent(entity, gameSystem);
-        new LevelComponent(entity, gameSystem, arguments);
+        new TransformComponent(entity, gameSystem, argumentsArray[0]);
+        new LevelComponent(entity, gameSystem, argumentsArray[1]);
         gameSystem.registerEntity(entity);
         return entity;
       }

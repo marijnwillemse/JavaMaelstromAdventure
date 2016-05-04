@@ -18,25 +18,23 @@ public class LevelComponent extends BaseComponent {
     owner.addComponent(this);
     gameSystem.registerComponent(this);
     
-    setup((int) arguments[0], (int) arguments[1]);
+    init(arguments);
   }
   
   @Override
-  void init(Object[] arguments) {
-    // TODO Auto-generated method stub
+  public void init(Object[] arguments) {
+    int width = (int) arguments[0];
+    int height = (int) arguments[1];
     
-  }
-  
-  public void setup(int width, int height) throws EntityException {
     graph = new SparseGraph<NavigationGraphNode, NavigationGraphEdge>();
-    
     // Seed the graph as a square grid with nodes equal to width times height
     // Then add edges to all four directions of each node
     try {
       GridGraphHelper.createConnectedGrid(graph, width, height, width, height,
           false, GraphNodeType.ROOM);
     } catch (GraphException e) {
-      throw new EntityException(e);
+      e.printStackTrace();
+      System.out.println("Unable to create connected grid in level component.");
     }
   }
   
