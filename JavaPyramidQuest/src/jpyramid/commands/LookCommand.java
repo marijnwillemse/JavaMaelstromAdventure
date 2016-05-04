@@ -9,7 +9,9 @@ public class LookCommand extends BaseCommand {
   @Override
   public void execute(GameSystem gameSystem, ArrayList<String> parameters) {
     System.out.println("Looking...");
-//    gameWorld.get
+    
+    // Get the player
+    // Get the room he is in
   }
 
 }

@@ -31,7 +31,7 @@ public class LevelComponent extends BaseComponent {
     // Then add edges to all four directions of each node
     try {
       GridGraphHelper.createConnectedGrid(graph, width, height, width, height,
-          false, GraphNodeType.ROOM);
+          false);
     } catch (GraphException e) {
       e.printStackTrace();
       System.out.println("Unable to create connected grid in level component.");
