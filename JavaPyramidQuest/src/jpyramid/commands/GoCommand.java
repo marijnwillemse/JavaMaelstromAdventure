@@ -1,6 +1,5 @@
 package jpyramid.commands;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 import jpyramid.controller.GameSystem;
@@ -21,9 +20,10 @@ public class GoCommand extends BaseCommand {
       return;
     }
     String dString = words[1].toUpperCase();
+    Direction d;
     if (dString.equals("NORTH") || dString.equals("EAST") ||
         dString.equals("SOUTH") || dString.equals("WEST")) {
-      Direction d = Direction.valueOf(dString);
+      d = Direction.valueOf(dString);
     } else {
       System.out.println("You can not go into that direction");
       return;
@@ -38,13 +38,19 @@ public class GoCommand extends BaseCommand {
     // Save the node index
     int nodeIndex = fromNode.getIndex();
     
-    // Describe the neighboring directions
+    // Get the level
     UUID levelID = gameSystem.getGameWorld().getLevel().getID();
     LevelComponent l = gameSystem.getLevelComponents().get(levelID);
-    ArrayList<Direction> directions =
-        GridGraphHelper.getNeighborDirections(l.getGraph(), nodeIndex);
-//    NavigationGraphNode toNode = GridGraphHelper.getNeighborNode()
-//    t.setLocation(toNode);
+
+    // Find the node in the specified direction
+    NavigationGraphNode toNode;
+    toNode = GridGraphHelper.getNeighborByDirection(l.getGraph(), nodeIndex, d);
+    
+    if (toNode == null) {
+      System.out.println("You can not go into that direction: NOT FOUND");
+      return;
+    }
+    t.setLocation(toNode);
   }
 
 }

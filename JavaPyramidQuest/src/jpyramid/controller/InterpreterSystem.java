@@ -1,6 +1,5 @@
 package jpyramid.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import jpyramid.commands.BaseCommand;

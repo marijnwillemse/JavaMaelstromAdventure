@@ -112,7 +112,16 @@ public class GridGraphHelper {
         to.getY() - from.getY(),
         to.getX() - from.getX()));
     
-    return Direction.get(angle);
+    return Direction.get((angle % 360 + 360) % 360);
+    // Note the expression "(a % b + b) % b"
+    // This works as the result of (a % b) is necessarily lower than b,
+    // no matter if a is positive or negative. Adding b takes care of the
+    // negative values of a, since (a % b) is a negative value between -b and 0,
+    // (a % b + b) is necessarily lower than b and positive.
+    // The last modulo is there in case a was positive to begin with,
+    // since if a is positive (a % b + b) would become larger than b.
+    // Therefore, (a % b + b) % b turns it into smaller than b again.
+    // Taken from answer of Peter Lawrey at Stack Overflow
   }
 
   /**
@@ -129,5 +138,22 @@ public class GridGraphHelper {
       directionList.add(getDirection(from.getPosition(), to.getPosition()));
     }
     return directionList;
+  }
+
+  public static NavigationGraphNode getNeighborByDirection(
+      SparseGraph<NavigationGraphNode, NavigationGraphEdge> graph, int i,
+      Direction d) {
+    NavigationGraphNode from = graph.getNode(i);
+    ArrayList<NavigationGraphEdge> edges = graph.getEdgeList(i);
+    for (NavigationGraphEdge edge : edges) {
+      NavigationGraphNode to = graph.getNode(edge.getTo());
+      Direction reference = getDirection(from.getPosition(), to.getPosition());
+      if (d.equals(reference)) {
+        // Match found
+        return to;
+      }
+    }
+    // Match not found
+    return null;
   }
 }
