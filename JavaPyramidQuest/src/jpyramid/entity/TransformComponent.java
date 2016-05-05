@@ -8,16 +8,20 @@ public class TransformComponent extends BaseComponent {
   
   NavigationGraphNode location; // Defaults to null
   
-  public TransformComponent(GameEntity owner, GameSystem gameSystem) {
-    super(owner);
+  public TransformComponent(GameEntity owner, GameSystem gameSystem,
+      Object[] arguments) {
+    super(owner, gameSystem);
     owner.addComponent(this);
     gameSystem.registerComponent(this);
+    
+    init(arguments);
   }
     
   @Override
   void init(Object[] arguments) {
-    // TODO Auto-generated method stub
-    
+    if (arguments.length > 0) {
+      location = (NavigationGraphNode) arguments[0];
+    }
   }
   
   public void update() {

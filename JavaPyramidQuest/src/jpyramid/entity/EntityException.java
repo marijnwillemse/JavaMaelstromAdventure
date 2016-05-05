@@ -1,6 +1,6 @@
 package jpyramid.entity;
 
-public class EntityException extends Exception {
+public class EntityException extends RuntimeException {
 
   private static final long serialVersionUID = -5284408380566467615L;
 
