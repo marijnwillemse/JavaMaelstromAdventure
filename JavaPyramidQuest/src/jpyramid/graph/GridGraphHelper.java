@@ -1,5 +1,7 @@
 package jpyramid.graph;
 
+import java.util.ArrayList;
+
 import jpyramid.math.Vector2D;
 
 public class GridGraphHelper {
@@ -105,11 +107,27 @@ public class GridGraphHelper {
     }
   }
   
-  public Direction getDirection(Vector2D from, Vector2D to) {
+  public static Direction getDirection(Vector2D from, Vector2D to) {
     int angle = (int) Math.toDegrees(Math.atan2(
         to.getY() - from.getY(),
         to.getX() - from.getX()));
     
     return Direction.get(angle);
+  }
+
+  /**
+   * Return a list of direction objects in which the neighboring nodes of node
+   * with index i lie.
+   */
+  public static ArrayList<Direction> getNeighborDirections(
+      SparseGraph<NavigationGraphNode, NavigationGraphEdge> graph, int i) {
+    ArrayList<Direction> directionList = new ArrayList<Direction>();
+    NavigationGraphNode from = graph.getNode(i);
+    ArrayList<NavigationGraphEdge> edges = graph.getEdgeList(i);
+    for (NavigationGraphEdge edge : edges) {
+      NavigationGraphNode to = graph.getNode(edge.getTo());
+      directionList.add(getDirection(from.getPosition(), to.getPosition()));
+    }
+    return directionList;
   }
 }

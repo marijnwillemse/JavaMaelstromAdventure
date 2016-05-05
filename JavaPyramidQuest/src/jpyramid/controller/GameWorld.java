@@ -44,4 +44,8 @@ public class GameWorld {
   public GameEntity getPlayer() {
     return player;
   }
+
+  public GameEntity getLevel() {
+    return level;
+  }
 }

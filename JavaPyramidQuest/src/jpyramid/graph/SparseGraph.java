@@ -7,7 +7,7 @@ public class SparseGraph<T extends GraphNode, K extends GraphEdge> {
   // Array of nodes comprising graph
   private ArrayList<T> nodes;
 
-  // Vector of adjacency edge lists
+  // Vector of adjacency edge lists, sorted by node index
   private ArrayList<ArrayList<K>> edgeLists;
 
   private int nextNodeIndex;
@@ -218,5 +218,12 @@ public class SparseGraph<T extends GraphNode, K extends GraphEdge> {
       }
     }
     return true;
+  }
+
+  /**
+   * Returns the list of edges that belong to the node with index i
+   */
+  public ArrayList<K> getEdgeList(int i) {
+    return edgeLists.get(i);
   }
 }
