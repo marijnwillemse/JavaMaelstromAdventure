@@ -20,19 +20,19 @@ public class EntityInfoParser {
     }
   }
 
-  public List<EntityInfo> readEntityArray(JsonReader reader)
+  private List<EntityInfo> readEntityArray(JsonReader reader)
       throws IOException {
-    List<EntityInfo> messages = new ArrayList<EntityInfo>();
+    List<EntityInfo> entityInfoList = new ArrayList<EntityInfo>();
 
     reader.beginArray();
     while (reader.hasNext()) {
-      messages.add(readEntity(reader));
+      entityInfoList.add(readEntity(reader));
     }
     reader.endArray();
-    return messages;
+    return entityInfoList;
   }
 
-  public EntityInfo readEntity(JsonReader reader) throws IOException {
+  private EntityInfo readEntity(JsonReader reader) throws IOException {
     String id = null;
     List<String> componentNames = null;
 
@@ -51,14 +51,22 @@ public class EntityInfoParser {
     return new EntityInfo(id, componentNames);
   }
 
-  public List<String> readComponents(JsonReader reader) throws IOException {
+  private List<String> readComponents(JsonReader reader) throws IOException {
     List<String> components = new ArrayList<String>();
 
     reader.beginArray();
     while (reader.hasNext()) {
-      components.add(reader.nextString());
+      reader.beginObject();
+      while (reader.hasNext()) {
+        String name = reader.nextName();
+        if (name.equals("componentName")) {
+          components.add(reader.nextString());
+        } else {
+          reader.skipValue();
+        }
+      }
+      reader.endObject();
     }
-    
     reader.endArray();
     return components;
   }

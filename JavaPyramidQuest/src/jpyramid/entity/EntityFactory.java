@@ -1,18 +1,13 @@
 package jpyramid.entity;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.google.gson.stream.JsonReader;
-
-import jpyramid.commands.BaseCommand;
-import jpyramid.commands.LookCommand;
 import jpyramid.controller.GameSystem;
 import jpyramid.utilities.EntityInfo;
 import jpyramid.utilities.EntityInfoParser;
@@ -29,20 +24,24 @@ public final class EntityFactory {
   private static HashMap<String, List<String>> entityBlueprints =
       new HashMap<String, List<String>>();
 
-  private EntityFactory() {
+  private EntityFactory() {}
+  
+  static {
     /* Draft entity blueprints with the data from descriptive JSON file */
     EntityInfoParser parser = new EntityInfoParser();
-    List<EntityInfo> entityInfoList = null;
+    
+    InputStream in;
     try {
-      entityInfoList = parser.readEntityInfoStream(
-          new FileInputStream(new File("/jpyramid/resources/entities.json")));
+      in = new FileInputStream("src/jpyramid/resources/entities.json");
+
+      List<EntityInfo> entityInfoList = parser.readEntityInfoStream(in);
+
+      for (EntityInfo i : entityInfoList) {
+        entityBlueprints.put(i.getId(), i.getComponentNames());
+      }
     } catch (IOException e) {
       e.printStackTrace();
-      System.out.println("Unable to read entity info from file");
-    }
-    
-    for (EntityInfo i : entityInfoList) {
-      entityBlueprints.put(i.getId(), i.getComponentNames());
+      System.out.println("Unable to read entity info");
     }
   }
 
@@ -55,7 +54,9 @@ public final class EntityFactory {
     List<String> entityComponents = entityBlueprints.get(type);
 
     // Determine the required class names for entity components
-//    for ()
+    for (String s : entityComponents) {
+      
+    }
 
     String className = "";
     try {
