@@ -8,7 +8,7 @@ public class GridGraphHelper {
       SparseGraph<NavigationGraphNode,NavigationGraphEdge> graph,
       int width, int height,
       int numberOfCellsX, int numberOfCellsY,
-      boolean diagonalEdges, GraphNodeType type) throws GraphException {
+      boolean diagonalEdges) throws GraphException {
     
     // Validate arguments
     if (width < 1 || height < 1 || numberOfCellsX < 1 || numberOfCellsY < 1) {
@@ -23,9 +23,10 @@ public class GridGraphHelper {
     for (int row = 0; row < numberOfCellsY; row++) {
       for (int column = 0; column < numberOfCellsX; column++) {
         try {
-          NavigationGraphNode node = GraphNodeFactory.buildNavigationGraphNode(type);
+          NavigationGraphNode node = new NavigationGraphNode(-1, new Vector2D());
           node.setIndex(graph.getNextNodeIndex());
-          node.setPosition(new Vector2D((double)column * cellSpacingX, (double)row * cellSpacingY));
+          node.setPosition(new Vector2D((double)column * cellSpacingX,
+                                        (double)row * cellSpacingY));
           graph.addNode(node);
         } catch (GraphException e) {
           e.printStackTrace();
@@ -38,7 +39,7 @@ public class GridGraphHelper {
     // Each cell has up to four neighbors.
     for (int row = 0; row < numberOfCellsY; ++row) {
       for (int column = 0; column < numberOfCellsX; ++column) {
-        addNeighboursToGridNode(graph, row, column,
+        addNeighborsToGridNode(graph, row, column,
             numberOfCellsX, numberOfCellsY, diagonalEdges);
       }
     }
@@ -48,14 +49,14 @@ public class GridGraphHelper {
    * Returns true if [x][y] is a valid position in the grid
    * For example: [4][0] is not a valid position in a grid of 3 by 2 cells
    */
-  private static boolean isValidNeighbor(int row, int column,
+  private static boolean isValidPosition(int row, int column,
       int numberOfCellsX, int numberOfCellsY) {
     return (row >= 0 && row < numberOfCellsY
         && column >= 0 && column < numberOfCellsX);
   }
 
 
-  private static void addNeighboursToGridNode(
+  private static void addNeighborsToGridNode(
       SparseGraph<NavigationGraphNode,NavigationGraphEdge> graph,
       int row, int column, int numberOfCellsX, int numberOfCellsY,
       boolean diagonalEdges) {
@@ -83,7 +84,7 @@ public class GridGraphHelper {
           continue;
         }
 
-        if (isValidNeighbor(neighborY, neighborX, numberOfCellsX, numberOfCellsY)) {
+        if (isValidPosition(neighborY, neighborX, numberOfCellsX, numberOfCellsY)) {
           // Current neighbor node qualifies for edge connection
           
           int nodeIndex = row * numberOfCellsX + column;
@@ -107,5 +108,13 @@ public class GridGraphHelper {
         }
       }
     }
+  }
+  
+  public Direction getDirection(Vector2D from, Vector2D to) {
+    int angle = (int) Math.toDegrees(Math.atan2(
+        to.getY() - from.getY(),
+        to.getX() - from.getX()));
+    
+    return Direction.get(angle);
   }
 }

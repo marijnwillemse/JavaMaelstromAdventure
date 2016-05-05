@@ -1,0 +1,23 @@
+[
+  {
+    "id": "player",
+    "components":[
+      {"componentName":"TransformComponent"},
+      {"componentName":"PlayerComponent"}
+    ]
+  },
+  {
+    "id": "level",
+    "components":[
+      {"componentName":"TransformComponent"},
+      {"componentName":"LevelComponent"}
+    ]
+  },
+  {
+    "id": "room",
+    "components":[
+      {"componentName":"TransformComponent"},
+      {"componentName":"RoomComponent"}
+    ]
+  }
+]
