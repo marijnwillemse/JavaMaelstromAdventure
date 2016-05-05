@@ -40,7 +40,7 @@ public class EntityInfoParser {
     while (reader.hasNext()) {
       String name = reader.nextName();
       if (name.equals("id")) {
-        id = reader.nextString();
+        id = reader.nextString().toUpperCase();
       } else if (name.equals("components")) {
         componentNames = readComponents(reader);
       } else {

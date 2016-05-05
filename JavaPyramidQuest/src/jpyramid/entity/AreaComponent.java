@@ -7,7 +7,7 @@ public class AreaComponent extends BaseComponent {
   
   private NavigationGraphNode node;
 
-  protected AreaComponent(GameEntity owner, GameSystem gameSystem,
+  public AreaComponent(GameEntity owner, GameSystem gameSystem,
       Object[] arguments) {
     super(owner, gameSystem);
     owner.addComponent(this);

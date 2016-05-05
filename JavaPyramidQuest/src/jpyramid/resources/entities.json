@@ -2,22 +2,22 @@
   {
     "id": "player",
     "components":[
-      {"componentName":"TransformComponent"},
-      {"componentName":"PlayerComponent"}
+      {"componentName":"jpyramid.entity.TransformComponent"},
+      {"componentName":"jpyramid.entity.PlayerComponent"}
     ]
   },
   {
     "id": "level",
     "components":[
-      {"componentName":"TransformComponent"},
-      {"componentName":"LevelComponent"}
+      {"componentName":"jpyramid.entity.TransformComponent"},
+      {"componentName":"jpyramid.entity.LevelComponent"}
     ]
   },
   {
-    "id": "room",
+    "id": "area",
     "components":[
-      {"componentName":"TransformComponent"},
-      {"componentName":"RoomComponent"}
+      {"componentName":"jpyramid.entity.TransformComponent"},
+      {"componentName":"jpyramid.entity.AreaComponent"}
     ]
   }
 ]

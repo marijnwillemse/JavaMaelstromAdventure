@@ -31,8 +31,8 @@ public class LevelComponent extends BaseComponent {
         false);
     // Construct area entities for each node in the grid
     for (int i = 0; i < width * height; i++) {
-      GameEntity area = EntityFactory.create(
-          gameSystem, EntityFactory.Type.AREA,
+      GameEntity area = EntityFactory.createReflective(
+          gameSystem, "AREA",
           new Object[2][0]);
       gameSystem.getAreaComponents().get(area.getID()).assignNode(
           graph.getNode(i));

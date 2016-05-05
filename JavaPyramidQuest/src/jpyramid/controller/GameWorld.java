@@ -20,8 +20,11 @@ public class GameWorld {
       {},
       { 4, 4 }
     };
-    level = EntityFactory.create(
-        gameSystem, EntityFactory.Type.LEVEL,
+//    level = EntityFactory.create(
+//        gameSystem, EntityFactory.Type.LEVEL,
+//        levelArguments);
+    level = EntityFactory.createReflective(
+        gameSystem, "LEVEL",
         levelArguments);
     
     // Pick the first area from the level
@@ -33,8 +36,8 @@ public class GameWorld {
       { area },
       {}
     };
-    player = EntityFactory.create(
-        gameSystem, EntityFactory.Type.PLAYER,
+    player = EntityFactory.createReflective(
+        gameSystem, "PLAYER",
         playerArguments);
   }
   

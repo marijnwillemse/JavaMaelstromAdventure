@@ -7,7 +7,7 @@ public abstract class BaseComponent {
   protected GameEntity owner;
   protected GameSystem gameSystem;
   
-  protected BaseComponent(GameEntity gameEntity, GameSystem gameSystem) {
+  public BaseComponent(GameEntity gameEntity, GameSystem gameSystem) {
     this.owner = gameEntity;
     this.gameSystem = gameSystem;
   }

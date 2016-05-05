@@ -45,83 +45,41 @@ public final class EntityFactory {
     }
   }
 
-    public static GameEntity createReflective(GameSystem gameSystem, Type type,
+    public static GameEntity createReflective(GameSystem gameSystem, String type,
         Object[][] argumentsArray) {
     // This empty game entity will be referenced in the required components,
     // which will be created and constructed according to its requirements.
   
     GameEntity entity = new GameEntity();
-    List<String> entityComponents = entityBlueprints.get(type);
+    List<String> entityComponents = entityBlueprints.get(type.toUpperCase());
+
+    if (argumentsArray.length != entityComponents.size()) {
+      throw new IllegalArgumentException("Expected " + entityComponents.size() +
+          " sets of arguments for making entity of type " + type + ".");
+    }    
 
     // Determine the required class names for entity components
-    for (String s : entityComponents) {
+    for (int i = 0; i < entityComponents.size(); i++) {
+      String className = entityComponents.get(i);
       
-    }
-
-    String className = "";
-    try {
-      Class<?> cl = Class.forName(className);
-      Constructor<?> cons = cl.getConstructor(String.class);
-      return (GameEntity) cons.newInstance(argumentsArray[0]);
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();
-      System.out.println("Unable to find class " + className);
-    } catch (NoSuchMethodException | SecurityException e) {
-      e.printStackTrace();
-      System.out.println("Unable to create constructor for class " + className);
-    } catch (InstantiationException | IllegalAccessException
-        | IllegalArgumentException | InvocationTargetException e) {
-      System.out.println("Unable to create and initialize class " + className);
-      e.printStackTrace();
-    }
-
-    return null;
-
-  }
-
-  // Helper enum clients will use to create game objects
-  public enum Type {
-      PLAYER, LEVEL, AREA;
-  }
-
-    public static GameEntity create(GameSystem gameSystem, Type type,
-        Object[][] argumentsArray) {
-    GameEntity entity = new GameEntity();
-
-    try {
-      if (type == Type.PLAYER) {
-        checkArgumentsLength(argumentsArray, 2, type);
-        new TransformComponent(entity, gameSystem, argumentsArray[0]);
-        new PlayerComponent(entity, gameSystem, argumentsArray[1]);
-        gameSystem.registerEntity(entity);
-        return entity;
+      try {
+        Class<?> cl = Class.forName(className);
+        Constructor<?> cons = cl.getConstructor(GameEntity.class,
+            GameSystem.class, Object[].class);
+        cons.newInstance(entity, gameSystem, argumentsArray[i]);
+      } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+        System.out.println("Unable to find class " + className);
+      } catch (NoSuchMethodException | SecurityException e) {
+        e.printStackTrace();
+        System.out.println("Unable to create constructor for class " + className);
+      } catch (InstantiationException | IllegalAccessException
+          | IllegalArgumentException | InvocationTargetException e) {
+        System.out.println("Unable to create and initialize class " + className);
+        e.printStackTrace();
       }
-      if (type == Type.LEVEL) {
-        new TransformComponent(entity, gameSystem, argumentsArray[0]);
-        new LevelComponent(entity, gameSystem, argumentsArray[1]);
-        gameSystem.registerEntity(entity);
-        return entity;
-      }
-      if (type == Type.AREA) {
-        checkArgumentsLength(argumentsArray, 2, type);
-        new TransformComponent(entity, gameSystem, argumentsArray[0]);
-        new AreaComponent(entity, gameSystem, argumentsArray[1]);
-        gameSystem.registerEntity(entity);
-        return entity;
-      }
-    } catch (EntityException e) {
-      e.printStackTrace();
     }
-    return null;
+    gameSystem.registerEntity(entity);
+    return entity;
   }
-
-  private static void checkArgumentsLength(Object[][] argumentsArray, int i,
-      Type type) {
-    if (argumentsArray.length != i) {
-      throw new IllegalArgumentException(i +
-          " sets of arguments needed for making entity of type "
-          + type + ". " + argumentsArray.length + " was given.");
-    }
-  };
-
 }
