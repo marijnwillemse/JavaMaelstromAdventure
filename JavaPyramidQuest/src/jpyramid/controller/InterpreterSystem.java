@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import jpyramid.commands.BaseCommand;
+import jpyramid.commands.GoCommand;
 import jpyramid.commands.LookCommand;
 import jpyramid.commands.StopCommand;
 
@@ -20,13 +21,14 @@ public class InterpreterSystem {
     commands.put("LOOK", new LookCommand());
     commands.put("STOP", new StopCommand());
     commands.put("EXIT", new StopCommand());
+    commands.put("GO", new GoCommand());
   }
   
   public void update(GameSystem gameSystem) {
     String input = read();
-    ArrayList<String> parameters = new ArrayList<String>();
-    if (commands.containsKey(input)) {
-      commands.get(input).execute(gameSystem, parameters);
+    String[] words = input.split("\\s"); // Split at every space
+    if (commands.containsKey(words[0])) {
+      commands.get(words[0]).execute(gameSystem, words);
     } else {
       System.out.println("That is no verb I recognize.");
     }
