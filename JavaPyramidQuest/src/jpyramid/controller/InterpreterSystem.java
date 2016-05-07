@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import jpyramid.commands.BaseCommand;
 import jpyramid.commands.GoCommand;
+import jpyramid.commands.HelpCommand;
 import jpyramid.commands.LookCommand;
 import jpyramid.commands.StopCommand;
 
@@ -13,14 +14,14 @@ import java.io.InputStreamReader;
 
 public class InterpreterSystem {
 
-  private HashMap<String, BaseCommand> commands;
+  private static HashMap<String, BaseCommand> commands;
   
   public InterpreterSystem() {
     commands = new HashMap<String, BaseCommand>();
+    commands.put("GO", new GoCommand());
+    commands.put("HELP", new HelpCommand());
     commands.put("LOOK", new LookCommand());
     commands.put("STOP", new StopCommand());
-    commands.put("EXIT", new StopCommand());
-    commands.put("GO", new GoCommand());
   }
   
   public void update(GameSystem gameSystem) {
@@ -44,6 +45,10 @@ public class InterpreterSystem {
       System.out.println("Failed to receive input");
     }
     return null;
+  }
+  
+  public static HashMap<String, BaseCommand> getCommands() {
+    return commands;
   }
 
 }

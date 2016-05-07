@@ -25,7 +25,7 @@ public class GoCommand extends BaseCommand {
         dString.equals("SOUTH") || dString.equals("WEST")) {
       d = Direction.valueOf(dString);
     } else {
-      System.out.println("You can not go into that direction");
+      System.out.println("That is not a valid direction.");
       return;
     }
     
@@ -47,7 +47,7 @@ public class GoCommand extends BaseCommand {
     toNode = GridGraphHelper.getNeighborByDirection(l.getGraph(), nodeIndex, d);
     
     if (toNode == null) {
-      System.out.println("You can not go into that direction: NOT FOUND");
+      System.out.println("You can not go into that direction.");
       return;
     }
     t.setLocation(toNode);
