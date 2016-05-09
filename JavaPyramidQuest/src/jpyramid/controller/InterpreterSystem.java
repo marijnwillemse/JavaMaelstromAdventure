@@ -16,19 +16,37 @@ public class InterpreterSystem {
 
   private static HashMap<String, BaseCommand> commands;
   
+  private static HashMap<String, String> synonyms;
+  
   public InterpreterSystem() {
     commands = new HashMap<String, BaseCommand>();
     commands.put("GO", new GoCommand());
     commands.put("HELP", new HelpCommand());
     commands.put("LOOK", new LookCommand());
     commands.put("STOP", new StopCommand());
+    
+    synonyms = new HashMap<String, String>();
+    synonyms.put("MOVE",    "GO");
+    synonyms.put("WALK",    "GO");
+    synonyms.put("?",       "HELP");
+    synonyms.put("VIEW",    "LOOK");
+    synonyms.put("EXAMINE", "LOOK");
+    synonyms.put("INSPECT", "LOOK");
+    synonyms.put("EXIT",    "STOP");
+    synonyms.put("ESCAPE",  "STOP");
   }
+  
   
   public void update(GameSystem gameSystem) {
     String input = read();
     String[] words = input.split("\\s"); // Split at every space
+    // Interpret the first word as a command
     if (commands.containsKey(words[0])) {
+      // The first word is in the dictionary
       commands.get(words[0]).execute(gameSystem, words);
+    } else if (synonyms.containsKey(words[0])) {
+      // The first word is a synonym
+      commands.get(synonyms.get(words[0])).execute(gameSystem, words);
     } else {
       System.out.println("That is no verb I recognize.");
     }
