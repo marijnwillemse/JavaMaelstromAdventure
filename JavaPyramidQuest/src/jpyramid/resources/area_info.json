@@ -1,5 +1,9 @@
 {
   "sizes":[
-    "Small", "Medium", "Large"
+    "Small", "Large"
+  ],
+  "humidity":[
+	"Dry", "Damp"
   ]
+  ""
 }
