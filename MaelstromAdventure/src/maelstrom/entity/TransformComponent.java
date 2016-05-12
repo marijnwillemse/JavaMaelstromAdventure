@@ -2,11 +2,10 @@ package maelstrom.entity;
 
 
 import maelstrom.controller.GameSystem;
-import maelstrom.graph.NavigationGraphNode;
 
 public class TransformComponent extends BaseComponent {
   
-  NavigationGraphNode location; // Defaults to null
+  AreaComponent location; // Defaults to null
   
   public TransformComponent(GameEntity owner, GameSystem gameSystem,
       Object[] arguments) {
@@ -20,7 +19,7 @@ public class TransformComponent extends BaseComponent {
   @Override
   void init(Object[] arguments) {
     if (arguments.length > 0) {
-      location = (NavigationGraphNode) arguments[0];
+      location = (AreaComponent) arguments[0];
     }
   }
   
@@ -28,10 +27,10 @@ public class TransformComponent extends BaseComponent {
     ;
   }
   
-  public void setLocation(NavigationGraphNode location) {
+  public void setLocation(AreaComponent location) {
     this.location = location;
   }
-  public NavigationGraphNode getLocation() {
+  public AreaComponent getLocation() {
     return location;
   }
 }

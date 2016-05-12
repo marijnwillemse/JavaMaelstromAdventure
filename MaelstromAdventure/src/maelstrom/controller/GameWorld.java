@@ -1,8 +1,8 @@
 package maelstrom.controller;
 
+import maelstrom.entity.AreaComponent;
 import maelstrom.entity.EntityFactory;
 import maelstrom.entity.GameEntity;
-import maelstrom.graph.NavigationGraphNode;
 
 public class GameWorld {
   
@@ -28,8 +28,8 @@ public class GameWorld {
         levelArguments);
     
     // Pick the first area from the level
-    NavigationGraphNode area = gameSystem.getLevelComponents().get(level.getID())
-        .getGraph().getNode(0);
+    AreaComponent area = gameSystem.getLevelComponents().get(level.getID())
+        .getGraph().getNode(0).getArea();
     
     // Construct the player and place it in that area
     Object[][] playerArguments = new Object[][] {

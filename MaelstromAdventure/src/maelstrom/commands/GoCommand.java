@@ -34,7 +34,7 @@ public class GoCommand extends BaseCommand {
     // Retrieve the player's location component
     TransformComponent t = gameSystem.getTransformComponents().get(playerID);
     // Retrieve the accompanying node
-    NavigationGraphNode fromNode = t.getLocation();
+    NavigationGraphNode fromNode = t.getLocation().getNode();
     // Save the node index
     int nodeIndex = fromNode.getIndex();
     
@@ -50,7 +50,7 @@ public class GoCommand extends BaseCommand {
       System.out.println("You can not go into that direction.");
       return;
     }
-    t.setLocation(toNode);
+    t.setLocation(toNode.getArea());
   }
 
 }
