@@ -1,0 +1,23 @@
+[
+  {
+    "id": "player",
+    "components":[
+      {"componentName":"maelstrom.entity.TransformComponent"},
+      {"componentName":"maelstrom.entity.PlayerComponent"}
+    ]
+  },
+  {
+    "id": "level",
+    "components":[
+      {"componentName":"maelstrom.entity.TransformComponent"},
+      {"componentName":"maelstrom.entity.LevelComponent"}
+    ]
+  },
+  {
+    "id": "area",
+    "components":[
+      {"componentName":"maelstrom.entity.TransformComponent"},
+      {"componentName":"maelstrom.entity.AreaComponent"}
+    ]
+  }
+]
