@@ -11,7 +11,7 @@
 				"text" : "A light breeze causes the sails to rustle."
 			}, {
 				"tag" : "TXT_KEY_BEAUFORT_DESCRIPTION_3",
-				"text" : "There is a steady breeze."
+				"text" : "A steady breeze is blowing."
 			}, {
 				"tag" : "TXT_KEY_BEAUFORT_DESCRIPTION_4",
 				"text" : "A moderate breeze is revealing whitecaps."
@@ -32,7 +32,7 @@
 				"text" : "A blinding spray drives in the raging storm."
 			}, {
 				"tag" : "TXT_KEY_BEAUFORT_DESCRIPTION_10",
-				"text" : "Your ship is barely holding the fury of the storm."
+				"text" : "A storm is raging. Your ship barely holds its fury."
 			}, {
 				"tag" : "TXT_KEY_BEAUFORT_DESCRIPTION_11",
 				"text" : "The sea is heaving in mountainous waves from the blasting hurricane."
@@ -47,7 +47,7 @@
 				"text" : "The sun reached its zenith."
 			}, {
 				"tag" : "TXT_KEY_TIME_DESCRIPTION_AFTERNOON",
-				"text" : "The sun has started its descent."
+				"text" : "The sun is descending."
 			}, {
 				"tag" : "TXT_KEY_TIME_DESCRIPTION_EVENING",
 				"text" : "The sun is setting."

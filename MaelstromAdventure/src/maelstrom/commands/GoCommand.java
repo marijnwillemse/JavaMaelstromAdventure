@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import maelstrom.controller.GameSystem;
 import maelstrom.entity.LevelComponent;
+import maelstrom.entity.TimeComponent;
 import maelstrom.entity.TransformComponent;
 import maelstrom.graph.Direction;
 import maelstrom.graph.GridGraphHelper;
@@ -51,6 +52,9 @@ public class GoCommand extends BaseCommand {
       return;
     }
     t.setLocation(toNode.getArea());
+    TimeComponent timeComponent = gameSystem.getTimeComponents().get(levelID);
+    timeComponent.increment(3600000); // Increment time by one hour
+    new LookCommand().execute(gameSystem, null);
   }
 
 }

@@ -3,6 +3,7 @@ package maelstrom.entity;
 import java.sql.Time;
 
 import maelstrom.controller.GameSystem;
+import maelstrom.utilities.GameLocale;
 
 public class TimeComponent extends BaseComponent {
   
@@ -27,6 +28,30 @@ public class TimeComponent extends BaseComponent {
       time = new Time((long) arguments[0]);
     } else {
       throw new IllegalArgumentException("Invalid argument count.");
+    }
+  }
+  
+  public void describe() {
+    // The hour of day is required in order to describe the time of day.
+    long milliseconds = time.getTime();
+    long dayTime = milliseconds % (86400000);
+    int hours = Math.round(dayTime / 3600000);
+
+    if (hours > 5 && hours < 12) {
+      // Morning
+      System.out.println(GameLocale.getString("TXT_KEY_TIME_DESCRIPTION_MORNING"));
+    } else if (hours < 13) {
+      // Noon
+      System.out.println(GameLocale.getString("TXT_KEY_TIME_DESCRIPTION_NOON"));
+    } else if (hours < 18) {
+      // Afternoon
+      System.out.println(GameLocale.getString("TXT_KEY_TIME_DESCRIPTION_AFTERNOON"));
+    } else if (hours < 20) {
+      // Evening
+      System.out.println(GameLocale.getString("TXT_KEY_TIME_DESCRIPTION_EVENING"));
+    } else {
+      // Night
+      System.out.println(GameLocale.getString("TXT_KEY_TIME_DESCRIPTION_NIGHT"));
     }
   }
 

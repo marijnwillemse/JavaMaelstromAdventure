@@ -1,6 +1,9 @@
 package maelstrom.entity;
 
+import java.util.ArrayList;
+
 import maelstrom.controller.GameSystem;
+import maelstrom.graph.Direction;
 import maelstrom.graph.GridGraphHelper;
 import maelstrom.graph.NavigationGraphEdge;
 import maelstrom.graph.NavigationGraphNode;
@@ -15,15 +18,15 @@ public class LevelComponent extends BaseComponent {
     super(owner, gameSystem);
     owner.addComponent(this);
     gameSystem.registerComponent(this);
-    
+
     init(arguments);
   }
-  
+
   @Override
   void init(Object[] arguments) {
     int width = (int) arguments[0];
     int height = (int) arguments[1];
-    
+
     graph = new SparseGraph<NavigationGraphNode, NavigationGraphEdge>();
     // Seed the graph as a square grid with nodes equal to width times height
     // Then add edges to all four directions of each node
@@ -38,7 +41,27 @@ public class LevelComponent extends BaseComponent {
           graph.getNode(i));
     }
   }
-  
+
+  public void describeAvailableDirections(int nodeIndex) {
+    ArrayList<Direction> directions =
+        GridGraphHelper.getNeighborDirections(graph, nodeIndex);
+    if (directions.size() > 0) {
+      String message = "You can go ";
+      for (int i = 0; i < directions.size(); i++) {
+        Direction d = directions.get(i);
+        message += d.toString();
+        if (directions.size()-2 > i) {
+          message += ", ";
+        } else if (directions.size()-2 == i) {
+          message += " and ";
+        } else {
+          message += ".";
+        }
+      }
+      System.out.println(message);
+    }
+  }
+
   public SparseGraph<NavigationGraphNode,NavigationGraphEdge> getGraph() {
     if (graph == null) {
       throw new EntityException("Unable to get graph: graph is uninitialized");
