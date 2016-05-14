@@ -17,11 +17,11 @@ public class GameWorld {
   public void init() {
     // Create the level
     Object[][] levelArguments = new Object[][] {
-      {}, // Transform null
       { 4, 4 }, // Level size of 4x4
       { 43200000L } // Set time to 12:00
     };
-    level = EntityFactory.createReflective(gameSystem, "LEVEL", levelArguments);
+    level = EntityFactory.createReflective(gameSystem, "LEVEL",
+        levelArguments);
     
     // Pick the first area from the level
     AreaComponent area = gameSystem.getLevelComponents().get(level.getID())
@@ -29,11 +29,11 @@ public class GameWorld {
     
     // Construct the player and place it in that area
     Object[][] playerArguments = new Object[][] {
-      { area },
-      {}
+      { area }, // Picked area
+      { 100 }, // Give character 100 health
+      {} // Player component arguments
     };
-    player = EntityFactory.createReflective(
-        gameSystem, "PLAYER",
+    player = EntityFactory.createReflective(gameSystem, "PLAYER",
         playerArguments);
   }
   

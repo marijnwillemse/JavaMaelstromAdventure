@@ -1,24 +1,30 @@
 [
   {
-    "id": "player",
+    "id": "area",
     "components":[
-      {"componentName":"maelstrom.entity.TransformComponent"},
-      {"componentName":"maelstrom.entity.PlayerComponent"}
+      {"componentName":"maelstrom.entity.AreaComponent"}
     ]
   },
   {
     "id": "level",
     "components":[
-      {"componentName":"maelstrom.entity.TransformComponent"},
       {"componentName":"maelstrom.entity.LevelComponent"},	
       {"componentName":"maelstrom.entity.TimeComponent"}
    ]
   },
   {
-    "id": "area",
+    "id": "player",
     "components":[
       {"componentName":"maelstrom.entity.TransformComponent"},
-      {"componentName":"maelstrom.entity.AreaComponent"}
+      {"componentName":"maelstrom.entity.CharacterComponent"},
+      {"componentName":"maelstrom.entity.PlayerComponent"}
+    ]
+  },
+  {
+    "id": "NPC",
+    "components":[
+      {"componentName":"maelstrom.entity.TransformComponent"},
+      {"componentName":"maelstrom.entity.CharacterComponent"}
     ]
   },
   {

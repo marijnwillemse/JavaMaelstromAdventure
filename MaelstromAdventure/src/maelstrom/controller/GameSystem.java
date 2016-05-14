@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import maelstrom.entity.AreaComponent;
 import maelstrom.entity.BaseComponent;
+import maelstrom.entity.CharacterComponent;
 import maelstrom.entity.DialogueComponent;
 import maelstrom.entity.GameEntity;
 import maelstrom.entity.LevelComponent;
@@ -26,6 +27,8 @@ public class GameSystem {
   // All components owned by entities are stored in seperate HashMaps
   private Map<UUID, AreaComponent> areaComponents =
       new HashMap<UUID, AreaComponent>();
+  private Map<UUID, CharacterComponent> characterComponents =
+      new HashMap<UUID, CharacterComponent>();
   private Map<UUID, DialogueComponent> dialogueComponents =
       new HashMap<UUID, DialogueComponent>();
   private Map<UUID, LevelComponent> levelComponents =
@@ -84,6 +87,10 @@ public class GameSystem {
       areaComponents.put(component.getOwner().getID(),
           (AreaComponent) component);
     }
+    if (component instanceof CharacterComponent) {
+      characterComponents.put(component.getOwner().getID(),
+          (CharacterComponent) component);
+    }
     if (component instanceof DialogueComponent) {
       dialogueComponents.put(component.getOwner().getID(),
           (DialogueComponent) component);
@@ -112,6 +119,10 @@ public class GameSystem {
       areaComponents.remove(component.getOwner().getID(),
           (AreaComponent) component);
     }
+    if (component instanceof CharacterComponent) {
+      characterComponents.remove(component.getOwner().getID(),
+          (CharacterComponent) component);
+    }
     if (component instanceof DialogueComponent) {
       dialogueComponents.remove(component.getOwner().getID(),
           (DialogueComponent) component);
@@ -138,6 +149,9 @@ public class GameSystem {
 
   public Map<UUID, AreaComponent> getAreaComponents() {
     return areaComponents;
+  }
+  public Map<UUID, CharacterComponent> getCharacterComponents() {
+    return characterComponents;
   }
   public Map<UUID, DialogueComponent> getDialogueComponents() {
     return dialogueComponents;

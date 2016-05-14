@@ -24,6 +24,9 @@ public class LevelComponent extends BaseComponent {
 
   @Override
   void init(Object[] arguments) {
+    if (arguments.length != 2) {
+      throw new IllegalArgumentException("Invalid amount of arguments given.");
+    }
     int width = (int) arguments[0];
     int height = (int) arguments[1];
 
@@ -34,9 +37,13 @@ public class LevelComponent extends BaseComponent {
         false);
     // Construct area entities for each node in the grid
     for (int i = 0; i < width * height; i++) {
-      GameEntity area = EntityFactory.createReflective(
-          gameSystem, "AREA",
-          new Object[2][0]);
+
+      Object[][] areaArguments = new Object[][] {
+        { } // Area component arguments
+      };
+      
+      GameEntity area = EntityFactory.createReflective( gameSystem, "AREA",
+          areaArguments);
       gameSystem.getAreaComponents().get(area.getID()).assignNode(
           graph.getNode(i));
     }
@@ -63,9 +70,6 @@ public class LevelComponent extends BaseComponent {
   }
 
   public SparseGraph<NavigationGraphNode,NavigationGraphEdge> getGraph() {
-    if (graph == null) {
-      throw new EntityException("Unable to get graph: graph is uninitialized");
-    }
     return graph;
   }
 }

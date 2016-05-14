@@ -18,9 +18,10 @@ public class TransformComponent extends BaseComponent {
     
   @Override
   void init(Object[] arguments) {
-    if (arguments.length > 0) {
-      location = (AreaComponent) arguments[0];
+    if (arguments.length != 1) {
+      throw new IllegalArgumentException("Invalid amount of arguments given.");
     }
+    setLocation((AreaComponent) arguments[0]);
   }
   
   public void update() {
@@ -28,6 +29,10 @@ public class TransformComponent extends BaseComponent {
   }
   
   public void setLocation(AreaComponent location) {
+    if (this.location != null) {
+      this.location.deregisterEntity(owner);
+    }
+    location.registerEntity(owner);
     this.location = location;
   }
   public AreaComponent getLocation() {

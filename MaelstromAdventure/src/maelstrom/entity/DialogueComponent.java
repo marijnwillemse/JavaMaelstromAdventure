@@ -30,7 +30,7 @@ public class DialogueComponent extends BaseComponent {
     if (arguments[1] instanceof ArrayList) {
       this.choices = (ArrayList<String>) arguments[1];
     } else {
-      new EntityException("Invalid argument for dialogue choices:"
+      throw new IllegalArgumentException("Invalid argument for dialogue choices:"
           + "ArrayList expected");
     }
   }

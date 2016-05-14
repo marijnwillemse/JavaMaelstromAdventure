@@ -1,6 +1,8 @@
 package maelstrom.entity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 import maelstrom.controller.GameSystem;
 import maelstrom.graph.NavigationGraphNode;
@@ -10,6 +12,7 @@ public class AreaComponent extends BaseComponent {
 
   private NavigationGraphNode node;
   private int windSpeed; // Based on the Beaufort scale
+  private ArrayList<UUID> entities = new ArrayList<UUID>();
 
   private static final HashMap<Integer, String> BEAUFORT_TAGS;
 
@@ -39,15 +42,31 @@ public class AreaComponent extends BaseComponent {
     init(arguments);
   }
 
-  public void describe() {
-    System.out.println(GameLocale.getString(BEAUFORT_TAGS.get(windSpeed)));
-  }
-
   @Override
   void init(Object[] arguments) {
     windSpeed = (int) Math.round(Math.random() * 12);
   }
+  
+  /* Every entity will register itself upon entry */
+  public void registerEntity(GameEntity entity) {
+    entities.add(entity.getID());
+  }
 
+  /* Every entity will deregister itself upon exit */
+  public void deregisterEntity(GameEntity entity) {
+    // Check at which index the entity is present
+    int entityIndex = entities.indexOf(entity.getID());
+    // Exit if entity does not exist in list
+    if (entityIndex == -1) { return; }
+    // Remove the entity from the list
+    entities.remove(entityIndex);
+  }
+
+
+  public void describe() {
+    System.out.println(GameLocale.getString(BEAUFORT_TAGS.get(windSpeed)));
+  }
+  
   public void assignNode(NavigationGraphNode node) {
     this.node = node;
     node.assignArea(this);

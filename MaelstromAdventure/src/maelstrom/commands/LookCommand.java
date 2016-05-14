@@ -1,6 +1,5 @@
 package maelstrom.commands;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 import maelstrom.controller.GameSystem;
