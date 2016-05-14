@@ -1,6 +1,7 @@
 package maelstrom.entity;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import maelstrom.controller.GameSystem;
 import maelstrom.graph.Direction;
@@ -8,6 +9,7 @@ import maelstrom.graph.GridGraphHelper;
 import maelstrom.graph.NavigationGraphEdge;
 import maelstrom.graph.NavigationGraphNode;
 import maelstrom.graph.SparseGraph;
+import maelstrom.math.RandomGenerator;
 
 public class LevelComponent extends BaseComponent {
 
@@ -42,10 +44,16 @@ public class LevelComponent extends BaseComponent {
         { } // Area component arguments
       };
       
-      GameEntity area = EntityFactory.createReflective( gameSystem, "AREA",
-          areaArguments);
-      gameSystem.getAreaComponents().get(area.getID()).assignNode(
+      UUID areaID = EntityFactory.createReflective( gameSystem, "AREA",
+          areaArguments).getID();
+      gameSystem.getAreaComponents().get(areaID).assignNode(
           graph.getNode(i));
+      
+      // Insert n enemies based on a Poisson-distribution
+      int n = RandomGenerator.getPoisson(1/2);
+      while (n > 0) {
+        gameSystem.getAreaComponents().get(areaID).spawnEntity();
+      }
     }
   }
 

@@ -47,6 +47,11 @@ public class AreaComponent extends BaseComponent {
     windSpeed = (int) Math.round(Math.random() * 12);
   }
   
+  public void spawnEntity() {
+    UUID entityID = NPCFactory.create(gameSystem, new Object[2][0]).getID();
+    gameSystem.getTransformComponents().get(entityID).setLocation(this);
+  }
+  
   /* Every entity will register itself upon entry */
   public void registerEntity(GameEntity entity) {
     entities.add(entity.getID());

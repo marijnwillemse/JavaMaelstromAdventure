@@ -21,7 +21,7 @@
     ]
   },
   {
-    "id": "NPC",
+    "id": "Character",
     "components":[
       {"componentName":"maelstrom.entity.TransformComponent"},
       {"componentName":"maelstrom.entity.CharacterComponent"}

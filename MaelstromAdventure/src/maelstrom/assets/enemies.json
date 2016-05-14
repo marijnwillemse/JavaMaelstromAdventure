@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Serpent",
+	"stamina":  80,
+	"strength": 100,
+	"defense":  80,
+	"agility":  130
+  },
+  {
+    "name": "Levathian",
+	"stamina":  120,
+	"strength": 120,
+	"defense":  80,
+	"agility":  70
+  },
+  {
+    "name": "Kraken",
+	"stamina":  100,
+	"strength": 130,
+	"defense":  100,
+	"agility":  60
+  },
+  {
+    "name": "Squid",
+	"stamina":  80,
+	"strength": 100,
+	"defense":  80,
+	"agility":  50
+  },
+  {
+    "name": "Anglerfish",
+	"stamina":  100,
+	"strength": 80,
+	"defense":  130,
+	"agility":  100
+  }
+]
