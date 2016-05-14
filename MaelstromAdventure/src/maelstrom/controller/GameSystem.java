@@ -1,5 +1,6 @@
 package maelstrom.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -11,6 +12,7 @@ import maelstrom.entity.GameEntity;
 import maelstrom.entity.LevelComponent;
 import maelstrom.entity.PlayerComponent;
 import maelstrom.entity.TransformComponent;
+import maelstrom.utilities.GameLocale;
 
 public class GameSystem {
 
@@ -36,7 +38,14 @@ public class GameSystem {
   private GameWorld gameWorld = new GameWorld(this);
   private InterpreterSystem interpreterSystem = new InterpreterSystem();
 
-  public GameSystem() {
+  public GameSystem(String language) {
+    try {
+      GameLocale.load(language);
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.out.println("Language " + language + " not found in assets.");
+      System.exit(0);
+    }
     entities = new HashMap<UUID, GameEntity>();
   }
 

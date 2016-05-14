@@ -12,25 +12,26 @@ import maelstrom.graph.Direction;
 import maelstrom.graph.GridGraphHelper;
 import maelstrom.graph.NavigationGraphNode;
 import maelstrom.math.Vector2D;
+import maelstrom.utilities.GameLocale;
 
 public class LookCommand extends BaseCommand {
   
   private static final HashMap<Integer, String> areaDescriptions;
   static {
     areaDescriptions = new HashMap<Integer, String>();
-    areaDescriptions.put(0, "The sea is clear as a mirror.");
-    areaDescriptions.put(1, "Slight ripples are visible in the sea.");
-    areaDescriptions.put(2, "A light breeze causes the sails to rustle.");
-    areaDescriptions.put(3, "There is a steady breeze.");
-    areaDescriptions.put(4, "A moderate breeze is revealing whitecaps.");
-    areaDescriptions.put(5, "A fresh wind is blowing through the sails.");
-    areaDescriptions.put(6, "You can hear a howling whistle in the strong wind.");
-    areaDescriptions.put(7, "Streaks of white foam appear in the stormy wind.");
-    areaDescriptions.put(8, "The waves in the storm make your ship rock back and forth.");
-    areaDescriptions.put(9, "A blinding spray drives in the raging storm.");
-    areaDescriptions.put(10, "Your ship is barely holding the fury of the storm.");
-    areaDescriptions.put(11, "The sea is heaving in mountainous waves from the blasting hurricane.");
-    areaDescriptions.put(12, "You are in the most terrible hurricane ever to come out of the heavens.");
+    areaDescriptions.put(0, "TXT_KEY_BEAUFORT_DESCRIPTION_0");
+    areaDescriptions.put(1, "TXT_KEY_BEAUFORT_DESCRIPTION_1");
+    areaDescriptions.put(2, "TXT_KEY_BEAUFORT_DESCRIPTION_2");
+    areaDescriptions.put(3, "TXT_KEY_BEAUFORT_DESCRIPTION_3");
+    areaDescriptions.put(4, "TXT_KEY_BEAUFORT_DESCRIPTION_4");
+    areaDescriptions.put(5, "TXT_KEY_BEAUFORT_DESCRIPTION_5");
+    areaDescriptions.put(6, "TXT_KEY_BEAUFORT_DESCRIPTION_6");
+    areaDescriptions.put(7, "TXT_KEY_BEAUFORT_DESCRIPTION_7");
+    areaDescriptions.put(8, "TXT_KEY_BEAUFORT_DESCRIPTION_8");
+    areaDescriptions.put(9, "TXT_KEY_BEAUFORT_DESCRIPTION_9");
+    areaDescriptions.put(10, "TXT_KEY_BEAUFORT_DESCRIPTION_10");
+    areaDescriptions.put(11, "TXT_KEY_BEAUFORT_DESCRIPTION_11");
+    areaDescriptions.put(12, "TXT_KEY_BEAUFORT_DESCRIPTION_12");
   }
   
 
@@ -65,7 +66,8 @@ public class LookCommand extends BaseCommand {
   private void describeArea(Vector2D location, AreaComponent area) {
     System.out.println("You are at sea at position {" + location.getX() +
         "; " + location.getY() + "}.");
-    System.out.println(areaDescriptions.get(area.getWindSpeed()));
+    System.out.println(GameLocale.getString(
+        areaDescriptions.get(area.getWindSpeed())));
   }
   
   private void describeDirections(LevelComponent level, int nodeIndex) {

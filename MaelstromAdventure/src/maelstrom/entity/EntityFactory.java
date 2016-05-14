@@ -38,7 +38,7 @@ public final class EntityFactory {
 
     InputStream in;
     try {
-      in = new FileInputStream("src/maelstrom/resources/entity_info.json");
+      in = new FileInputStream("src/maelstrom/assets/entity_info.json");
       // Use the parser object to read entity info into designated info objects
       List<EntityInfo> entityInfoList = parser.readEntityInfoStream(in);
 
