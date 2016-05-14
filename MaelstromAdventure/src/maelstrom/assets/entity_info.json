@@ -10,14 +10,21 @@
     "id": "level",
     "components":[
       {"componentName":"maelstrom.entity.TransformComponent"},
-      {"componentName":"maelstrom.entity.LevelComponent"}
-    ]
+      {"componentName":"maelstrom.entity.LevelComponent"},	
+      {"componentName":"maelstrom.entity.TimeComponent"}
+   ]
   },
   {
     "id": "area",
     "components":[
       {"componentName":"maelstrom.entity.TransformComponent"},
       {"componentName":"maelstrom.entity.AreaComponent"}
+    ]
+  },
+  {
+    "id": "timer",
+    "components":[
+      {"componentName":"maelstrom.entity.TimeComponent"}
     ]
   }
 ]

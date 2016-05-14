@@ -20,7 +20,7 @@ public class LevelComponent extends BaseComponent {
   }
   
   @Override
-  public void init(Object[] arguments) {
+  void init(Object[] arguments) {
     int width = (int) arguments[0];
     int height = (int) arguments[1];
     

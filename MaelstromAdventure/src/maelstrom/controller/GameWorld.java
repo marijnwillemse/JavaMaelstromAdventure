@@ -15,17 +15,13 @@ public class GameWorld {
   }
   
   public void init() {
-    // Construct the level
+    // Create the level
     Object[][] levelArguments = new Object[][] {
-      {},
-      { 4, 4 }
+      {}, // Transform null
+      { 4, 4 }, // Level size of 4x4
+      { 43200000L } // Set time to 12:00
     };
-//    level = EntityFactory.create(
-//        gameSystem, EntityFactory.Type.LEVEL,
-//        levelArguments);
-    level = EntityFactory.createReflective(
-        gameSystem, "LEVEL",
-        levelArguments);
+    level = EntityFactory.createReflective(gameSystem, "LEVEL", levelArguments);
     
     // Pick the first area from the level
     AreaComponent area = gameSystem.getLevelComponents().get(level.getID())

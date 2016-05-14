@@ -1,5 +1,6 @@
 package maelstrom.commands;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -7,6 +8,7 @@ import java.util.UUID;
 import maelstrom.controller.GameSystem;
 import maelstrom.entity.AreaComponent;
 import maelstrom.entity.LevelComponent;
+import maelstrom.entity.TimeComponent;
 import maelstrom.entity.TransformComponent;
 import maelstrom.graph.Direction;
 import maelstrom.graph.GridGraphHelper;
@@ -16,22 +18,23 @@ import maelstrom.utilities.GameLocale;
 
 public class LookCommand extends BaseCommand {
   
-  private static final HashMap<Integer, String> areaDescriptions;
+  private static HashMap<Integer, String> beaufortTags;
+
   static {
-    areaDescriptions = new HashMap<Integer, String>();
-    areaDescriptions.put(0, "TXT_KEY_BEAUFORT_DESCRIPTION_0");
-    areaDescriptions.put(1, "TXT_KEY_BEAUFORT_DESCRIPTION_1");
-    areaDescriptions.put(2, "TXT_KEY_BEAUFORT_DESCRIPTION_2");
-    areaDescriptions.put(3, "TXT_KEY_BEAUFORT_DESCRIPTION_3");
-    areaDescriptions.put(4, "TXT_KEY_BEAUFORT_DESCRIPTION_4");
-    areaDescriptions.put(5, "TXT_KEY_BEAUFORT_DESCRIPTION_5");
-    areaDescriptions.put(6, "TXT_KEY_BEAUFORT_DESCRIPTION_6");
-    areaDescriptions.put(7, "TXT_KEY_BEAUFORT_DESCRIPTION_7");
-    areaDescriptions.put(8, "TXT_KEY_BEAUFORT_DESCRIPTION_8");
-    areaDescriptions.put(9, "TXT_KEY_BEAUFORT_DESCRIPTION_9");
-    areaDescriptions.put(10, "TXT_KEY_BEAUFORT_DESCRIPTION_10");
-    areaDescriptions.put(11, "TXT_KEY_BEAUFORT_DESCRIPTION_11");
-    areaDescriptions.put(12, "TXT_KEY_BEAUFORT_DESCRIPTION_12");
+    beaufortTags = new HashMap<Integer, String>();
+    beaufortTags.put(0, "TXT_KEY_BEAUFORT_DESCRIPTION_0");
+    beaufortTags.put(1, "TXT_KEY_BEAUFORT_DESCRIPTION_1");
+    beaufortTags.put(2, "TXT_KEY_BEAUFORT_DESCRIPTION_2");
+    beaufortTags.put(3, "TXT_KEY_BEAUFORT_DESCRIPTION_3");
+    beaufortTags.put(4, "TXT_KEY_BEAUFORT_DESCRIPTION_4");
+    beaufortTags.put(5, "TXT_KEY_BEAUFORT_DESCRIPTION_5");
+    beaufortTags.put(6, "TXT_KEY_BEAUFORT_DESCRIPTION_6");
+    beaufortTags.put(7, "TXT_KEY_BEAUFORT_DESCRIPTION_7");
+    beaufortTags.put(8, "TXT_KEY_BEAUFORT_DESCRIPTION_8");
+    beaufortTags.put(9, "TXT_KEY_BEAUFORT_DESCRIPTION_9");
+    beaufortTags.put(10, "TXT_KEY_BEAUFORT_DESCRIPTION_10");
+    beaufortTags.put(11, "TXT_KEY_BEAUFORT_DESCRIPTION_11");
+    beaufortTags.put(12, "TXT_KEY_BEAUFORT_DESCRIPTION_12");
   }
   
 
@@ -47,11 +50,17 @@ public class LookCommand extends BaseCommand {
     UUID levelID = gameSystem.getGameWorld().getLevel().getID();
     LevelComponent level = gameSystem.getLevelComponents().get(levelID);
     
+    TimeComponent timeComponent = gameSystem.getTimeComponents()
+        .get(levelID);
+    
     // Retrieve the accompanying node
     NavigationGraphNode node = transform.getLocation().getNode();
 
-    AreaComponent area = gameSystem.getAreaComponents()
-        .get(node.getArea().getOwner().getID());
+    // Retrieve the area ID
+    UUID areaID = node.getArea().getOwner().getID();
+    
+    AreaComponent areaComponent = gameSystem.getAreaComponents()
+        .get(areaID);
 
     // Save the node index
     int nodeIndex = node.getIndex();
@@ -59,7 +68,8 @@ public class LookCommand extends BaseCommand {
     // Retrieve the position of the node
     Vector2D location = node.getPosition();
     
-    describeArea(location, area);
+    describeArea(location, areaComponent);
+    describeTime(timeComponent);
     describeDirections(level, nodeIndex);
   }
   
@@ -67,7 +77,29 @@ public class LookCommand extends BaseCommand {
     System.out.println("You are at sea at position {" + location.getX() +
         "; " + location.getY() + "}.");
     System.out.println(GameLocale.getString(
-        areaDescriptions.get(area.getWindSpeed())));
+        beaufortTags.get(area.getWindSpeed())));
+  }
+  
+  private void describeTime(TimeComponent timeComponent) {
+    long time = timeComponent.getTimeInMilliseconds();
+    long dayTime = time % (86400000);
+    int hour = Math.round(dayTime / 3600000);
+    if (hour > 5 && hour < 12) {
+      // Morning
+      System.out.println(GameLocale.getString("TXT_KEY_TIME_DESCRIPTION_MORNING"));
+    } else if (hour < 13) {
+      // Noon
+      System.out.println(GameLocale.getString("TXT_KEY_TIME_DESCRIPTION_NOON"));
+    } else if (hour < 18) {
+      // Afternoon
+      System.out.println(GameLocale.getString("TXT_KEY_TIME_DESCRIPTION_AFTERNOON"));
+    } else if (hour < 20) {
+      // Evening
+      System.out.println(GameLocale.getString("TXT_KEY_TIME_DESCRIPTION_EVENING"));
+    } else {
+      // Night
+      System.out.println(GameLocale.getString("TXT_KEY_TIME_DESCRIPTION_NIGHT"));
+    }
   }
   
   private void describeDirections(LevelComponent level, int nodeIndex) {
