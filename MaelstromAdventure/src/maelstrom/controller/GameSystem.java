@@ -69,7 +69,7 @@ public class GameSystem {
     } while (playing);
   }
 
-  public GameEntity getEntity(int id) {
+  public GameEntity getEntity(UUID id) {
     return entities.get(id);
   }
 
