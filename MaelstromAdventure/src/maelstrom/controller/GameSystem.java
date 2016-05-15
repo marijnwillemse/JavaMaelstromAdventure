@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import maelstrom.commands.LookCommand;
 import maelstrom.entity.AreaComponent;
 import maelstrom.entity.BaseComponent;
 import maelstrom.entity.CharacterComponent;
@@ -60,6 +61,7 @@ public class GameSystem {
     gameWorld.init();
     playing = true;
     System.out.print("Welcome to Maelstrom Adventure.\n\n");
+    new LookCommand().execute(this, null);
     do {
       // Process commands
       interpreterSystem.update(this);
