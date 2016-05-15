@@ -5,6 +5,7 @@ import maelstrom.controller.GameSystem;
 public class CharacterComponent extends BaseComponent {
 
   private int health;
+  private boolean hostile;
 
   public CharacterComponent(GameEntity owner, GameSystem gameSystem,
       Object[] arguments) {
@@ -17,13 +18,18 @@ public class CharacterComponent extends BaseComponent {
 
   @Override
   void init(Object[] arguments) {
-    if (arguments.length != 1) {
+    if (arguments.length != 2) {
       throw new IllegalArgumentException("Invalid amount of arguments given.");
     }
     health = (int) arguments[0];
+    hostile = (boolean) arguments[1];
   }
   
   public int getHealth() {
     return health;
+  }
+  
+  public boolean isHostile() {
+    return hostile;
   }
 }

@@ -18,10 +18,13 @@ public class TransformComponent extends BaseComponent {
     
   @Override
   void init(Object[] arguments) {
-    if (arguments.length != 1) {
+    if (arguments.length == 0) {
+      ;
+    } else if (arguments.length == 1) {
+      setLocation((AreaComponent) arguments[0]);
+    } else {
       throw new IllegalArgumentException("Invalid amount of arguments given.");
     }
-    setLocation((AreaComponent) arguments[0]);
   }
   
   public void update() {

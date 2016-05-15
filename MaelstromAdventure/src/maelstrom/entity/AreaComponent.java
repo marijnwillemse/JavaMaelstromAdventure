@@ -12,6 +12,7 @@ public class AreaComponent extends BaseComponent {
 
   private NavigationGraphNode node;
   private int windSpeed; // Based on the Beaufort scale
+  private int difficulty; // Determines the amount of trouble in the area
   private ArrayList<UUID> entities = new ArrayList<UUID>();
 
   private static final HashMap<Integer, String> BEAUFORT_TAGS;
@@ -48,8 +49,7 @@ public class AreaComponent extends BaseComponent {
   }
   
   public void spawnEntity() {
-    UUID entityID = NPCFactory.create(gameSystem, new Object[2][0]).getID();
-    gameSystem.getTransformComponents().get(entityID).setLocation(this);
+    CharacterFactory.createMonster(gameSystem, this, difficulty);
   }
   
   /* Every entity will register itself upon entry */
@@ -68,8 +68,14 @@ public class AreaComponent extends BaseComponent {
   }
 
 
-  public void describe() {
+  public void describeWeather() {
     System.out.println(GameLocale.getString(BEAUFORT_TAGS.get(windSpeed)));
+  }
+  
+  public void describeEntities() {
+    for (UUID entity : entities) {
+//      gameSystem.get
+    }
   }
   
   public void assignNode(NavigationGraphNode node) {

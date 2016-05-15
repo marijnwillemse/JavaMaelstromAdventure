@@ -5,6 +5,7 @@ import java.util.HashMap;
 import maelstrom.commands.BaseCommand;
 import maelstrom.commands.GoCommand;
 import maelstrom.commands.HelpCommand;
+import maelstrom.commands.InspectCommand;
 import maelstrom.commands.LookCommand;
 import maelstrom.commands.StopCommand;
 
@@ -15,27 +16,28 @@ import java.io.InputStreamReader;
 public class InterpreterSystem {
 
   private static HashMap<String, BaseCommand> commands;
-  
   private static HashMap<String, String> synonyms;
   
-  public InterpreterSystem() {
+  static {
     commands = new HashMap<String, BaseCommand>();
     commands.put("GO", new GoCommand());
     commands.put("HELP", new HelpCommand());
+    commands.put("INSPECT", new InspectCommand());
     commands.put("LOOK", new LookCommand());
     commands.put("STOP", new StopCommand());
     
     synonyms = new HashMap<String, String>();
+    synonyms.put("?",       "HELP");
+    synonyms.put("EXAMINE", "INSPECT");
+    synonyms.put("INSPECT", "LOOK");
+    synonyms.put("VIEW",    "LOOK");
+    synonyms.put("ESCAPE",  "STOP");
+    synonyms.put("EXIT",    "STOP");
     synonyms.put("MOVE",    "GO");
     synonyms.put("WALK",    "GO");
-    synonyms.put("?",       "HELP");
-    synonyms.put("VIEW",    "LOOK");
-    synonyms.put("EXAMINE", "LOOK");
-    synonyms.put("INSPECT", "LOOK");
-    synonyms.put("EXIT",    "STOP");
-    synonyms.put("ESCAPE",  "STOP");
   }
   
+  public InterpreterSystem() {}
   
   public void update(GameSystem gameSystem) {
     String input = read();

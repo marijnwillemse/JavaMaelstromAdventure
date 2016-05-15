@@ -62,6 +62,7 @@ public class GameSystem {
     playing = true;
     System.out.print("Welcome to Maelstrom Adventure.\n\n");
     new LookCommand().execute(this, null);
+    System.out.println();
     do {
       // Process commands
       interpreterSystem.update(this);
