@@ -50,9 +50,10 @@ public class LevelComponent extends BaseComponent {
           graph.getNode(i));
       
       // Insert n enemies based on a Poisson-distribution
-      int n = RandomGenerator.getPoisson(1/2);
+      int n = RandomGenerator.getPoisson(1);
       while (n > 0) {
         gameSystem.getAreaComponents().get(areaID).spawnEntity();
+        n--;
       }
     }
   }

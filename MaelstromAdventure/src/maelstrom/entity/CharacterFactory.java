@@ -11,7 +11,7 @@ public class CharacterFactory {
       { areaComponent },
       { 100, true, "Monster" } // Give character 100 health and set to hostile
     };
-    return EntityFactory.createReflective(gameSystem, "NPC", argumentsArray);
+    return EntityFactory.createReflective(gameSystem, "Character", argumentsArray);
   }
 
   public static GameEntity createPlayer(GameSystem gameSystem,
