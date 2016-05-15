@@ -24,11 +24,11 @@ public class InspectCommand extends BaseCommand {
 
     // Populate commands map with lambda methods
     commands.put("SEA", () -> inspectSea());
+    commands.put("AREA", () -> new LookCommand().execute(gameSystem, null));
 
     // Populate synonyms map
     synonyms.put("OCEAN", "SEA");
   }
-
 
   @Override
   public void execute(GameSystem gameSystem, String[] words) {
