@@ -48,8 +48,8 @@ public class AreaComponent extends BaseComponent {
     windSpeed = (int) Math.round(Math.random() * 12);
   }
   
-  public void spawnEntity() {
-    CharacterFactory.createMonster(gameSystem, this, difficulty);
+  public void spawnEnemy() {
+    CharacterFactory.createRandomEnemy(gameSystem, this, difficulty);
   }
   
   /* Every entity will register itself upon entry */

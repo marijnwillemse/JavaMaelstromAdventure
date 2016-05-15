@@ -33,7 +33,7 @@ public class EntityInfoParser {
   }
 
   private EntityInfo readEntity(JsonReader reader) throws IOException {
-    String id = null;
+    String id = "";
     List<String> componentNames = null;
 
     reader.beginObject();

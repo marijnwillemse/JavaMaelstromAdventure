@@ -3,8 +3,8 @@ package maelstrom.utilities;
 import java.util.List;
 
 public class EntityInfo {
-  private String id = null;
-  private List<String> componentNames = null;
+  private String id;
+  private List<String> componentNames;
 
   public EntityInfo(String id, List<String> componentNames) {
     this.id = id;

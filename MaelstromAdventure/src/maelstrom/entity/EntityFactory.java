@@ -25,13 +25,12 @@ import maelstrom.utilities.EntityInfoParser;
 public final class EntityFactory {
 
   // Mapping of entity types to a list of classnames of its required components
-  private static HashMap<String, List<String>> entityBlueprints =
-      new HashMap<String, List<String>>();
+  private static HashMap<String, List<String>> entityInfoMap = new HashMap<>();
 
   private EntityFactory() {}
 
   // Because this object's constructor will never be executed, a simple static
-  // function adopts over the initialization
+  // function adopts the initialization
   static {
     /* Draft entity blueprints with the data from descriptive JSON file */
     EntityInfoParser parser = new EntityInfoParser();
@@ -44,11 +43,11 @@ public final class EntityFactory {
 
       // Map the information into the blueprint list
       for (EntityInfo i : entityInfoList) {
-        entityBlueprints.put(i.getId(), i.getComponentNames());
+        entityInfoMap.put(i.getId(), i.getComponentNames());
       }
     } catch (IOException e) {
       e.printStackTrace();
-      System.out.println("Unable to read entity blueprint information");
+      System.out.println("Unable to read entity information from JSON file");
     }
   }
 
@@ -62,7 +61,7 @@ public final class EntityFactory {
     // Empty game entity object
     GameEntity entity = new GameEntity();
     // Get list of required components
-    List<String> entityComponents = entityBlueprints.get(name.toUpperCase());
+    List<String> entityComponents = entityInfoMap.get(name.toUpperCase());
 
     // Check if the amount of argument sets is equal to the required components.
     if (argumentsArray.length != entityComponents.size()) {
