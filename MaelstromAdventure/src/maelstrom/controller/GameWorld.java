@@ -1,7 +1,5 @@
 package maelstrom.controller;
 
-import java.util.UUID;
-
 import maelstrom.entity.AreaComponent;
 import maelstrom.entity.CharacterFactory;
 import maelstrom.entity.EntityFactory;

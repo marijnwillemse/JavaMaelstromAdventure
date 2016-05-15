@@ -9,6 +9,7 @@ public class GameEntity {
   private ArrayList<BaseComponent> components;
   
   // Most objects have names and can be referenced by them.
+  // Note that this is not a valid identifier for the entity type
   private String name = "";
   
   public GameEntity() {
