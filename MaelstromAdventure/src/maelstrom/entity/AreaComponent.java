@@ -2,7 +2,6 @@ package maelstrom.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.UUID;
 
 import maelstrom.controller.GameSystem;
 import maelstrom.graph.NavigationGraphNode;
@@ -13,7 +12,7 @@ public class AreaComponent extends BaseComponent {
   private NavigationGraphNode node;
   private int windSpeed; // Based on the Beaufort scale
   private int difficulty; // Determines the amount of trouble in the area
-  private ArrayList<UUID> entities = new ArrayList<UUID>();
+  private ArrayList<GameEntity> entities = new ArrayList<>();
 
   private static final HashMap<Integer, String> BEAUFORT_TAGS;
 
@@ -54,7 +53,7 @@ public class AreaComponent extends BaseComponent {
   
   /* Every entity will register itself upon entry */
   public void registerEntity(GameEntity entity) {
-    entities.add(entity.getID());
+    entities.add(entity);
   }
 
   /* Every entity will deregister itself upon exit */
@@ -68,14 +67,13 @@ public class AreaComponent extends BaseComponent {
   }
 
 
-  public void describeWeather() {
+  public void printWeatherDescription() {
     System.out.println(GameLocale.getString(BEAUFORT_TAGS.get(windSpeed)));
   }
   
-  public void describeEntities() {
-    for (UUID entity : entities) {
-      System.out.println("There is a " + 
-          gameSystem.getEntity(entity).getName());
+  public void printEntityNames() {
+    for (GameEntity entity : entities) {
+      System.out.println("There is a " + entity.getName());
     }
   }
   
@@ -90,6 +88,10 @@ public class AreaComponent extends BaseComponent {
 
   public int getWindSpeed() {
     return windSpeed;
+  }
+
+  public ArrayList<GameEntity> getEntities() {
+    return entities;
   }
 
 }

@@ -38,9 +38,9 @@ public class LookCommand extends BaseCommand {
     // Save the node index
     int nodeIndex = node.getIndex();
     
-    timeComponent.describe();
-    areaComponent.describeWeather();
-    areaComponent.describeEntities();
+    timeComponent.printTime();
+    areaComponent.printWeatherDescription();
+    areaComponent.printEntityNames();
     level.describeAvailableDirections(nodeIndex);
   }
 }

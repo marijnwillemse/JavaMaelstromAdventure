@@ -1,9 +1,13 @@
 package maelstrom.controller;
 
+import java.util.UUID;
+
 import maelstrom.entity.AreaComponent;
 import maelstrom.entity.CharacterFactory;
 import maelstrom.entity.EntityFactory;
 import maelstrom.entity.GameEntity;
+import maelstrom.entity.TransformComponent;
+import maelstrom.graph.NavigationGraphNode;
 
 public class GameWorld {
 
@@ -34,6 +38,16 @@ public class GameWorld {
 
   public GameEntity getPlayer() {
     return player;
+  }
+  
+  public GameEntity getPlayerArea() {
+    // Retrieve the player's transform component
+    TransformComponent transform = gameSystem.getTransformComponents()
+        .get(player.getID());
+    
+    // Retrieve the accompanying node and the connected area
+    NavigationGraphNode node = transform.getLocation().getNode();
+    return node.getArea().getOwner();
   }
 
   public GameEntity getLevel() {

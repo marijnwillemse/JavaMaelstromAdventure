@@ -17,4 +17,7 @@ public abstract class BaseComponent {
   }
   
   abstract void init(Object[] arguments);
+
+  // Empty method. Can be overridden if a component should be made describable.
+  public boolean getDescription() { return false; }
 }

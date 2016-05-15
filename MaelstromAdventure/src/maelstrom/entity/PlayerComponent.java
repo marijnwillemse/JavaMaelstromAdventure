@@ -15,4 +15,9 @@ public class PlayerComponent extends BaseComponent {
   @Override
   void init(Object[] arguments) {    
   }
+  
+  public boolean getDescription() {
+    System.out.println("A captain never speaks for himself.");
+    return true;
+  }
 }

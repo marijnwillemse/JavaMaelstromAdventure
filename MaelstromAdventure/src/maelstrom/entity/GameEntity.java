@@ -9,7 +9,7 @@ public class GameEntity {
   private ArrayList<BaseComponent> components;
   
   // Most objects have names and can be referenced by them.
-  private String name;
+  private String name = "";
   
   public GameEntity() {
     id = UUID.randomUUID();
@@ -29,6 +29,23 @@ public class GameEntity {
   }
   
   public String getName() {
+    if (name.equals("")) {
+      return "Unset";
+    }
     return name;
+  }
+  
+  /**
+   * Calls describe method on all components.
+   * Will return false if no descriptions have been made.
+   */
+  public boolean describeComponents() {
+    boolean isDescribable = false;
+    for (BaseComponent component : components) {
+      if (component.getDescription()) {
+        isDescribable = true;
+      }
+    }
+    return isDescribable;
   }
 }

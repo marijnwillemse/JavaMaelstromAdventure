@@ -41,7 +41,7 @@ public class EnemyInfoParser {
     while (reader.hasNext()) {
       String readerName = reader.nextName();
       if (readerName.equals("name")) {
-        name = reader.nextString().toUpperCase();
+        name = reader.nextString();
       } else if (readerName.equals("stamina")) {
         stamina = reader.nextInt();
       } else if (readerName.equals("strength")) {

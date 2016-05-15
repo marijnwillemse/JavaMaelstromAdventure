@@ -6,7 +6,7 @@ import maelstrom.controller.GameSystem;
 import maelstrom.utilities.GameLocale;
 
 public class TimeComponent extends BaseComponent {
-  
+
   private Time time;
 
   public TimeComponent(GameEntity owner, GameSystem gameSystem,
@@ -14,7 +14,7 @@ public class TimeComponent extends BaseComponent {
     super(owner, gameSystem);
     owner.addComponent(this);
     gameSystem.registerComponent(this);
-    
+
     init(arguments);
   }
 
@@ -30,8 +30,8 @@ public class TimeComponent extends BaseComponent {
       throw new IllegalArgumentException("Invalid argument count.");
     }
   }
-  
-  public void describe() {
+
+  public void printTime() {    
     // The hour of day is required in order to describe the time of day.
     long milliseconds = time.getTime();
     long dayTime = milliseconds % (86400000);
@@ -58,7 +58,7 @@ public class TimeComponent extends BaseComponent {
   public Time getTime() {
     return time;
   }
-  
+
   public long getTimeInMilliseconds() {
     return time.getTime();
   }

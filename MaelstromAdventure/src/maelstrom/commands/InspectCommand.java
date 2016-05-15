@@ -1,14 +1,12 @@
 package maelstrom.commands;
 
+import java.util.List;
 import java.util.HashMap;
 import java.util.UUID;
 
 import maelstrom.controller.GameSystem;
 import maelstrom.entity.AreaComponent;
-import maelstrom.entity.LevelComponent;
-import maelstrom.entity.TimeComponent;
-import maelstrom.entity.TransformComponent;
-import maelstrom.graph.NavigationGraphNode;
+import maelstrom.entity.GameEntity;
 
 public class InspectCommand extends BaseCommand {
 
@@ -47,8 +45,18 @@ public class InspectCommand extends BaseCommand {
     String subject = words[1].toUpperCase();
 
     // Compare subject with NPC's in player area
-    // Get NPC names
-    ;
+    List<GameEntity> entityList = getEntityList(gameSystem);
+    
+    for (GameEntity entity : entityList) {
+      if (entity.getName().toUpperCase().equals(subject)) {
+        boolean described = entity.describeComponents();
+        if (described == false) {
+          System.out.println("No description is available for "
+              + entity.getName());
+        }
+        return;
+      }
+    }
 
     // Compare subject with environment elements
     if (commands.containsKey(subject)) {
@@ -62,20 +70,18 @@ public class InspectCommand extends BaseCommand {
     }
   }
 
-  public void inspectSea() {
-    // Retrieve the player ID
-    UUID playerID = gameSystem.getGameWorld().getPlayer().getID();
-    TransformComponent transform = gameSystem.getTransformComponents()
-        .get(playerID);
-    
-    // Retrieve the accompanying node
-    NavigationGraphNode node = transform.getLocation().getNode();
-    
-    // Retrieve the area ID
-    UUID areaID = node.getArea().getOwner().getID();
+  private List<GameEntity> getEntityList(GameSystem gameSystem) {
+    UUID areaID = gameSystem.getGameWorld().getPlayerArea().getID();
     AreaComponent areaComponent = gameSystem.getAreaComponents()
         .get(areaID);
-    
-    areaComponent.describeWeather();
+    return areaComponent.getEntities();
+  }
+
+
+  public void inspectSea() {
+    UUID areaID = gameSystem.getGameWorld().getPlayerArea().getID();
+    AreaComponent areaComponent = gameSystem.getAreaComponents()
+        .get(areaID);
+    areaComponent.printWeatherDescription();
   }
 }
