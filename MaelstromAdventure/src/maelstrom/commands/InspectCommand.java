@@ -34,7 +34,7 @@ public class InspectCommand extends BaseCommand {
   public void execute(GameSystem gameSystem, String[] words) {
 
     // Update game system field
-    // This is a cheap solution for now
+    // This is a rather cheap solution for memorizing the parameter
     this.gameSystem = gameSystem;
 
     // Verify declaration of subject
@@ -44,19 +44,7 @@ public class InspectCommand extends BaseCommand {
     }
     String subject = words[1].toUpperCase();
 
-    // Compare subject with NPC's in player area
-    List<GameEntity> entityList = getEntityList(gameSystem);
-    
-    for (GameEntity entity : entityList) {
-      if (entity.getName().toUpperCase().equals(subject)) {
-        boolean described = entity.describeComponents();
-        if (described == false) {
-          System.out.println("No description is available for "
-              + entity.getName());
-        }
-        return;
-      }
-    }
+    if (matchWithEntities(subject) == true) { return; }
 
     // Compare subject with environment elements
     if (commands.containsKey(subject)) {
@@ -68,6 +56,23 @@ public class InspectCommand extends BaseCommand {
     } else {
       System.out.println("No such thing is around here.");
     }
+  }
+
+  private boolean matchWithEntities(String subject) {
+    // Compare subject with NPC's in player area
+    List<GameEntity> entityList = getEntityList(gameSystem);
+    
+    for (GameEntity entity : entityList) {
+      if (entity.getName().toUpperCase().equals(subject)) {
+        boolean described = entity.describeComponents();
+        if (described == false) {
+          System.out.println("No description is available for "
+              + entity.getName());
+        }
+        return true;
+      }
+    }
+    return false;
   }
 
   private List<GameEntity> getEntityList(GameSystem gameSystem) {
