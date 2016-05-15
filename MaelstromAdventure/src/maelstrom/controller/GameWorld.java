@@ -17,7 +17,7 @@ public class GameWorld {
 
   public void init() {
     // Create level with dimensions 4 by 4 and time 12:00
-    createLevel(4, 4, 43200000L);
+    level = createLevel(4, 4, 43200000L);
 
     // Pick the first area from the level
     AreaComponent area = gameSystem.getLevelComponents().get(level.getID())

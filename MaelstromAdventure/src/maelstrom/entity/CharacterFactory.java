@@ -9,7 +9,7 @@ public class CharacterFactory {
 
     Object[][] argumentsArray = new Object[][] {
       { areaComponent },
-      { 100, true } // Give character 100 health and set to hostile
+      { 100, true, "Monster" } // Give character 100 health and set to hostile
     };
     return EntityFactory.createReflective(gameSystem, "NPC", argumentsArray);
   }
@@ -18,7 +18,7 @@ public class CharacterFactory {
       AreaComponent areaComponent) {
     Object[][] playerArguments = new Object[][] {
       { areaComponent },
-      { 100, false }, // Give character 100 health and set to friendly
+      { 100, false, "Player" }, // Give character 100 health and set to friendly
       {} // Player component arguments
     };
     return EntityFactory.createReflective(gameSystem, "PLAYER",

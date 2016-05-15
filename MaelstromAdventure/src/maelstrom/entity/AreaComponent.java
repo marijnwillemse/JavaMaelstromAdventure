@@ -74,7 +74,8 @@ public class AreaComponent extends BaseComponent {
   
   public void describeEntities() {
     for (UUID entity : entities) {
-//      gameSystem.get
+      System.out.println("There is a " + 
+          gameSystem.getCharacterComponents().get(entity).getName());
     }
   }
   
