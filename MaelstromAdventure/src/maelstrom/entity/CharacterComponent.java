@@ -6,7 +6,7 @@ public class CharacterComponent extends BaseComponent {
 
   private int health;
   private boolean hostile;
-
+  
   public CharacterComponent(GameEntity owner, GameSystem gameSystem,
       Object[] arguments) {
     super(owner, gameSystem);

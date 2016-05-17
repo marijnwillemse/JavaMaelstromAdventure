@@ -8,31 +8,35 @@ import java.util.List;
 
 import com.google.gson.stream.JsonReader;
 
-public class EnemyInfoParser {
+public class CharacterInfoParser {
 
-  public List<EnemyInfo> readEnemyInfoStream(InputStream in)
+  public <T> List<T> readInfoStream(Class<T> infoClass, InputStream in)
       throws IOException {
     JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
     try {
-      return readEnemyArray(reader);
+//      if (infoClass.get)
+      return (List<T>) readInfoArray(infoClass, reader);
+      
     } finally {
       reader.close();
     }
   }
 
-  private List<EnemyInfo> readEnemyArray(JsonReader reader)
+  @SuppressWarnings("unchecked")
+  private <T> List<T> readInfoArray(Class<T> infoClass, JsonReader reader)
       throws IOException {
-    List<EnemyInfo> enemyInfoList = new ArrayList<EnemyInfo>();
+    List<T> infoList = new ArrayList<T>();
 
     reader.beginArray();
     while (reader.hasNext()) {
-      enemyInfoList.add(readEnemy(reader));
+      infoList.add((T) readEnemyInfo(reader));
     }
+    
     reader.endArray();
-    return enemyInfoList;
+    return infoList;
   }
 
-  private EnemyInfo readEnemy(JsonReader reader) throws IOException {
+  private EnemyInfo readEnemyInfo(JsonReader reader) throws IOException {
     String name = "";
     int stamina, strength, defense, agility;
     stamina = strength = defense = agility = 0;

@@ -1,0 +1,182 @@
+[1mdiff --git a/MaelstromAdventure/src/maelstrom/assets/enemies.json b/MaelstromAdventure/src/maelstrom/assets/enemies.json[m
+[1mindex 2febc5f..c359864 100644[m
+[1m--- a/MaelstromAdventure/src/maelstrom/assets/enemies.json[m
+[1m+++ b/MaelstromAdventure/src/maelstrom/assets/enemies.json[m
+[36m@@ -1,37 +1,51 @@[m
+ [[m
+[31m-  {[m
+[31m-    "name": "Serpent",[m
+[31m-	"stamina":  80,[m
+[31m-	"strength": 100,[m
+[31m-	"defense":  80,[m
+[31m-	"agility":  130[m
+[31m-  },[m
+[31m-  {[m
+[31m-    "name": "Levathian",[m
+[31m-	"stamina":  120,[m
+[31m-	"strength": 120,[m
+[31m-	"defense":  80,[m
+[31m-	"agility":  70[m
+[31m-  },[m
+[31m-  {[m
+[31m-    "name": "Kraken",[m
+[31m-	"stamina":  100,[m
+[31m-	"strength": 130,[m
+[31m-	"defense":  100,[m
+[31m-	"agility":  60[m
+[31m-  },[m
+[31m-  {[m
+[31m-    "name": "Squid",[m
+[31m-	"stamina":  80,[m
+[31m-	"strength": 100,[m
+[31m-	"defense":  80,[m
+[31m-	"agility":  50[m
+[31m-  },[m
+[31m-  {[m
+[31m-    "name": "Anglerfish",[m
+[31m-	"stamina":  100,[m
+[31m-	"strength": 80,[m
+[31m-	"defense":  130,[m
+[31m-	"agility":  100[m
+[31m-  }[m
+[32m+[m	[32m  {[m
+[32m+[m		[32m"name": "SERPENT",[m
+[32m+[m		[32m"stamina":  80,[m
+[32m+[m		[32m"strength": 100,[m
+[32m+[m		[32m"defense":  80,[m
+[32m+[m		[32m"agility":  130[m
+[32m+[m	[32m  },[m
+[32m+[m	[32m  {[m
+[32m+[m		[32m"name": "DRAGON",[m
+[32m+[m		[32m"stamina":  120,[m
+[32m+[m		[32m"strength": 120,[m
+[32m+[m		[32m"defense":  80,[m
+[32m+[m		[32m"agility":  70[m
+[32m+[m	[32m  },[m
+[32m+[m	[32m  {[m
+[32m+[m		[32m"name": "OCTOPUS",[m
+[32m+[m		[32m"stamina":  100,[m
+[32m+[m		[32m"strength": 130,[m
+[32m+[m		[32m"defense":  100,[m
+[32m+[m		[32m"agility":  60[m
+[32m+[m	[32m  },[m
+[32m+[m	[32m  {[m
+[32m+[m		[32m"name": "SQUID",[m
+[32m+[m		[32m"stamina":  80,[m
+[32m+[m		[32m"strength": 100,[m
+[32m+[m		[32m"defense":  80,[m
+[32m+[m		[32m"agility":  50[m
+[32m+[m	[32m  },[m
+[32m+[m	[32m  {[m
+[32m+[m		[32m"name": "WHALE",[m
+[32m+[m		[32m"stamina":  100,[m
+[32m+[m		[32m"strength": 80,[m
+[32m+[m		[32m"defense":  130,[m
+[32m+[m		[32m"agility":  100[m
+[32m+[m	[32m  },[m
+[32m+[m	[32m  {[m
+[32m+[m		[32m"name": "MEDUSA",[m
+[32m+[m		[32m"stamina":  50,[m
+[32m+[m		[32m"strength": 60,[m
+[32m+[m		[32m"defense":  80,[m
+[32m+[m		[32m"agility":  50[m
+[32m+[m	[32m  },[m
+[32m+[m	[32m  {[m
+[32m+[m		[32m"name": "NAUTILUS",[m
+[32m+[m		[32m"stamina":  80,[m
+[32m+[m		[32m"strength": 100,[m
+[32m+[m		[32m"defense":  80,[m
+[32m+[m		[32m"agility":  50[m
+[32m+[m	[32m  }[m
+ ][m
+\ No newline at end of file[m
+[1mdiff --git a/MaelstromAdventure/src/maelstrom/entity/CharacterComponent.java b/MaelstromAdventure/src/maelstrom/entity/CharacterComponent.java[m
+[1mindex 0c42dc9..098a8c8 100644[m
+[1m--- a/MaelstromAdventure/src/maelstrom/entity/CharacterComponent.java[m
+[1m+++ b/MaelstromAdventure/src/maelstrom/entity/CharacterComponent.java[m
+[36m@@ -6,7 +6,7 @@[m [mpublic class CharacterComponent extends BaseComponent {[m
+ [m
+   private int health;[m
+   private boolean hostile;[m
+[31m-[m
+[32m+[m[41m  [m
+   public CharacterComponent(GameEntity owner, GameSystem gameSystem,[m
+       Object[] arguments) {[m
+     super(owner, gameSystem);[m
+[1mdiff --git a/MaelstromAdventure/src/maelstrom/entity/CharacterFactory.java b/MaelstromAdventure/src/maelstrom/entity/CharacterFactory.java[m
+[1mindex e60cc86..ec1dd87 100644[m
+[1m--- a/MaelstromAdventure/src/maelstrom/entity/CharacterFactory.java[m
+[1m+++ b/MaelstromAdventure/src/maelstrom/entity/CharacterFactory.java[m
+[36m@@ -10,7 +10,7 @@[m [mimport java.util.Random;[m
+ [m
+ import maelstrom.controller.GameSystem;[m
+ import maelstrom.utilities.EnemyInfo;[m
+[31m-import maelstrom.utilities.EnemyInfoParser;[m
+[32m+[m[32mimport maelstrom.utilities.CharacterInfoParser;[m
+ [m
+ public class CharacterFactory {[m
+ [m
+[36m@@ -21,13 +21,13 @@[m [mpublic class CharacterFactory {[m
+ [m
+   static {[m
+     /* Draft enemy blueprints with the data from descriptive JSON file */[m
+[31m-    EnemyInfoParser parser = new EnemyInfoParser();[m
+[32m+[m[32m    CharacterInfoParser parser = new CharacterInfoParser();[m
+ [m
+     InputStream in;[m
+     try {[m
+       in = new FileInputStream("src/maelstrom/assets/enemies.json");[m
+       // Use the parser object to read entity info into designated info objects[m
+[31m-      List<EnemyInfo> enemyInfoList = parser.readEnemyInfoStream(in);[m
+[32m+[m[32m      List<EnemyInfo> enemyInfoList = parser.readInfoStream(EnemyInfo.class, in);[m
+ [m
+       // Map the information into the blueprint list[m
+       for (EnemyInfo i : enemyInfoList) {[m
+[1mdiff --git a/MaelstromAdventure/src/maelstrom/utilities/CharacterInfoParser.java b/MaelstromAdventure/src/maelstrom/utilities/CharacterInfoParser.java[m
+[1mindex b685195..9e1184c 100644[m
+[1m--- a/MaelstromAdventure/src/maelstrom/utilities/CharacterInfoParser.java[m
+[1m+++ b/MaelstromAdventure/src/maelstrom/utilities/CharacterInfoParser.java[m
+[36m@@ -8,31 +8,35 @@[m [mimport java.util.List;[m
+ [m
+ import com.google.gson.stream.JsonReader;[m
+ [m
+[31m-public class EnemyInfoParser {[m
+[32m+[m[32mpublic class CharacterInfoParser {[m
+ [m
+[31m-  public List<EnemyInfo> readEnemyInfoStream(InputStream in)[m
+[32m+[m[32m  public <T> List<T> readInfoStream(Class<T> infoClass, InputStream in)[m
+       throws IOException {[m
+     JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));[m
+     try {[m
+[31m-      return readEnemyArray(reader);[m
+[32m+[m[32m//      if (infoClass.get)[m
+[32m+[m[32m      return (List<T>) readInfoArray(infoClass, reader);[m
+[32m+[m[41m      [m
+     } finally {[m
+       reader.close();[m
+     }[m
+   }[m
+ [m
+[31m-  private List<EnemyInfo> readEnemyArray(JsonReader reader)[m
+[32m+[m[32m  @SuppressWarnings("unchecked")[m
+[32m+[m[32m  private <T> List<T> readInfoArray(Class<T> infoClass, JsonReader reader)[m
+       throws IOException {[m
+[31m-    List<EnemyInfo> enemyInfoList = new ArrayList<EnemyInfo>();[m
+[32m+[m[32m    List<T> infoList = new ArrayList<T>();[m
+ [m
+     reader.beginArray();[m
+     while (reader.hasNext()) {[m
+[31m-      enemyInfoList.add(readEnemy(reader));[m
+[32m+[m[32m      infoList.add((T) readEnemyInfo(reader));[m
+     }[m
+[32m+[m[41m    [m
+     reader.endArray();[m
+[31m-    return enemyInfoList;[m
+[32m+[m[32m    return infoList;[m
+   }[m
+ [m
+[31m-  private EnemyInfo readEnemy(JsonReader reader) throws IOException {[m
+[32m+[m[32m  private EnemyInfo readEnemyInfo(JsonReader reader) throws IOException {[m
+     String name = "";[m
+     int stamina, strength, defense, agility;[m
+     stamina = strength = defense = agility = 0;[m

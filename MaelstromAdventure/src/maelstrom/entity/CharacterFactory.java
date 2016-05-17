@@ -10,7 +10,7 @@ import java.util.Random;
 
 import maelstrom.controller.GameSystem;
 import maelstrom.utilities.EnemyInfo;
-import maelstrom.utilities.EnemyInfoParser;
+import maelstrom.utilities.CharacterInfoParser;
 
 public class CharacterFactory {
 
@@ -21,13 +21,13 @@ public class CharacterFactory {
 
   static {
     /* Draft enemy blueprints with the data from descriptive JSON file */
-    EnemyInfoParser parser = new EnemyInfoParser();
+    CharacterInfoParser parser = new CharacterInfoParser();
 
     InputStream in;
     try {
       in = new FileInputStream("src/maelstrom/assets/enemies.json");
       // Use the parser object to read entity info into designated info objects
-      List<EnemyInfo> enemyInfoList = parser.readEnemyInfoStream(in);
+      List<EnemyInfo> enemyInfoList = parser.readInfoStream(EnemyInfo.class, in);
 
       // Map the information into the blueprint list
       for (EnemyInfo i : enemyInfoList) {
