@@ -1,13 +1,13 @@
 package maelstrom.gameinfo;
 
-public class EnemyInfo {
+public class Stats {
   private String name;
   private int stamina;
   private int strength;
   private int defense;
   private int agility;
 
-  public EnemyInfo(String name, int stamina, int strength, int defense,
+  public Stats(String name, int stamina, int strength, int defense,
       int agility) {
     this.name = name;
     this.stamina = stamina;

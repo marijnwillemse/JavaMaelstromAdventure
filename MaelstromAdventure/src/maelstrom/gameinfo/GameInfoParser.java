@@ -27,19 +27,19 @@ public class GameInfoParser {
 
     reader.beginArray();
     while (reader.hasNext()) {
-      if (infoClass.equals(EnemyInfo.class)) {
-        infoList.add((T) readEnemyInfo(reader));
+      if (infoClass.equals(Stats.class)) {
+        infoList.add((T) readStats(reader));
       } else if (infoClass.equals(EntityInfo.class)) {
         infoList.add((T) readEntityInfo(reader));
-      } else if (infoClass.equals(StatModifier.class)) {
-        infoList.add((T) readStatModifier(reader));
+      } else if (infoClass.equals(StatsModifier.class)) {
+        infoList.add((T) readStatsModifier(reader));
       }
     }
     reader.endArray();
     return infoList;
   }
 
-  private StatModifier readStatModifier(JsonReader reader) throws IOException {
+  private StatsModifier readStatsModifier(JsonReader reader) throws IOException {
     String affix = "";
     int stamina, strength, defense, agility;
     stamina = strength = defense = agility = 0;
@@ -62,10 +62,10 @@ public class GameInfoParser {
       }
     }
     reader.endObject();
-    return new StatModifier(affix, stamina, strength, defense, agility);
+    return new StatsModifier(affix, stamina, strength, defense, agility);
   }
 
-  private EnemyInfo readEnemyInfo(JsonReader reader) throws IOException {
+  private Stats readStats(JsonReader reader) throws IOException {
     String name = "";
     int stamina, strength, defense, agility;
     stamina = strength = defense = agility = 0;
@@ -88,7 +88,7 @@ public class GameInfoParser {
       }
     }
     reader.endObject();
-    return new EnemyInfo(name, stamina, strength, defense, agility);
+    return new Stats(name, stamina, strength, defense, agility);
   }
 
   private EntityInfo readEntityInfo(JsonReader reader) throws IOException {

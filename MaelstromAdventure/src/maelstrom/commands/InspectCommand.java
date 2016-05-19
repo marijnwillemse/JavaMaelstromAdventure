@@ -8,6 +8,7 @@ import maelstrom.controller.GameSystem;
 import maelstrom.entity.AreaComponent;
 import maelstrom.entity.CharacterComponent;
 import maelstrom.entity.GameEntity;
+import maelstrom.utilities.TextEffects;
 
 public class InspectCommand extends BaseCommand {
 
@@ -76,7 +77,10 @@ public class InspectCommand extends BaseCommand {
 
   private void inspectCharacter(GameEntity entity) {
       CharacterComponent c = gameSystem.getCharacterComponent(entity.getID());
-      System.out.println("Inspecting " + c.getCharacterName());
+      System.out.println("Health: " + c.getHealth() + "/" + c.getStamina());
+      System.out.println("Strength: " + c.getStrength());
+      System.out.println("Defense: " + c.getDefense());
+      System.out.println("Agility: " + c.getAgility());
   }
 
   public void inspectSea() {
