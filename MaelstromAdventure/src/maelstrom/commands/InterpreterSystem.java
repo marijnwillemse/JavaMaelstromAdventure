@@ -1,16 +1,11 @@
-package maelstrom.controller;
+package maelstrom.commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import maelstrom.commands.BaseCommand;
-import maelstrom.commands.GoCommand;
-import maelstrom.commands.HelpCommand;
-import maelstrom.commands.InspectCommand;
-import maelstrom.commands.LookCommand;
-import maelstrom.commands.StopCommand;
+import maelstrom.controller.GameSystem;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,11 +18,12 @@ public class InterpreterSystem {
   
   static {
     commands = new HashMap<String, BaseCommand>();
-    commands.put("GO", new GoCommand());
-    commands.put("HELP", new HelpCommand());
+    commands.put("ATTACK",  new AttackCommand());
+    commands.put("GO",      new GoCommand());
+    commands.put("HELP",    new HelpCommand());
     commands.put("INSPECT", new InspectCommand());
-    commands.put("LOOK", new LookCommand());
-    commands.put("STOP", new StopCommand());
+    commands.put("LOOK",    new LookCommand());
+    commands.put("STOP",    new StopCommand());
     
     synonyms = new HashMap<String, String>();
     synonyms.put("?",       "HELP");

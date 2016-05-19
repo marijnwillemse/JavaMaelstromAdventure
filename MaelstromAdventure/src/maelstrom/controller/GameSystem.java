@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import maelstrom.commands.InterpreterSystem;
 import maelstrom.commands.LookCommand;
 import maelstrom.entity.AreaComponent;
 import maelstrom.entity.BaseComponent;

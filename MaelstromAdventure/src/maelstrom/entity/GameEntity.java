@@ -20,18 +20,4 @@ public class GameEntity {
   public void addComponent(BaseComponent component) {
     components.add(component);
   }
-  
-  /**
-   * Calls describe method on all components.
-   * Will return false if no descriptions have been made.
-   */
-  public boolean describeComponents() {
-    boolean isDescribable = false;
-    for (BaseComponent component : components) {
-      if (component.getDescription()) {
-        isDescribable = true;
-      }
-    }
-    return isDescribable;
-  }
 }

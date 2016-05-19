@@ -11,11 +11,11 @@ import maelstrom.entity.GameEntity;
 
 public class InspectCommand extends BaseCommand {
 
-  private static HashMap<String, Runnable> commands;  
+  private static HashMap<String, Runnable> genericSubjects;  
   private static HashMap<String, String> synonyms;
 
   static {
-    commands = new HashMap<>();
+    genericSubjects = new HashMap<>();
     synonyms = new HashMap<>();
   }
 
@@ -23,9 +23,9 @@ public class InspectCommand extends BaseCommand {
 
   public InspectCommand() {
 
-    // Populate commands map with lambda methods
-    commands.put("SEA", () -> inspectSea());
-    commands.put("AREA", () -> new LookCommand().execute(gameSystem, null));
+    // Populate generic subject map with lambda methods
+    genericSubjects.put("SEA", () -> inspectSea());
+    genericSubjects.put("AREA", () -> new LookCommand().execute(gameSystem, null));
 
     // Populate synonyms map
     synonyms.put("OCEAN", "SEA");
@@ -43,17 +43,25 @@ public class InspectCommand extends BaseCommand {
       System.out.println("Inspect what?");
       return;
     }
-    String subject = words.get(1).toUpperCase();
+    
+    // All words after the command form the subject
+    String subject = "";
+    for (int i = 1; i < words.size(); i++) {
+      subject += words.get(i).toUpperCase();
+      if (i != words.size()-1) {
+        subject += " ";
+      }
+    }
 
     if (matchWithEntities(subject) == true) { return; }
 
     // Compare subject with environment elements
-    if (commands.containsKey(subject)) {
+    if (genericSubjects.containsKey(subject)) {
       // The subject is known in the dictionary
-      commands.get(subject).run();
+      genericSubjects.get(subject).run();
     } else if (synonyms.containsKey(subject)) {
       // The declaration is a synonym for a known subject
-      commands.get(synonyms.get(subject)).run();
+      genericSubjects.get(synonyms.get(subject)).run();
     } else {
       System.out.println("No such thing is around here.");
     }
@@ -66,11 +74,7 @@ public class InspectCommand extends BaseCommand {
     for (GameEntity entity : entityList) {
       CharacterComponent c = gameSystem.getCharacterComponent(entity.getID());
       if (c.getCharacterName().toUpperCase().equals(subject)) {
-        boolean described = entity.describeComponents();
-        if (described == false) {
-          System.out.println("No description is available for "
-              + c.getCharacterName());
-        }
+        System.out.println(c.getCharacterName());
         return true;
       }
     }

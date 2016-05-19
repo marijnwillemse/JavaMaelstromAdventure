@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import maelstrom.controller.GameSystem;
-import maelstrom.controller.InterpreterSystem;
 
 public class HelpCommand extends BaseCommand {
 
