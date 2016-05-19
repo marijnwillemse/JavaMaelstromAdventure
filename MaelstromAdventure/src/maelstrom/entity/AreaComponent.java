@@ -59,7 +59,7 @@ public class AreaComponent extends BaseComponent {
   /* Every entity will deregister itself upon exit */
   public void deregisterEntity(GameEntity entity) {
     // Check at which index the entity is present
-    int entityIndex = entities.indexOf(entity.getID());
+    int entityIndex = entities.indexOf(entity);
     // Exit if entity does not exist in list
     if (entityIndex == -1) { return; }
     // Remove the entity from the list
@@ -73,7 +73,7 @@ public class AreaComponent extends BaseComponent {
   
   public void printEntityNames() {
     for (GameEntity entity : entities) {
-      System.out.println("There is a " + entity.getName());
+      System.out.println("There is a " + entity.getName().toLowerCase());
     }
   }
   
