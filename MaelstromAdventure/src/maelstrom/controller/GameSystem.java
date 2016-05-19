@@ -197,6 +197,31 @@ public class GameSystem {
     return transformComponents.get(key);
   }
   
+  /* Component existence methods */
+  
+  public boolean hasAreaComponent(UUID key) {
+    return areaComponents.containsKey(key);
+  }
+  public boolean hasCharacterComponent(UUID key) {
+    return characterComponents.containsKey(key);
+  }
+  public boolean hasDialogueComponent(UUID key) {
+    return dialogueComponents.containsKey(key);
+  }
+  public boolean hasLevelComponent(UUID key) {
+    return levelComponents.containsKey(key);
+  }
+  public boolean hasPlayerComponent(UUID key) {
+    return playerComponents.containsKey(key);
+  }
+  public boolean hasTimeComponent(UUID key) {
+    return timeComponents.containsKey(key);
+  }
+  public boolean hasTransformComponent(UUID key) {
+    return transformComponents.containsKey(key);
+  }
+  
+  
   /* Game related functions */
   
   public GameWorld getGameWorld() {

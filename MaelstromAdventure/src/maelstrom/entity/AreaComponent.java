@@ -2,6 +2,7 @@ package maelstrom.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import maelstrom.controller.GameSystem;
 import maelstrom.graph.NavigationGraphNode;
@@ -93,5 +94,36 @@ public class AreaComponent extends BaseComponent {
   public ArrayList<GameEntity> getEntities() {
     return entities;
   }
-
+  
+  public List<GameEntity> getCharacters() {
+    List<GameEntity> characters = new ArrayList<GameEntity>();
+    for (GameEntity entity : entities) {
+      if (gameSystem.hasCharacterComponent(entity.getID())) {
+        characters.add(entity);
+      }
+    }
+    return characters;
+  }
+  
+  public boolean hasCharacter(GameSystem gameSystem, String characterName) {
+    List<GameEntity> characters = getCharacters();
+    for (GameEntity entity : characters) {
+      if (gameSystem.getCharacterComponent(entity.getID()).getCharacterName()
+          .equals(characterName)) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  public GameEntity getCharacter(String characterName) {
+    List<GameEntity> characters = getCharacters();
+    for (GameEntity entity : characters) {
+      if (gameSystem.getCharacterComponent(entity.getID()).getCharacterName()
+          .equals(characterName)) {
+        return entity;
+      }
+    }
+    return null;
+  }
 }

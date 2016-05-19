@@ -53,7 +53,12 @@ public class InspectCommand extends BaseCommand {
       }
     }
 
-    if (matchWithEntities(subject) == true) { return; }
+    GameEntity area = gameSystem.getGameWorld().getPlayerArea();
+    AreaComponent areaComponent = gameSystem.getAreaComponent(area.getID());
+    if (areaComponent.hasCharacter(gameSystem, subject)) {
+      inspectEntity(areaComponent.getCharacter(subject));
+      return;
+    }
 
     // Compare subject with environment elements
     if (genericSubjects.containsKey(subject)) {
@@ -67,26 +72,10 @@ public class InspectCommand extends BaseCommand {
     }
   }
 
-  private boolean matchWithEntities(String subject) {
-    // Compare subject with NPC's in player area
-    List<GameEntity> entityList = getEntityList(gameSystem);
-    
-    for (GameEntity entity : entityList) {
+  private void inspectEntity(GameEntity entity) {
       CharacterComponent c = gameSystem.getCharacterComponent(entity.getID());
-      if (c.getCharacterName().toUpperCase().equals(subject)) {
-        System.out.println(c.getCharacterName());
-        return true;
-      }
-    }
-    return false;
+      System.out.println("Inspecting " + c.getCharacterName());
   }
-
-  private List<GameEntity> getEntityList(GameSystem gameSystem) {
-    UUID areaID = gameSystem.getGameWorld().getPlayerArea().getID();
-    AreaComponent areaComponent = gameSystem.getAreaComponent(areaID);
-    return areaComponent.getEntities();
-  }
-
 
   public void inspectSea() {
     UUID areaID = gameSystem.getGameWorld().getPlayerArea().getID();
