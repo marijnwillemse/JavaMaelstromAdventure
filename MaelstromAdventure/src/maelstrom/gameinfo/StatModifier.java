@@ -1,23 +1,23 @@
-package maelstrom.utilities;
+package maelstrom.gameinfo;
 
-public class EnemyInfo {
-  private String name;
+public class StatModifier {
+  private String affix;
   private int stamina;
   private int strength;
   private int defense;
   private int agility;
 
-  public EnemyInfo(String name, int stamina, int strength, int defense,
+  public StatModifier(String affix, int stamina, int strength, int defense,
       int agility) {
-    this.name = name;
+    this.affix = affix;
     this.stamina = stamina;
     this.strength = strength;
     this.defense = defense;
     this.agility = agility;
   }
 
-  public String getName() {
-    return name;
+  public String getAffix() {
+    return affix;
   }
 
   public int getStamina() {

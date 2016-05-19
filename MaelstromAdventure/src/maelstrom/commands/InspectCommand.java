@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import maelstrom.controller.GameSystem;
 import maelstrom.entity.AreaComponent;
+import maelstrom.entity.CharacterComponent;
 import maelstrom.entity.GameEntity;
 
 public class InspectCommand extends BaseCommand {
@@ -63,11 +64,12 @@ public class InspectCommand extends BaseCommand {
     List<GameEntity> entityList = getEntityList(gameSystem);
     
     for (GameEntity entity : entityList) {
-      if (entity.getName().toUpperCase().equals(subject)) {
+      CharacterComponent c = gameSystem.getCharacterComponent(entity.getID());
+      if (c.getCharacterName().toUpperCase().equals(subject)) {
         boolean described = entity.describeComponents();
         if (described == false) {
           System.out.println("No description is available for "
-              + entity.getName());
+              + c.getCharacterName());
         }
         return true;
       }
@@ -77,16 +79,14 @@ public class InspectCommand extends BaseCommand {
 
   private List<GameEntity> getEntityList(GameSystem gameSystem) {
     UUID areaID = gameSystem.getGameWorld().getPlayerArea().getID();
-    AreaComponent areaComponent = gameSystem.getAreaComponents()
-        .get(areaID);
+    AreaComponent areaComponent = gameSystem.getAreaComponent(areaID);
     return areaComponent.getEntities();
   }
 
 
   public void inspectSea() {
     UUID areaID = gameSystem.getGameWorld().getPlayerArea().getID();
-    AreaComponent areaComponent = gameSystem.getAreaComponents()
-        .get(areaID);
+    AreaComponent areaComponent = gameSystem.getAreaComponent(areaID);
     areaComponent.printWeatherDescription();
   }
 }

@@ -17,15 +17,13 @@ public class LookCommand extends BaseCommand {
     
     // Retrieve the player ID
     UUID playerID = gameSystem.getGameWorld().getPlayer().getID();
-    TransformComponent transform = gameSystem.getTransformComponents()
-        .get(playerID);
+    TransformComponent transform = gameSystem.getTransformComponent(playerID);
     
     // Retrieve the player's location component
     UUID levelID = gameSystem.getGameWorld().getLevel().getID();
-    LevelComponent level = gameSystem.getLevelComponents().get(levelID);
+    LevelComponent level = gameSystem.getLevelComponent(levelID);
     
-    TimeComponent timeComponent = gameSystem.getTimeComponents()
-        .get(levelID);
+    TimeComponent timeComponent = gameSystem.getTimeComponent(levelID);
     
     // Retrieve the accompanying node
     NavigationGraphNode node = transform.getLocation().getNode();
@@ -33,15 +31,14 @@ public class LookCommand extends BaseCommand {
     // Retrieve the area ID
     UUID areaID = node.getArea().getOwner().getID();
     
-    AreaComponent areaComponent = gameSystem.getAreaComponents()
-        .get(areaID);
+    AreaComponent areaComponent = gameSystem.getAreaComponent(areaID);
 
     // Save the node index
     int nodeIndex = node.getIndex();
     
     timeComponent.printTime();
     areaComponent.printWeatherDescription();
-    areaComponent.printEntityNames();
+    areaComponent.printEnemies(gameSystem);
     level.describeAvailableDirections(nodeIndex);
   }
 }

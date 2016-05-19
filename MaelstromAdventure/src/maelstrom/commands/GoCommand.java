@@ -34,7 +34,7 @@ public class GoCommand extends BaseCommand {
     // Retrieve the player ID
     UUID playerID = gameSystem.getGameWorld().getPlayer().getID();
     // Retrieve the player's location component
-    TransformComponent t = gameSystem.getTransformComponents().get(playerID);
+    TransformComponent t = gameSystem.getTransformComponent(playerID);
     // Retrieve the accompanying node
     NavigationGraphNode fromNode = t.getLocation().getNode();
     // Save the node index
@@ -42,7 +42,7 @@ public class GoCommand extends BaseCommand {
     
     // Get the level
     UUID levelID = gameSystem.getGameWorld().getLevel().getID();
-    LevelComponent l = gameSystem.getLevelComponents().get(levelID);
+    LevelComponent l = gameSystem.getLevelComponent(levelID);
 
     // Find the node in the specified direction
     NavigationGraphNode toNode;
@@ -53,7 +53,7 @@ public class GoCommand extends BaseCommand {
       return;
     }
     t.setLocation(toNode.getArea());
-    TimeComponent timeComponent = gameSystem.getTimeComponents().get(levelID);
+    TimeComponent timeComponent = gameSystem.getTimeComponent(levelID);
     timeComponent.increment(3600000); // Increment time by one hour
     new LookCommand().execute(gameSystem, null);
   }

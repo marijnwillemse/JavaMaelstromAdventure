@@ -22,7 +22,7 @@ public class GameWorld {
     level = createLevel(4, 4, 43200000L);
 
     // Pick the first area from the level
-    AreaComponent area = gameSystem.getLevelComponents().get(level.getID())
+    AreaComponent area = gameSystem.getLevelComponent(level.getID())
         .getGraph().getNode(0).getArea();
 
     // Construct the player and place it in that area
@@ -40,8 +40,8 @@ public class GameWorld {
   
   public GameEntity getPlayerArea() {
     // Retrieve the player's transform component
-    TransformComponent transform = gameSystem.getTransformComponents()
-        .get(player.getID());
+    TransformComponent transform = gameSystem.getTransformComponent(
+        player.getID());
     
     // Retrieve the accompanying node and the connected area
     NavigationGraphNode node = transform.getLocation().getNode();

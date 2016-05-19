@@ -148,7 +148,7 @@ public class GameSystem {
     }
   }
 
-  /* Component containers getters */
+  /* Component container getters */
 
   public Map<UUID, AreaComponent> getAreaComponents() {
     return areaComponents;
@@ -170,6 +170,30 @@ public class GameSystem {
   }
   public Map<UUID, TransformComponent> getTransformComponents() {
     return transformComponents;
+  }
+  
+  /* Direct component getters */
+  
+  public AreaComponent getAreaComponent(UUID key) {
+    return areaComponents.get(key);
+  }
+  public CharacterComponent getCharacterComponent(UUID key) {
+    return characterComponents.get(key);
+  }
+  public DialogueComponent getDialogueComponent(UUID key) {
+    return dialogueComponents.get(key);
+  }
+  public LevelComponent getLevelComponent(UUID key) {
+    return levelComponents.get(key);
+  }
+  public PlayerComponent getPlayerComponent(UUID key) {
+    return playerComponents.get(key);
+  }
+  public TimeComponent getTimeComponent(UUID key) {
+    return timeComponents.get(key);
+  }
+  public TransformComponent getTransformComponent(UUID key) {
+    return transformComponents.get(key);
   }
   
   /* Game related functions */

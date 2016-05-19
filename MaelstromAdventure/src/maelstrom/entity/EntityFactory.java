@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import maelstrom.controller.GameSystem;
-import maelstrom.utilities.EntityInfo;
-import maelstrom.utilities.GameInfoParser;
+import maelstrom.gameinfo.EntityInfo;
+import maelstrom.gameinfo.GameInfoParser;
 
 /* 
  * This factory object is a simulated static class. It has been declared final,

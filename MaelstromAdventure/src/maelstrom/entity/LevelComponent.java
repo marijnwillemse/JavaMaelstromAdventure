@@ -46,13 +46,12 @@ public class LevelComponent extends BaseComponent {
       
       UUID areaID = EntityFactory.createReflective( gameSystem, "AREA",
           areaArguments).getID();
-      gameSystem.getAreaComponents().get(areaID).assignNode(
-          graph.getNode(i));
+      gameSystem.getAreaComponent(areaID).assignNode(graph.getNode(i));
       
       // Insert n enemies based on a Poisson-distribution
       int n = RandomGenerator.getPoisson(0.5D);
       while (n > 0) {
-        gameSystem.getAreaComponents().get(areaID).spawnEnemy();
+        gameSystem.getAreaComponent(areaID).spawnEnemy();
         n--;
       }
     }

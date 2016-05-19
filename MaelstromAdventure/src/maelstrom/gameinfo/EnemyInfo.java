@@ -1,13 +1,13 @@
-package maelstrom.utilities;
+package maelstrom.gameinfo;
 
-public class StatModifier {
+public class EnemyInfo {
   private String name;
   private int stamina;
   private int strength;
   private int defense;
   private int agility;
 
-  public StatModifier(String name, int stamina, int strength, int defense,
+  public EnemyInfo(String name, int stamina, int strength, int defense,
       int agility) {
     this.name = name;
     this.stamina = stamina;

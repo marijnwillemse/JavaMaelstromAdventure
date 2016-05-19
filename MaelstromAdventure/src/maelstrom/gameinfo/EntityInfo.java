@@ -1,4 +1,4 @@
-package maelstrom.utilities;
+package maelstrom.gameinfo;
 
 import java.util.List;
 

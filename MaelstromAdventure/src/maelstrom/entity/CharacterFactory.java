@@ -9,13 +9,17 @@ import java.util.List;
 import java.util.Random;
 
 import maelstrom.controller.GameSystem;
-import maelstrom.utilities.EnemyInfo;
-import maelstrom.utilities.GameInfoParser;
+import maelstrom.gameinfo.EnemyInfo;
+import maelstrom.gameinfo.GameInfoParser;
+import maelstrom.gameinfo.StatModifier;
 
 public class CharacterFactory {
 
   // Mapping of enemy types to a list of classnames of its required components
   private static HashMap<String, EnemyInfo> enemyInfoMap = new HashMap<>();
+
+  private static HashMap<String, StatModifier> statModifierMap =
+      new HashMap<>();
 
   private CharacterFactory() {}
 
@@ -37,6 +41,20 @@ public class CharacterFactory {
       e.printStackTrace();
       System.out.println("Unable to read enemy information from JSON file.");
     }
+    try {
+      in = new FileInputStream("src/maelstrom/assets/stat_modifiers.json");
+      // Use the parser object to read entity info into designated info objects
+      List<StatModifier> statModifierList = parser.readInfoStream(
+          StatModifier.class, in);
+
+      // Map the information into the blueprint list
+      for (StatModifier i : statModifierList) {
+        statModifierMap.put(i.getAffix(), i);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.out.println("Unable to read stat modifiers from JSON file.");
+    }
   }
 
   public static GameEntity createEnemy(GameSystem gameSystem, String name,
@@ -54,7 +72,8 @@ public class CharacterFactory {
         enemyInfo.getName()
       }
     };
-    return EntityFactory.createReflective(gameSystem, "Character", argumentsArray);
+    return EntityFactory.createReflective(gameSystem, "Character",
+        argumentsArray);
   }
 
   /**
@@ -65,10 +84,16 @@ public class CharacterFactory {
     // Select a random key and value set from the enemy info Map
     Random random = new Random();
     List<String> keys = new ArrayList<String>(enemyInfoMap.keySet());
-    String randomKey = keys.get( random.nextInt(keys.size()) );
+    String randomKey = keys.get(random.nextInt(keys.size()));
     EnemyInfo pick = enemyInfoMap.get(randomKey);
     // Use it to create the monster by passing the name
-    return createEnemy(gameSystem, pick.getName(), areaComponent, difficulty);
+    GameEntity entity = createEnemy(gameSystem, pick.getName(), areaComponent, difficulty);
+    
+    // Assign a random stat modifier
+    StatModifier randomStatModifier = getRandomStatModifier();
+    gameSystem.getCharacterComponent(entity.getID()).setStatModifier(
+        randomStatModifier);
+    return entity;
   }
 
   public static GameEntity createPlayer(GameSystem gameSystem,
@@ -82,4 +107,18 @@ public class CharacterFactory {
         playerArguments);
   }
 
+  public static StatModifier getStatModifier(String name) {
+    if (statModifierMap.containsKey(name)) {
+      return statModifierMap.get(name);
+    }
+    throw new IllegalArgumentException("Invalid stat modifier name.");
+  }
+  
+  public static StatModifier getRandomStatModifier() {
+    // Select a random key and value set from the stat modifier map
+    Random random = new Random();
+    List<String> keys = new ArrayList<String>(statModifierMap.keySet());
+    String randomKey = keys.get(random.nextInt(keys.size()));
+    return statModifierMap.get(randomKey);
+  }
 }

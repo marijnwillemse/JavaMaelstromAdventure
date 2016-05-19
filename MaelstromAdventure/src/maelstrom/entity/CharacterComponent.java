@@ -1,11 +1,14 @@
 package maelstrom.entity;
 
 import maelstrom.controller.GameSystem;
+import maelstrom.gameinfo.StatModifier;
 
 public class CharacterComponent extends BaseComponent {
 
+  private String characterName;
   private int health;
   private boolean hostile;
+  private StatModifier statModifier;
   
   public CharacterComponent(GameEntity owner, GameSystem gameSystem,
       Object[] arguments) {
@@ -23,7 +26,7 @@ public class CharacterComponent extends BaseComponent {
     }
     health = (int) arguments[0];
     hostile = (boolean) arguments[1];
-    owner.setName(((String) arguments[2]));
+    characterName = (String) arguments[2];
   }
   
   public int getHealth() {
@@ -32,5 +35,20 @@ public class CharacterComponent extends BaseComponent {
   
   public boolean isHostile() {
     return hostile;
+  }
+  
+  public void setStatModifier(StatModifier statModifier) {
+    this.statModifier = statModifier;
+  }
+  
+  public StatModifier getStatModifier() {
+    return statModifier;
+  }
+
+  public String getCharacterName() {
+    if (statModifier != null) {
+      return statModifier.getAffix() + " " + characterName;
+    }
+    return characterName;
   }
 }

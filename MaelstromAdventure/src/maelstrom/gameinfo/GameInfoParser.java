@@ -1,4 +1,4 @@
-package maelstrom.utilities;
+package maelstrom.gameinfo;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,10 +31,38 @@ public class GameInfoParser {
         infoList.add((T) readEnemyInfo(reader));
       } else if (infoClass.equals(EntityInfo.class)) {
         infoList.add((T) readEntityInfo(reader));
+      } else if (infoClass.equals(StatModifier.class)) {
+        infoList.add((T) readStatModifier(reader));
       }
     }
     reader.endArray();
     return infoList;
+  }
+
+  private StatModifier readStatModifier(JsonReader reader) throws IOException {
+    String affix = "";
+    int stamina, strength, defense, agility;
+    stamina = strength = defense = agility = 0;
+
+    reader.beginObject();
+    while (reader.hasNext()) {
+      String name = reader.nextName();
+      if (name.equals("affix")) {
+        affix = reader.nextString();
+      } else if (name.equals("stamina")) {
+        stamina = reader.nextInt();
+      } else if (name.equals("strength")) {
+        strength = reader.nextInt();
+      } else if (name.equals("defense")) {
+        defense = reader.nextInt();
+      } else if (name.equals("agility")) {
+        agility = reader.nextInt();
+      } else {
+        reader.skipValue();
+      }
+    }
+    reader.endObject();
+    return new StatModifier(affix, stamina, strength, defense, agility);
   }
 
   private EnemyInfo readEnemyInfo(JsonReader reader) throws IOException {
@@ -62,7 +90,7 @@ public class GameInfoParser {
     reader.endObject();
     return new EnemyInfo(name, stamina, strength, defense, agility);
   }
-  
+
   private EntityInfo readEntityInfo(JsonReader reader) throws IOException {
     String id = "";
     List<String> componentNames = null;
