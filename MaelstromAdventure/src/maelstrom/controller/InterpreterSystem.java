@@ -1,6 +1,9 @@
 package maelstrom.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import maelstrom.commands.BaseCommand;
 import maelstrom.commands.GoCommand;
@@ -35,20 +38,33 @@ public class InterpreterSystem {
     synonyms.put("EXIT",    "STOP");
     synonyms.put("MOVE",    "GO");
     synonyms.put("WALK",    "GO");
+    synonyms.put("NORTH",   "GO NORTH");
+    synonyms.put("EAST",    "GO EAST");
+    synonyms.put("SOUTH",   "GO SOUTH");
+    synonyms.put("WEST",    "GO WEST");
   }
   
   public InterpreterSystem() {}
   
   public void update(GameSystem gameSystem) {
     String input = read();
-    String[] words = input.split("\\s"); // Split at every space
+    String[] inputArray = input.split("\\s"); // Split at every space
+    // Convert array to list
+    List<String> words = new ArrayList<String>(Arrays.asList(inputArray));
+    
     // Interpret the first word as a command
-    if (commands.containsKey(words[0])) {
+    if (commands.containsKey(words.get(0))) {
       // The first word is in the dictionary
-      commands.get(words[0]).execute(gameSystem, words);
-    } else if (synonyms.containsKey(words[0])) {
-      // The first word is a synonym
-      commands.get(synonyms.get(words[0])).execute(gameSystem, words);
+      commands.get(words.get(0)).execute(gameSystem, words);
+    } else if (synonyms.containsKey(words.get(0))) {
+      // The first word is a synonym so get reference as individual words
+      List<String> reference = Arrays.asList(synonyms.get(words.get(0)
+          ).split("\\s"));
+      // Consume the synonym
+      words.remove(0);
+      // Add synonym reference words to the rest of the words
+      words.addAll(0, reference);
+      commands.get(words.get(0)).execute(gameSystem, words);
     } else {
       System.out.println("That is no verb I recognize.");
     }

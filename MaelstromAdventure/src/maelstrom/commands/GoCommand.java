@@ -1,5 +1,6 @@
 package maelstrom.commands;
 
+import java.util.List;
 import java.util.UUID;
 
 import maelstrom.controller.GameSystem;
@@ -13,14 +14,14 @@ import maelstrom.graph.NavigationGraphNode;
 public class GoCommand extends BaseCommand {
 
   @Override
-  public void execute(GameSystem gameSystem, String[] words) {
+  public void execute(GameSystem gameSystem, List<String> words) {
     
     // Save direction parameter string
-    if (words.length <= 1) {
+    if (words.size() <= 1) {
       System.out.println("Where to?");
       return;
     }
-    String dString = words[1].toUpperCase();
+    String dString = words.get(1).toUpperCase();
     Direction d;
     if (dString.equals("NORTH") || dString.equals("EAST") ||
         dString.equals("SOUTH") || dString.equals("WEST")) {

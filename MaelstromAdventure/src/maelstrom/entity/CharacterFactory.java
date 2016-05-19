@@ -10,7 +10,7 @@ import java.util.Random;
 
 import maelstrom.controller.GameSystem;
 import maelstrom.utilities.EnemyInfo;
-import maelstrom.utilities.CharacterInfoParser;
+import maelstrom.utilities.GameInfoParser;
 
 public class CharacterFactory {
 
@@ -21,7 +21,7 @@ public class CharacterFactory {
 
   static {
     /* Draft enemy blueprints with the data from descriptive JSON file */
-    CharacterInfoParser parser = new CharacterInfoParser();
+    GameInfoParser parser = new GameInfoParser();
 
     InputStream in;
     try {
@@ -75,7 +75,7 @@ public class CharacterFactory {
       AreaComponent areaComponent) {
     Object[][] playerArguments = new Object[][] {
       { areaComponent },
-      { 100, false, "Player" }, // Give character 100 health and set to friendly
+      { 100, false, "PLAYER" }, // Give character 100 health and set to friendly
       {} // Player component arguments
     };
     return EntityFactory.createReflective(gameSystem, "PLAYER",

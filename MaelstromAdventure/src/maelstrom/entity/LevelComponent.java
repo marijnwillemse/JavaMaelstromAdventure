@@ -65,7 +65,7 @@ public class LevelComponent extends BaseComponent {
       String message = "You can go ";
       for (int i = 0; i < directions.size(); i++) {
         Direction d = directions.get(i);
-        message += d.toString();
+        message += d.toString().toLowerCase();
         if (directions.size()-2 > i) {
           message += ", ";
         } else if (directions.size()-2 == i) {

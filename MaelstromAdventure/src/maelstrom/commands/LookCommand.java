@@ -1,5 +1,6 @@
 package maelstrom.commands;
 
+import java.util.List;
 import java.util.UUID;
 
 import maelstrom.controller.GameSystem;
@@ -12,7 +13,7 @@ import maelstrom.graph.NavigationGraphNode;
 public class LookCommand extends BaseCommand {
   
   @Override
-  public void execute(GameSystem gameSystem, String[] words) {
+  public void execute(GameSystem gameSystem, List<String> words) {
     
     // Retrieve the player ID
     UUID playerID = gameSystem.getGameWorld().getPlayer().getID();

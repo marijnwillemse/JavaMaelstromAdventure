@@ -31,18 +31,18 @@ public class InspectCommand extends BaseCommand {
   }
 
   @Override
-  public void execute(GameSystem gameSystem, String[] words) {
+  public void execute(GameSystem gameSystem, List<String> words) {
 
     // Update game system field
     // This is a rather cheap solution for memorizing the parameter
     this.gameSystem = gameSystem;
 
     // Verify declaration of subject
-    if (words.length <= 1) {
+    if (words.size() <= 1) {
       System.out.println("Inspect what?");
       return;
     }
-    String subject = words[1].toUpperCase();
+    String subject = words.get(1).toUpperCase();
 
     if (matchWithEntities(subject) == true) { return; }
 

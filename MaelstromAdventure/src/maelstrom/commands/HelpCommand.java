@@ -1,6 +1,7 @@
 package maelstrom.commands;
 
 import java.util.HashMap;
+import java.util.List;
 
 import maelstrom.controller.GameSystem;
 import maelstrom.controller.InterpreterSystem;
@@ -8,7 +9,7 @@ import maelstrom.controller.InterpreterSystem;
 public class HelpCommand extends BaseCommand {
 
   @Override
-  public void execute(GameSystem gameSystem, String[] words) {
+  public void execute(GameSystem gameSystem, List<String> words) {
     
     System.out.println("You can use the following commands:");
     HashMap<String, BaseCommand> commands = InterpreterSystem.getCommands();

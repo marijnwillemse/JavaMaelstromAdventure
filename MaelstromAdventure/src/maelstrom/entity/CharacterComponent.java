@@ -23,7 +23,7 @@ public class CharacterComponent extends BaseComponent {
     }
     health = (int) arguments[0];
     hostile = (boolean) arguments[1];
-    owner.setName((String) arguments[2]);
+    owner.setName(((String) arguments[2]));
   }
   
   public int getHealth() {

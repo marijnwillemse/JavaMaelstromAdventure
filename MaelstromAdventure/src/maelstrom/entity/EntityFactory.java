@@ -10,7 +10,7 @@ import java.util.List;
 
 import maelstrom.controller.GameSystem;
 import maelstrom.utilities.EntityInfo;
-import maelstrom.utilities.EntityInfoParser;
+import maelstrom.utilities.GameInfoParser;
 
 /* 
  * This factory object is a simulated static class. It has been declared final,
@@ -33,13 +33,14 @@ public final class EntityFactory {
   // function adopts the initialization
   static {
     /* Draft entity blueprints with the data from descriptive JSON file */
-    EntityInfoParser parser = new EntityInfoParser();
+    GameInfoParser parser = new GameInfoParser();
 
     InputStream in;
     try {
       in = new FileInputStream("src/maelstrom/assets/entities.json");
       // Use the parser object to read entity info into designated info objects
-      List<EntityInfo> entityInfoList = parser.readEntityInfoStream(in);
+      List<EntityInfo> entityInfoList = parser.readInfoStream(
+          EntityInfo.class, in);
 
       // Map the information into the blueprint list
       for (EntityInfo i : entityInfoList) {

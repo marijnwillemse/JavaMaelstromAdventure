@@ -73,7 +73,7 @@ public class AreaComponent extends BaseComponent {
   
   public void printEntityNames() {
     for (GameEntity entity : entities) {
-      System.out.println("There is a " + entity.getName().toLowerCase());
+      System.out.println("Spotted " + entity.getName().toLowerCase());
     }
   }
   

@@ -8,15 +8,13 @@ import java.util.List;
 
 import com.google.gson.stream.JsonReader;
 
-public class CharacterInfoParser {
+public class GameInfoParser {
 
   public <T> List<T> readInfoStream(Class<T> infoClass, InputStream in)
       throws IOException {
     JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
     try {
-//      if (infoClass.get)
       return (List<T>) readInfoArray(infoClass, reader);
-      
     } finally {
       reader.close();
     }
@@ -29,9 +27,12 @@ public class CharacterInfoParser {
 
     reader.beginArray();
     while (reader.hasNext()) {
-      infoList.add((T) readEnemyInfo(reader));
+      if (infoClass.equals(EnemyInfo.class)) {
+        infoList.add((T) readEnemyInfo(reader));
+      } else if (infoClass.equals(EntityInfo.class)) {
+        infoList.add((T) readEntityInfo(reader));
+      }
     }
-    
     reader.endArray();
     return infoList;
   }
@@ -60,5 +61,45 @@ public class CharacterInfoParser {
     }
     reader.endObject();
     return new EnemyInfo(name, stamina, strength, defense, agility);
+  }
+  
+  private EntityInfo readEntityInfo(JsonReader reader) throws IOException {
+    String id = "";
+    List<String> componentNames = null;
+
+    reader.beginObject();
+    while (reader.hasNext()) {
+      String name = reader.nextName();
+      if (name.equals("id")) {
+        id = reader.nextString().toUpperCase();
+      } else if (name.equals("components")) {
+        componentNames = readEntityInfoComponents(reader);
+      } else {
+        reader.skipValue();
+      }
+    }
+    reader.endObject();
+    return new EntityInfo(id, componentNames);
+  }
+
+  private List<String> readEntityInfoComponents(JsonReader reader)
+      throws IOException {
+    List<String> components = new ArrayList<String>();
+
+    reader.beginArray();
+    while (reader.hasNext()) {
+      reader.beginObject();
+      while (reader.hasNext()) {
+        String name = reader.nextName();
+        if (name.equals("componentName")) {
+          components.add(reader.nextString());
+        } else {
+          reader.skipValue();
+        }
+      }
+      reader.endObject();
+    }
+    reader.endArray();
+    return components;
   }
 }
