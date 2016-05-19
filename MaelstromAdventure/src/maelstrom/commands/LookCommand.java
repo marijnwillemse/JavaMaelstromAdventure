@@ -38,7 +38,7 @@ public class LookCommand extends BaseCommand {
     
     timeComponent.printTime();
     areaComponent.printWeatherDescription();
-    areaComponent.printEnemies(gameSystem);
+    areaComponent.printEnemies();
     level.describeAvailableDirections(nodeIndex);
   }
 }

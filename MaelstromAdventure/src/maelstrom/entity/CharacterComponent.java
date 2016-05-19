@@ -51,4 +51,12 @@ public class CharacterComponent extends BaseComponent {
     }
     return characterName;
   }
+  
+  public void Attack(GameEntity opponent) {
+    CharacterComponent opponentComponent = gameSystem.getCharacterComponent(
+        opponent.getID());
+    
+    System.out.println(getCharacterName() + " attacked "
+        + opponentComponent.getCharacterName()); 
+  }
 }

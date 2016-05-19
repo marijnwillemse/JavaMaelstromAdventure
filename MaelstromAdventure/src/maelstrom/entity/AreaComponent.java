@@ -72,7 +72,7 @@ public class AreaComponent extends BaseComponent {
     System.out.println(GameLocale.getString(BEAUFORT_TAGS.get(windSpeed)));
   }
   
-  public void printEnemies(GameSystem gameSystem) {
+  public void printEnemies() {
     for (GameEntity entity : entities) {
       System.out.println("Spotted " + gameSystem.getCharacterComponent(entity.getID()).getCharacterName().toLowerCase());
     }
@@ -105,7 +105,7 @@ public class AreaComponent extends BaseComponent {
     return characters;
   }
   
-  public boolean hasCharacter(GameSystem gameSystem, String characterName) {
+  public boolean hasCharacter(String characterName) {
     List<GameEntity> characters = getCharacters();
     for (GameEntity entity : characters) {
       if (gameSystem.getCharacterComponent(entity.getID()).getCharacterName()

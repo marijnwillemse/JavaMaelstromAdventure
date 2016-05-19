@@ -55,8 +55,8 @@ public class InspectCommand extends BaseCommand {
 
     GameEntity area = gameSystem.getGameWorld().getPlayerArea();
     AreaComponent areaComponent = gameSystem.getAreaComponent(area.getID());
-    if (areaComponent.hasCharacter(gameSystem, subject)) {
-      inspectEntity(areaComponent.getCharacter(subject));
+    if (areaComponent.hasCharacter(subject)) {
+      inspectCharacter(areaComponent.getCharacter(subject));
       return;
     }
 
@@ -64,15 +64,17 @@ public class InspectCommand extends BaseCommand {
     if (genericSubjects.containsKey(subject)) {
       // The subject is known in the dictionary
       genericSubjects.get(subject).run();
+      return;
     } else if (synonyms.containsKey(subject)) {
       // The declaration is a synonym for a known subject
       genericSubjects.get(synonyms.get(subject)).run();
-    } else {
-      System.out.println("No such thing is around here.");
+      return;
     }
+    
+    System.out.println("No such thing is around here.");
   }
 
-  private void inspectEntity(GameEntity entity) {
+  private void inspectCharacter(GameEntity entity) {
       CharacterComponent c = gameSystem.getCharacterComponent(entity.getID());
       System.out.println("Inspecting " + c.getCharacterName());
   }
