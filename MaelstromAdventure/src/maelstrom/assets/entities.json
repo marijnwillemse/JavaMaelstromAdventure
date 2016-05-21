@@ -21,10 +21,16 @@
     ]
   },
   {
-    "id": "Character",
+    "id": "character",
     "components":[
       {"componentName":"maelstrom.entity.TransformComponent"},
       {"componentName":"maelstrom.entity.CharacterComponent"}
+    ]
+  },
+  {
+    "id": "battle",
+    "components":[
+      {"componentName":"maelstrom.entity.BattleComponent"}
     ]
   },
   {

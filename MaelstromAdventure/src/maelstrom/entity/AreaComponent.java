@@ -45,6 +45,7 @@ public class AreaComponent extends BaseComponent {
 
   @Override
   void init(Object[] arguments) {
+    difficulty = (int) arguments[0];
     windSpeed = (int) Math.round(Math.random() * 12);
   }
   
@@ -125,5 +126,10 @@ public class AreaComponent extends BaseComponent {
       }
     }
     return null;
+  }
+
+  @Override
+  public void delete() {
+    gameSystem.deregisterComponent(this);
   }
 }

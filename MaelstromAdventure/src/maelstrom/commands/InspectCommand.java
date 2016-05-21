@@ -77,6 +77,7 @@ public class InspectCommand extends BaseCommand {
 
   private void inspectCharacter(GameEntity entity) {
       CharacterComponent c = gameSystem.getCharacterComponent(entity.getID());
+      System.out.println("Level: " + c.getLevel());
       System.out.println("Health: " + c.getHealth() + "/" + c.getStamina());
       System.out.println("Strength: " + c.getStrength());
       System.out.println("Defense: " + c.getDefense());

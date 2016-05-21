@@ -26,11 +26,12 @@ public class LevelComponent extends BaseComponent {
 
   @Override
   void init(Object[] arguments) {
-    if (arguments.length != 2) {
+    if (arguments.length != 3) {
       throw new IllegalArgumentException("Invalid amount of arguments given.");
     }
     int width = (int) arguments[0];
     int height = (int) arguments[1];
+    int difficulty = (int) arguments[2];
 
     graph = new SparseGraph<NavigationGraphNode, NavigationGraphEdge>();
     // Seed the graph as a square grid with nodes equal to width times height
@@ -41,7 +42,7 @@ public class LevelComponent extends BaseComponent {
     for (int i = 0; i < width * height; i++) {
 
       Object[][] areaArguments = new Object[][] {
-        { } // Area component arguments
+        { difficulty } // Area component arguments
       };
       
       UUID areaID = EntityFactory.createReflective( gameSystem, "AREA",
@@ -79,5 +80,10 @@ public class LevelComponent extends BaseComponent {
 
   public SparseGraph<NavigationGraphNode,NavigationGraphEdge> getGraph() {
     return graph;
+  }
+
+  @Override
+  public void delete() {
+    gameSystem.deregisterComponent(this);
   }
 }

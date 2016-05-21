@@ -20,4 +20,9 @@ public class PlayerComponent extends BaseComponent {
     System.out.println("A captain never speaks for himself.");
     return true;
   }
+
+  @Override
+  public void delete() {
+    gameSystem.deregisterComponent(this);
+  }
 }

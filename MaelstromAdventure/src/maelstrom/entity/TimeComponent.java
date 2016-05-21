@@ -66,4 +66,9 @@ public class TimeComponent extends BaseComponent {
   public void increment(long milliseconds) {
     time = new Time(time.getTime() + milliseconds);
   }
+
+  @Override
+  public void delete() {
+    gameSystem.deregisterComponent(this);
+  }
 }

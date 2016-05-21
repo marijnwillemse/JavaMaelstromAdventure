@@ -4,20 +4,22 @@ import java.util.List;
 
 import maelstrom.controller.GameSystem;
 import maelstrom.entity.AreaComponent;
+import maelstrom.entity.BattleComponent;
 import maelstrom.entity.CharacterComponent;
+import maelstrom.entity.EntityFactory;
 import maelstrom.entity.GameEntity;
 
 public class AttackCommand extends BaseCommand {
 
   @Override
   public void execute(GameSystem gameSystem, List<String> words) {
-    
+
     // Verify declaration of subject
     if (words.size() <= 1) {
       System.out.println("Attack what?");
       return;
     }
-    
+
     // All words after the command form the subject
     String subject = "";
     for (int i = 1; i < words.size(); i++) {
@@ -27,16 +29,30 @@ public class AttackCommand extends BaseCommand {
       }
     }
 
+    // Look for the subject in the player's area
     GameEntity area = gameSystem.getGameWorld().getPlayerArea();
     AreaComponent areaComponent = gameSystem.getAreaComponent(area.getID());
     if (areaComponent.hasCharacter(subject)) {
+      // Subject found!
       
-      // Get allied character component
-      CharacterComponent alliedComponent = gameSystem.getCharacterComponent(
-          gameSystem.getGameWorld().getPlayer().getID());
+      // Put allied entity and opponent entity in battle arguments
+      Object[][] argumentsArray = new Object[][] {
+        { gameSystem.getGameWorld().getPlayer(),
+          areaComponent.getCharacter(subject)
+        }
+      };
+      
+      // Create a battle entity
+      GameEntity battle = EntityFactory.createReflective(gameSystem, "battle",
+          argumentsArray);
+      
+      BattleComponent battleComponent = gameSystem.getBattleComponent(
+          battle.getID());
 
-      // Make the ally perform the attack on the opponent
-      alliedComponent.Attack(areaComponent.getCharacter(subject));
+      while (!battleComponent.isResolved()) {
+        battleComponent.advance();
+      }
+      battle.delete();
       return;
     }
 

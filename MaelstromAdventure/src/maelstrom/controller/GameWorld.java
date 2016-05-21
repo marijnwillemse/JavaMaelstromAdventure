@@ -18,8 +18,9 @@ public class GameWorld {
   }
 
   public void init() {
-    // Create level with dimensions 4 by 4 and time 12:00
-    level = createLevel(4, 4, 43200000L);
+    int difficulty = 1;
+    // Create level with dimensions 4 by 4, time 12:00 and the difficulty
+    level = createLevel(4, 4, difficulty, 43200000L);
 
     // Pick the first area from the level
     AreaComponent area = gameSystem.getLevelComponent(level.getID())
@@ -29,20 +30,23 @@ public class GameWorld {
     player = CharacterFactory.createPlayer(gameSystem, area);
   }
 
-  private GameEntity createLevel(int xSize, int ySize, long time) {
-    Object[][] levelArguments = new Object[][] { { xSize, ySize }, { time } };
+  private GameEntity createLevel(int xSize, int ySize, int difficulty, long time) {
+    Object[][] levelArguments = new Object[][] {
+      { xSize, ySize, difficulty },
+      { time }
+    };
     return EntityFactory.createReflective(gameSystem, "LEVEL", levelArguments);
   }
 
   public GameEntity getPlayer() {
     return player;
   }
-  
+
   public GameEntity getPlayerArea() {
     // Retrieve the player's transform component
     TransformComponent transform = gameSystem.getTransformComponent(
         player.getID());
-    
+
     // Retrieve the accompanying node and the connected area
     NavigationGraphNode node = transform.getLocation().getNode();
     return node.getArea().getOwner();
@@ -50,5 +54,9 @@ public class GameWorld {
 
   public GameEntity getLevel() {
     return level;
+  }
+
+  public void update() {
+    // Clean up dead characters
   }
 }

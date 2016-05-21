@@ -9,6 +9,7 @@ import maelstrom.commands.InterpreterSystem;
 import maelstrom.commands.LookCommand;
 import maelstrom.entity.AreaComponent;
 import maelstrom.entity.BaseComponent;
+import maelstrom.entity.BattleComponent;
 import maelstrom.entity.CharacterComponent;
 import maelstrom.entity.DialogueComponent;
 import maelstrom.entity.GameEntity;
@@ -29,6 +30,8 @@ public class GameSystem {
   // All components owned by entities are stored in seperate HashMaps
   private Map<UUID, AreaComponent> areaComponents =
       new HashMap<UUID, AreaComponent>();
+  private Map<UUID, BattleComponent> battleComponents =
+      new HashMap<UUID, BattleComponent>();
   private Map<UUID, CharacterComponent> characterComponents =
       new HashMap<UUID, CharacterComponent>();
   private Map<UUID, DialogueComponent> dialogueComponents =
@@ -67,6 +70,7 @@ public class GameSystem {
     do {
       // Process commands
       interpreterSystem.update(this);
+      gameWorld.update();
     } while (playing);
   }
 
@@ -89,31 +93,35 @@ public class GameSystem {
   public void registerComponent(BaseComponent component) {
     if (component instanceof AreaComponent) {
       areaComponents.put(component.getOwner().getID(),
-          (AreaComponent) component);
+          (AreaComponent) component); return;
+    }
+    if (component instanceof BattleComponent) {
+      battleComponents.put(component.getOwner().getID(),
+          (BattleComponent) component); return;
     }
     if (component instanceof CharacterComponent) {
       characterComponents.put(component.getOwner().getID(),
-          (CharacterComponent) component);
+          (CharacterComponent) component); return;
     }
     if (component instanceof DialogueComponent) {
       dialogueComponents.put(component.getOwner().getID(),
-          (DialogueComponent) component);
+          (DialogueComponent) component); return;
     }
     if (component instanceof LevelComponent) {
       levelComponents.put(component.getOwner().getID(),
-          (LevelComponent) component);
+          (LevelComponent) component); return;
     }
     if (component instanceof PlayerComponent) {
       playerComponents.put(component.getOwner().getID(),
-          (PlayerComponent) component);
+          (PlayerComponent) component); return;
     }
     if (component instanceof TimeComponent) {
       timeComponents.put(component.getOwner().getID(),
-          (TimeComponent) component);
+          (TimeComponent) component); return;
     }
     if (component instanceof TransformComponent) {
       transformComponents.put(component.getOwner().getID(),
-          (TransformComponent) component);
+          (TransformComponent) component); return;
     }
   }
 
@@ -121,31 +129,35 @@ public class GameSystem {
   public void deregisterComponent(BaseComponent component) {
     if (component instanceof AreaComponent) {
       areaComponents.remove(component.getOwner().getID(),
-          (AreaComponent) component);
+          (AreaComponent) component); return;
+    }
+    if (component instanceof BattleComponent) {
+      battleComponents.remove(component.getOwner().getID(),
+          (BattleComponent) component); return;
     }
     if (component instanceof CharacterComponent) {
       characterComponents.remove(component.getOwner().getID(),
-          (CharacterComponent) component);
+          (CharacterComponent) component); return;
     }
     if (component instanceof DialogueComponent) {
       dialogueComponents.remove(component.getOwner().getID(),
-          (DialogueComponent) component);
+          (DialogueComponent) component); return;
     }
     if (component instanceof LevelComponent) {
       levelComponents.remove(component.getOwner().getID(),
-          (LevelComponent) component);
+          (LevelComponent) component); return;
     }
     if (component instanceof PlayerComponent) {
       playerComponents.remove(component.getOwner().getID(),
-          (PlayerComponent) component);
+          (PlayerComponent) component); return;
     }
     if (component instanceof TimeComponent) {
       timeComponents.remove(component.getOwner().getID(),
-          (TimeComponent) component);
+          (TimeComponent) component); return;
     }
     if (component instanceof TransformComponent) {
       transformComponents.remove(component.getOwner().getID(),
-          (TransformComponent) component);
+          (TransformComponent) component); return;
     }
   }
 
@@ -153,6 +165,9 @@ public class GameSystem {
 
   public Map<UUID, AreaComponent> getAreaComponents() {
     return areaComponents;
+  }
+  public Map<UUID, BattleComponent> getBattleComponents() {
+    return battleComponents;
   }
   public Map<UUID, CharacterComponent> getCharacterComponents() {
     return characterComponents;
@@ -178,6 +193,9 @@ public class GameSystem {
   public AreaComponent getAreaComponent(UUID key) {
     return areaComponents.get(key);
   }
+  public BattleComponent getBattleComponent(UUID key) {
+    return battleComponents.get(key);
+  }
   public CharacterComponent getCharacterComponent(UUID key) {
     return characterComponents.get(key);
   }
@@ -201,6 +219,9 @@ public class GameSystem {
   
   public boolean hasAreaComponent(UUID key) {
     return areaComponents.containsKey(key);
+  }
+  public boolean hasBattleComponent(UUID key) {
+    return battleComponents.containsKey(key);
   }
   public boolean hasCharacterComponent(UUID key) {
     return characterComponents.containsKey(key);

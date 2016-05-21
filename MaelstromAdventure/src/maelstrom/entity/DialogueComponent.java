@@ -56,4 +56,9 @@ public class DialogueComponent extends BaseComponent {
       }
     }
   }
+
+  @Override
+  public void delete() {
+    gameSystem.deregisterComponent(this);
+  }
 }

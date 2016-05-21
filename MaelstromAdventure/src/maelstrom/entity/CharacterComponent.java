@@ -10,10 +10,10 @@ public class CharacterComponent extends BaseComponent {
   private int level;
   private boolean hostile;
   private int health;
-  
+
   private Stats stats;
   private StatsModifier statsModifier;
-  
+
   public CharacterComponent(GameEntity owner, GameSystem gameSystem,
       Object[] arguments) {
     super(owner, gameSystem);
@@ -34,19 +34,26 @@ public class CharacterComponent extends BaseComponent {
     stats = (Stats) arguments[3];
     health = stats.getStamina();
   }
-  
+
   public int getHealth() {
-    return stats.getStamina();
+    return health;
   }
-  
+
+  public void setHealth(int health) {
+    this.health = health;
+  }
+
   public boolean isHostile() {
     return hostile;
   }
-  
+
   public void setStatsModifier(StatsModifier statsModifier) {
     this.statsModifier = statsModifier;
+    if (health > getStamina()) {
+      setHealth(getStamina());
+    }
   }
-  
+
   public StatsModifier getStatModifier() {
     return statsModifier;
   }
@@ -57,28 +64,62 @@ public class CharacterComponent extends BaseComponent {
     }
     return characterName;
   }
-  
+
   public void Attack(GameEntity opponent) {
     CharacterComponent opponentComponent = gameSystem.getCharacterComponent(
         opponent.getID());
-    
-    System.out.println(getCharacterName() + " attacked "
+
+    System.out.println(getCharacterName() + " attacks "
         + opponentComponent.getCharacterName()); 
+
   }
 
   public int getStamina() {
-    return stats.getStamina();
+    int i = stats.getStamina();
+    if (statsModifier != null) {
+      i += statsModifier.getStamina();
+    }
+    i = (i > 0) ? i : 0;
+    return i;
   }
 
   public int getStrength() {
-    return stats.getStrength();
+    int i = stats.getStrength();
+    if (statsModifier != null) {
+      i += statsModifier.getStrength();
+    }
+    i = (i > 0) ? i : 0;
+    return i;
   }
 
   public int getDefense() {
-    return stats.getDefense();
+    int i = stats.getDefense();
+    if (statsModifier != null) {
+      i += statsModifier.getDefense();
+    }
+    i = (i > 0) ? i : 0;
+    return i;
   }
 
   public int getAgility() {
-    return stats.getAgility();
+    int i = stats.getAgility();
+    if (statsModifier != null) {
+      i += statsModifier.getAgility();
+    }
+    i = (i > 0) ? i : 0;
+    return i;
+  }
+
+  @Override
+  public void delete() {
+    gameSystem.deregisterComponent(this);
+  }
+
+  public void applyDamage(int damage) {
+    health -= damage;
+  }
+
+  public int getLevel() {
+    return level;
   }
 }

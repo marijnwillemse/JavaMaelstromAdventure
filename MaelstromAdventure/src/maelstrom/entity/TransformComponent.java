@@ -41,4 +41,9 @@ public class TransformComponent extends BaseComponent {
   public AreaComponent getLocation() {
     return location;
   }
+
+  @Override
+  public void delete() {
+    gameSystem.deregisterComponent(this);
+  }
 }
