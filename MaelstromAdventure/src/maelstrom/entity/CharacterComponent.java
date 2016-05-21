@@ -111,7 +111,7 @@ public class CharacterComponent extends BaseComponent {
   }
 
   @Override
-  public void delete() {
+  public void destroy() {
     gameSystem.deregisterComponent(this);
   }
 
@@ -121,5 +121,17 @@ public class CharacterComponent extends BaseComponent {
 
   public int getLevel() {
     return level;
+  }
+  
+  public void update() {
+    // Clean up if dead
+    if (health <= 0) {
+      owner.deactivate();
+      return;
+    }
+    
+    if (hostile) {
+      System.out.println(getCharacterName() + " is idle.");
+    }
   }
 }

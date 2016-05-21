@@ -1,5 +1,7 @@
 package maelstrom.controller;
 
+import java.util.List;
+
 import maelstrom.entity.AreaComponent;
 import maelstrom.entity.CharacterFactory;
 import maelstrom.entity.EntityFactory;
@@ -57,6 +59,18 @@ public class GameWorld {
   }
 
   public void update() {
-    // Clean up dead characters
+    if (gameSystem.getCharacterComponent(player.getID()).getHealth() <= 0) {
+      System.out.println("The player is dead. Game over!");
+      gameSystem.stopPlaying();
+      return;
+    }
+    
+    List<GameEntity> characters = gameSystem.getAreaComponent(
+        getPlayerArea().getID()).getEntities();
+    
+    // Handle turn of each character in player area
+    for (GameEntity entity : characters) {
+      gameSystem.getCharacterComponent(entity.getID()).update();
+    }
   }
 }

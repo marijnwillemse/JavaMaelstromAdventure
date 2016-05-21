@@ -43,7 +43,7 @@ public class TransformComponent extends BaseComponent {
   }
 
   @Override
-  public void delete() {
+  public void destroy() {
     gameSystem.deregisterComponent(this);
   }
 }

@@ -103,7 +103,7 @@ public class CharacterFactory {
   public static GameEntity createPlayer(GameSystem gameSystem,
       AreaComponent areaComponent) {
 
-    Stats stats = new Stats("PLAYER", 100, 100, 100, 100);
+    Stats stats = new Stats("PLAYER", 100, 80, 80, 80);
     
     Object[][] playerArguments = new Object[][] {
       { areaComponent },

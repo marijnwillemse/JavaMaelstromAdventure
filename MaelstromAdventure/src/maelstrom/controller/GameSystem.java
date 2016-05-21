@@ -68,10 +68,14 @@ public class GameSystem {
     new LookCommand().execute(this, null);
     System.out.println();
     do {
-      // Process commands
       interpreterSystem.update(this);
       gameWorld.update();
+      destroyEntities();
     } while (playing);
+  }
+
+  private void destroyEntities() {
+    
   }
 
   public GameEntity getEntity(UUID id) {

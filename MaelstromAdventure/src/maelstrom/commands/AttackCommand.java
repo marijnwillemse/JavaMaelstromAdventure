@@ -52,7 +52,7 @@ public class AttackCommand extends BaseCommand {
       while (!battleComponent.isResolved()) {
         battleComponent.advance();
       }
-      battle.delete();
+      battle.deactivate();
       return;
     }
 

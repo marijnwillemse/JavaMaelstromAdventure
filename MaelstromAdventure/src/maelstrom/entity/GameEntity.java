@@ -7,23 +7,32 @@ public class GameEntity {
 
   private UUID id;
   private ArrayList<BaseComponent> components;
-    
+  private boolean deactivated = false;
+
   public GameEntity() {
     id = UUID.randomUUID();
     components = new ArrayList<BaseComponent>();
   }
-  
+
   public UUID getID() {
     return id;
   }
-  
+
   public void addComponent(BaseComponent component) {
     components.add(component);
   }
-  
-  public void delete() {
+
+  public void deactivate() {
+    deactivated = true;
+  }
+
+  public void destroy() {
     for (BaseComponent component : components) {
-      component.delete();
+      component.destroy();
     }
+  }
+  
+  public boolean isDeactivated() {
+    return deactivated;
   }
 }

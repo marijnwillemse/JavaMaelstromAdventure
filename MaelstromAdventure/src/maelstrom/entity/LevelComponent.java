@@ -83,7 +83,7 @@ public class LevelComponent extends BaseComponent {
   }
 
   @Override
-  public void delete() {
+  public void destroy() {
     gameSystem.deregisterComponent(this);
   }
 }
